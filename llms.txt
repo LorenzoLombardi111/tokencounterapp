@@ -1,16 +1,16 @@
 # freetokencounter.app
 
-> Free AI token counter for 90+ models across 12 providers (OpenAI, Anthropic, Google, Meta, xAI, Mistral, DeepSeek, Cohere, Alibaba/Qwen, Moonshot, Perplexity, MiniMax). Counts run entirely in the browser with calibrated estimates honest about ±5% accuracy on English text. Live cost estimates, context-window meter, token visualization, no sign-up.
+> Free AI token counter for 100+ models across 12 providers (OpenAI, Anthropic, Google, Meta, xAI, Mistral, DeepSeek, Cohere, Alibaba/Qwen, Moonshot, Perplexity, MiniMax). Counts run entirely in the browser with calibrated estimates honest about ±5% accuracy on English text. Live cost estimates, context-window meter, token visualization, no sign-up.
 
 ## Key facts
 
 - URL: https://freetokencounter.app/
 - Cost: free, no sign-up, no API key required
 - Privacy: 100% client-side — no prompt data leaves the browser
-- Models supported (94 total):
-  - OpenAI: GPT-5, GPT-5 Pro, GPT-5-mini, GPT-5-nano, o4-mini, o3, o3-mini, o3-pro, GPT-4.1, GPT-4.1 mini, GPT-4.1 nano, GPT-4o, GPT-4o-mini, GPT-4 Turbo, GPT-4, GPT-3.5 Turbo, o1, o1-mini
+- Models supported (119 total):
+  - OpenAI: GPT-5.4, GPT-5.4 mini, GPT-5.4 nano, GPT-5.4 Pro, GPT-5.3 Codex, GPT-5.3 Chat, GPT-5.2, GPT-5.2 Pro, GPT-5.2 Codex, GPT-5.2 Chat, GPT-5.1, GPT-5.1 Codex, GPT-5.1 Codex Mini, GPT-5.1 Codex Max, GPT-5.1 Chat, GPT-5, GPT-5 Pro, GPT-5 mini, GPT-5 nano, GPT-5 Codex, GPT-5 Chat, o4-mini, o4-mini Deep Research, o3, o3-pro, o3-mini, o3 Deep Research, o1, o1-pro, o1-mini, GPT-4.1, GPT-4.1 mini, GPT-4.1 nano, GPT-4o, ChatGPT-4o, GPT-4o mini, GPT-4 Turbo, GPT-4, GPT-3.5 Turbo
   - Anthropic: Claude Opus 4.7, Sonnet 4.6, Haiku 4.5, Sonnet 4.5, Opus 4.1, Opus 4, Sonnet 4, 3.7 Sonnet, 3.5 Sonnet, 3.5 Haiku, 3 Opus, 3 Haiku
-  - Google: Gemini 2.5 Pro, 2.5 Deep Think, 2.5 Flash, 2.5 Flash-Lite, 2.0 Flash, 2.0 Flash-Lite, 1.5 Pro, 1.5 Flash, 1.5 Flash-8B
+  - Google: Gemini 3.1 Pro Preview, 3.1 Flash-Lite Preview, 3.1 Flash Live Preview, 3 Flash Preview, 2.5 Pro, 2.5 Flash, 2.5 Flash-Lite, 2.5 Flash Native Audio, 2.0 Flash, 2.0 Flash-Lite, 1.5 Pro, 1.5 Flash, 1.5 Flash-8B
   - Meta: Llama 4 Maverick, Llama 4 Scout, Llama 4 Behemoth, Llama 3.3 70B, Llama 3.1 405B/70B/8B, Llama 3 70B/8B
   - xAI: Grok 4, Grok 4 Heavy, Grok 4 Fast, Grok Code Fast 1, Grok 3, Grok 3 Mini, Grok 2
   - Mistral: Mistral Large 2, Medium 3, Small 3.1, Magistral Medium, Magistral Small, Pixtral Large, Codestral 25.01, Nemo, Mixtral 8x7B, Codestral

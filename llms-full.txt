@@ -15,7 +15,7 @@
 
 ## AI Token Counter — Count Tokens for GPT, Claude, Gemini, Llama and More
 
-freetokencounter.app is a free, browser-based token counter that supports every major large language model: OpenAI's GPT-5, GPT-5 Pro, GPT-5-mini, GPT-4.1, o4-mini, o3 and GPT-4o; Anthropic's Claude Opus 4.7, Sonnet 4.6, Sonnet 4.5 and Haiku 4.5; Google's Gemini 2.5 Pro, 2.5 Deep Think and 2.5 Flash; Meta's Llama 4 Maverick, Scout and Behemoth; xAI's Grok 4, Grok 4 Heavy and Grok 4 Fast; Mistral's Medium 3, Magistral and Pixtral Large; DeepSeek V3.1 and R1; Cohere's Command A and Command R+; Alibaba's Qwen3-Max, Qwen3-Coder and QwQ-32B; Moonshot's Kimi K2 Thinking; Perplexity's Sonar Reasoning Pro and Deep Research; and MiniMax M1. Paste any text — a prompt, a code block, JSON, or non-Latin script — and freetokencounter.app shows the token count, characters, words, context-window usage, and cost estimate live, with a colored visualization of how the model splits your text. Nothing uploads to a server: the entire tool runs locally in your browser.
+freetokencounter.app is a free, browser-based token counter that supports every major large language model: OpenAI's GPT-5.4 family (mini, nano, Pro), GPT-5.3 Codex, GPT-5.2 family, GPT-5.1 family, GPT-5, GPT-5 Pro, GPT-4.1, o4-mini, o3, o3-pro and GPT-4o; Anthropic's Claude Opus 4.7, Sonnet 4.6, Sonnet 4.5 and Haiku 4.5; Google's Gemini 3.1 Pro Preview, 3 Flash Preview, 2.5 Pro and 2.5 Flash; Meta's Llama 4 Maverick, Scout and Behemoth; xAI's Grok 4, Grok 4 Heavy and Grok 4 Fast; Mistral's Medium 3, Magistral and Pixtral Large; DeepSeek V3.1 and R1; Cohere's Command A and Command R+; Alibaba's Qwen3-Max, Qwen3-Coder and QwQ-32B; Moonshot's Kimi K2 Thinking; Perplexity's Sonar Reasoning Pro and Deep Research; and MiniMax M1. Paste any text — a prompt, a code block, JSON, or non-Latin script — and freetokencounter.app shows the token count, characters, words, context-window usage, and cost estimate live, with a colored visualization of how the model splits your text. Nothing uploads to a server: the entire tool runs locally in your browser.
 
 ### How does freetokencounter.app count tokens?
 
@@ -37,10 +37,21 @@ For OpenAI models (GPT-5, GPT-4.1, GPT-4o, o-series, GPT-4, GPT-3.5) and Meta Ll
 
 | Model | Provider | Context | Input $/1M | Output $/1M |
 |---|---|---|---|---|
+| GPT-5.4 | OpenAI | 1.1M | $2.50 | $15.00 |
+| GPT-5.4 mini | OpenAI | 1.1M | $0.75 | $4.50 |
+| GPT-5.4 nano | OpenAI | 1.1M | $0.20 | $1.25 |
+| GPT-5.4 Pro | OpenAI | 1.1M | $30.00 | $180.00 |
+| GPT-5.3 Codex | OpenAI | 400K | $1.75 | $14.00 |
+| GPT-5.2 | OpenAI | 400K | $0.875 | $7.00 |
+| GPT-5.2 Pro | OpenAI | 400K | $10.50 | $84.00 |
+| GPT-5.2 Codex | OpenAI | 400K | $1.75 | $14.00 |
+| GPT-5.1 | OpenAI | 400K | $0.625 | $5.00 |
+| GPT-5.1 Codex | OpenAI | 400K | $1.25 | $10.00 |
+| GPT-5.1 Codex Mini | OpenAI | 400K | $0.25 | $2.00 |
 | GPT-5 | OpenAI | 400K | $1.25 | $10.00 |
 | GPT-5 Pro | OpenAI | 400K | $15.00 | $120.00 |
-| GPT-5-mini | OpenAI | 400K | $0.25 | $2.00 |
-| GPT-5-nano | OpenAI | 400K | $0.05 | $0.40 |
+| GPT-5 mini | OpenAI | 400K | $0.25 | $2.00 |
+| GPT-5 nano | OpenAI | 400K | $0.05 | $0.40 |
 | GPT-4.1 | OpenAI | 1M | $2.00 | $8.00 |
 | GPT-4.1 mini | OpenAI | 1M | $0.40 | $1.60 |
 | GPT-4.1 nano | OpenAI | 1M | $0.10 | $0.40 |
@@ -56,9 +67,12 @@ For OpenAI models (GPT-5, GPT-4.1, GPT-4o, o-series, GPT-4, GPT-3.5) and Meta Ll
 | Claude Opus 4.1 | Anthropic | 200K | $15.00 | $75.00 |
 | Claude Opus 4 | Anthropic | 200K | $15.00 | $75.00 |
 | Claude 3.7 Sonnet | Anthropic | 200K | $3.00 | $15.00 |
+| Gemini 3.1 Pro Preview | Google | 1M | $2.00 | $12.00 |
+| Gemini 3.1 Flash-Lite | Google | 1M | $0.25 | $1.50 |
+| Gemini 3 Flash Preview | Google | 1M | $0.50 | $3.00 |
 | Gemini 2.5 Pro | Google | 1M | $1.25 | $10.00 |
-| Gemini 2.5 Deep Think | Google | 1M | $2.50 | $15.00 |
 | Gemini 2.5 Flash | Google | 1M | $0.30 | $2.50 |
+| Gemini 2.5 Flash-Lite | Google | 1M | $0.10 | $0.40 |
 | Gemini 2.0 Flash | Google | 1M | $0.10 | $0.40 |
 | Gemini 1.5 Pro | Google | 2M | $1.25 | $5.00 |
 | Llama 4 Maverick | Meta | 1M | — | — |
@@ -97,7 +111,7 @@ For OpenAI models (GPT-5, GPT-4.1, GPT-4o, o-series, GPT-4, GPT-3.5) and Meta Ll
 
 ### Why use freetokencounter.app
 
-- **Every major model** — 90+ models across 12 providers
+- **Every major model** — 100+ models across 12 providers
 - **Token visualization** — Each token highlighted with a cycling pastel color
 - **Live cost estimate** — Real-time input + output cost
 - **100% private** — Everything runs in your browser
@@ -116,7 +130,7 @@ For OpenAI models (GPT-5, GPT-4.1, GPT-4o, o-series, GPT-4, GPT-3.5) and Meta Ll
 
 **How accurate is freetokencounter.app?** Counts are estimates within roughly ±5% for English text on most models. The tool uses the public GPT-2 / cl100k splitting pattern combined with per-model calibration constants.
 
-**Which models does freetokencounter.app support?** OpenAI (GPT-5 family including Pro, GPT-4.1, o-series, GPT-4o), Anthropic (Claude Opus 4.7, Sonnet 4.6/4.5, Haiku 4.5, Opus 4.1), Google (Gemini 2.5 Pro/Deep Think/Flash), Meta (Llama 4 Maverick/Scout/Behemoth, Llama 3.x), xAI (Grok 4 series, Grok Code Fast 1, Grok 3), Mistral (Medium 3, Magistral, Pixtral, Codestral 25.01), DeepSeek, Cohere (Command A/R+/R/R7B), Alibaba Qwen (Qwen3-Max/Coder/235B, QwQ-32B), Moonshot Kimi K2/K2 Thinking, Perplexity Sonar (incl. Reasoning Pro, Deep Research), MiniMax (M1, Text-01) — over 90 models across 12 providers.
+**Which models does freetokencounter.app support?** OpenAI (GPT-5.4 family, GPT-5.3 Codex, GPT-5.2/Pro/Codex, GPT-5.1 family, GPT-5 family including Pro, GPT-4.1, o-series, GPT-4o, ChatGPT-4o), Anthropic (Claude Opus 4.7, Sonnet 4.6/4.5, Haiku 4.5, Opus 4.1), Google (Gemini 3.1 Pro Preview, 3.1 Flash-Lite, 3 Flash Preview, 2.5 Pro/Flash), Meta (Llama 4 Maverick/Scout/Behemoth, Llama 3.x), xAI (Grok 4 series, Grok Code Fast 1, Grok 3), Mistral (Medium 3, Magistral, Pixtral, Codestral 25.01), DeepSeek, Cohere (Command A/R+/R/R7B), Alibaba Qwen (Qwen3-Max/Coder/235B, QwQ-32B), Moonshot Kimi K2/K2 Thinking, Perplexity Sonar (incl. Reasoning Pro, Deep Research), MiniMax (M1, Text-01) — over 100 models across 12 providers.
 
 **Is my prompt uploaded anywhere?** No. freetokencounter.app runs entirely in your browser.
 
