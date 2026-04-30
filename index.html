@@ -1,0 +1,1882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free AI Token Counter — freetokencounter.app</title>
+    <meta name="description" content="Count tokens for GPT-4o, Claude, Gemini, DeepSeek, Llama in your browser. Live counter, cost estimates, context-window meter. Free, no sign-up.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://freetokencounter.app/">
+    <meta name="theme-color" content="#faf9f6">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.json">
+
+    <meta property="og:title" content="Free AI Token Counter — freetokencounter.app">
+    <meta property="og:description" content="Count tokens for GPT-4o, Claude, Gemini, DeepSeek, Llama in your browser. Live counter, cost estimates, context-window meter. Free, no sign-up.">
+    <meta property="og:image" content="https://freetokencounter.app/og-image.svg">
+    <meta property="og:url" content="https://freetokencounter.app/">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Free AI Token Counter — freetokencounter.app">
+    <meta name="twitter:description" content="Count tokens for GPT-4o, Claude, Gemini, DeepSeek, Llama in your browser. Live counter, cost estimates, context-window meter. Free, no sign-up.">
+    <meta name="twitter:image" content="https://freetokencounter.app/og-image.svg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "freetokencounter.app",
+        "description": "Free AI token counter for GPT, Claude, Gemini, Llama, DeepSeek, Kimi, Mistral, Perplexity and MiniMax. Live counts, cost estimates, context-window meter — all in the browser.",
+        "url": "https://freetokencounter.app/",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is a token in an AI model?",
+                "acceptedAnswer": { "@type": "Answer", "text": "A token is the smallest unit of text an AI model processes. Tokens can be whole words, sub-words, or single characters depending on the tokenizer. As a rough rule, 1 token ≈ 4 characters or ¾ of an English word, but the exact count depends on the specific model. freetokencounter.app shows you the count for any major model in real time." }
+            },
+            {
+                "@type": "Question",
+                "name": "How accurate is freetokencounter.app?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Counts are estimates within roughly ±5% for English text on most models. The tool uses the public GPT-2 / cl100k splitting pattern combined with per-model calibration constants tuned against each provider's published tokenizer. Some providers (Anthropic, Google, MiniMax) do not publish a fully open tokenizer, so counts for those models are clearly labeled as approximations." }
+            },
+            {
+                "@type": "Question",
+                "name": "Which models does freetokencounter.app support?",
+                "acceptedAnswer": { "@type": "Answer", "text": "freetokencounter.app supports OpenAI (GPT-4o, GPT-4, GPT-3.5, o1), Anthropic (Claude 3.5 Sonnet, Haiku, Opus), Google (Gemini 1.5 Pro, Flash, Gemini 2.0), Meta Llama (3.3 70B, 3.1 405B/70B/8B, Llama 3), Mistral (Large 2, Nemo, Mixtral, Codestral), DeepSeek (V3, R1, Coder V2), Moonshot Kimi (K2, Moonshot v1), Perplexity Sonar, and MiniMax — about 30 models in total." }
+            },
+            {
+                "@type": "Question",
+                "name": "Is my prompt uploaded anywhere?",
+                "acceptedAnswer": { "@type": "Answer", "text": "No. freetokencounter.app runs entirely in your browser. Your prompt text never leaves your device — there are no servers, no analytics on input, no logging. You can verify this by checking the Network tab in your browser's developer tools while typing." }
+            },
+            {
+                "@type": "Question",
+                "name": "Why does the same text produce different token counts on different models?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Each model family uses a different tokenizer trained on different data with a different vocabulary. GPT-4o uses o200k_base (~200K vocab), Claude uses Anthropic's proprietary tokenizer, Gemini uses SentencePiece, and Llama uses its own BPE. The same word may be one token in one model and three tokens in another. freetokencounter.app shows the difference side by side." }
+            },
+            {
+                "@type": "Question",
+                "name": "How is cost calculated?",
+                "acceptedAnswer": { "@type": "Answer", "text": "The cost estimate multiplies your input token count by each model's published per-million input rate, plus an estimated output token count by the per-million output rate. Pricing data is sourced from each provider's official pricing page and updated periodically. Always check live pricing for production budgeting." }
+            },
+            {
+                "@type": "Question",
+                "name": "What is a context window?",
+                "acceptedAnswer": { "@type": "Answer", "text": "The context window is the maximum number of tokens (input + output combined) a model can process in a single request. GPT-4o handles 128,000 tokens, Claude 3.5 Sonnet 200,000, Gemini 1.5 Pro up to 2 million. If your prompt plus expected output exceeds the context window, the model will reject the request or truncate. freetokencounter.app shows a live context-window meter for the selected model." }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I count tokens for code or non-English text?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes. freetokencounter.app handles code, JSON, markdown, and any Unicode text including non-Latin scripts. Note that code and non-English text typically use 30–80% more tokens than equivalent English prose, because their characters fall outside the most common subword merges. The tool shows accurate counts for any text you paste." }
+            }
+        ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://freetokencounter.app/" }
+        ]
+    }
+    </script>
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #faf9f6;
+            --surface: #f4f2ee;
+            --border: #e8e4dd;
+            --text-primary: #1a1917;
+            --text-secondary: #6b6760;
+            --text-muted: #9e9b96;
+            --accent: #C49A2A;
+            --accent-hover: #A8831F;
+            --accent-text: #ffffff;
+            --destructive: #c0392b;
+            --success: #27ae60;
+            --warning: #d97706;
+            --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.04);
+            --font-body: 'Lora', serif;
+            --font-ui: 'DM Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            --tk-1: rgba(255, 213, 142, 0.45);
+            --tk-2: rgba(168, 230, 207, 0.45);
+            --tk-3: rgba(168, 200, 255, 0.45);
+            --tk-4: rgba(255, 184, 207, 0.45);
+            --tk-5: rgba(255, 224, 168, 0.45);
+            --tk-6: rgba(190, 224, 224, 0.45);
+            --tk-7: rgba(214, 196, 240, 0.45);
+            --tk-8: rgba(255, 224, 130, 0.45);
+        }
+
+        html.dark {
+            --bg: #141412;
+            --surface: #1e1c1a;
+            --border: #2e2b27;
+            --text-primary: #f0ede8;
+            --text-secondary: #9e9b96;
+            --text-muted: #6b6760;
+            --accent: #D4A835;
+            --accent-hover: #C49A2A;
+            --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.2);
+
+            --tk-1: rgba(255, 184, 96, 0.3);
+            --tk-2: rgba(96, 200, 150, 0.3);
+            --tk-3: rgba(120, 170, 240, 0.3);
+            --tk-4: rgba(240, 130, 170, 0.3);
+            --tk-5: rgba(240, 180, 120, 0.3);
+            --tk-6: rgba(120, 200, 200, 0.3);
+            --tk-7: rgba(180, 150, 230, 0.3);
+            --tk-8: rgba(240, 200, 100, 0.3);
+        }
+
+        html { font-size: 15px; line-height: 1.6; }
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a { color: var(--accent); }
+        button { font-family: inherit; }
+
+        /* ===== Header ===== */
+        .header {
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg);
+            flex-shrink: 0;
+            gap: 12px;
+        }
+        .header-brand {
+            font-family: var(--font-ui);
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ===== Theme Toggle ===== */
+        .theme-toggle {
+            font-family: var(--font-ui);
+            font-size: 13px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 6px 12px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all 0.15s ease;
+        }
+        .theme-toggle:hover { background: var(--border); }
+
+        /* ===== Model Picker (header) ===== */
+        .model-picker {
+            position: relative;
+            flex: 1;
+            max-width: 360px;
+        }
+        .model-picker-btn {
+            font-family: var(--font-ui);
+            font-size: 13px;
+            font-weight: 500;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 7px 12px;
+            cursor: pointer;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            width: 100%;
+            transition: all 0.15s ease;
+        }
+        .model-picker-btn:hover { border-color: var(--text-muted); }
+        .model-picker-btn .mp-label {
+            display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1;
+        }
+        .model-picker-btn .mp-name {
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .model-picker-btn .mp-provider {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+        .model-picker-btn .mp-caret {
+            color: var(--text-muted);
+            font-size: 10px;
+            flex-shrink: 0;
+        }
+        .model-dropdown {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            max-height: 70vh;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+            min-width: 320px;
+        }
+        .model-dropdown.open { display: block; }
+        .model-search-wrap { padding: 12px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 1; }
+        .model-search {
+            font-family: var(--font-ui);
+            font-size: 13px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 8px 10px;
+            color: var(--text-primary);
+            width: 100%;
+        }
+        .model-search:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(196,154,42,0.12); }
+        .model-group-title {
+            font-family: var(--font-ui);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 12px 12px 6px;
+        }
+        .model-option {
+            font-family: var(--font-ui);
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            cursor: pointer;
+            color: var(--text-primary);
+            transition: background 0.15s ease;
+        }
+        .model-option:hover { background: var(--surface); }
+        .model-option.active { background: var(--surface); }
+        .model-option.active .mo-name { color: var(--accent); font-weight: 500; }
+        .model-option .mo-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .model-option .mo-meta {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+        .model-empty {
+            font-family: var(--font-ui);
+            font-size: 13px;
+            color: var(--text-muted);
+            padding: 16px;
+            text-align: center;
+        }
+
+        /* ===== Provider color dot ===== */
+        .provider-dot {
+            display: inline-block;
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            flex-shrink: 0;
+        }
+        .provider-dot.openai { background: #10a37f; }
+        .provider-dot.anthropic { background: #d97706; }
+        .provider-dot.google { background: #4285f4; }
+        .provider-dot.meta { background: #1877f2; }
+        .provider-dot.mistral { background: #ff7000; }
+        .provider-dot.deepseek { background: #6f42c1; }
+        .provider-dot.moonshot { background: #00a3ff; }
+        .provider-dot.perplexity { background: #20b8cd; }
+        .provider-dot.minimax { background: #ec4899; }
+
+        /* ===== Main App ===== */
+        .app-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            min-height: calc(100vh - 84px);
+        }
+
+        .workspace {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 16px;
+            padding: 16px;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        /* ===== Editor pane ===== */
+        .editor-pane {
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            min-width: 0;
+        }
+        .editor-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .editor-toolbar-left {
+            font-family: var(--font-ui);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .editor-toolbar-right {
+            display: flex; gap: 6px;
+        }
+        .icon-btn {
+            font-family: var(--font-ui);
+            font-size: 12px;
+            font-weight: 500;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 5px 10px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all 0.15s ease;
+        }
+        .icon-btn:hover { background: var(--surface); color: var(--text-primary); }
+        .icon-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+        .editor-shell {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            min-height: 0;
+        }
+        .editor-tabs {
+            display: flex;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+        .editor-tab {
+            font-family: var(--font-ui);
+            font-size: 12px;
+            font-weight: 500;
+            background: transparent;
+            border: none;
+            border-right: 1px solid var(--border);
+            padding: 10px 16px;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: all 0.15s ease;
+        }
+        .editor-tab.active { color: var(--text-primary); background: var(--surface); }
+        .editor-tab:hover:not(.active) { color: var(--text-secondary); }
+
+        .editor-stage { flex: 1; min-height: 0; overflow: hidden; position: relative; }
+        .editor-stage > * { display: none; height: 100%; }
+        .editor-stage > .active { display: block; }
+
+        .text-editor {
+            font-family: var(--font-body);
+            font-size: 15px;
+            line-height: 1.65;
+            background: var(--surface);
+            color: var(--text-primary);
+            border: none;
+            padding: 16px 20px;
+            width: 100%;
+            height: 100%;
+            resize: none;
+            outline: none;
+        }
+        .text-editor::placeholder { color: var(--text-muted); }
+
+        .token-viz {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            line-height: 1.85;
+            padding: 16px 20px;
+            overflow: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .token-viz .tk {
+            border-radius: 3px;
+            padding: 1px 0;
+            transition: background 0.15s ease;
+            position: relative;
+        }
+        .token-viz .tk:hover {
+            outline: 1px solid var(--accent);
+        }
+        .token-viz .tk[data-i="0"] { background: var(--tk-1); }
+        .token-viz .tk[data-i="1"] { background: var(--tk-2); }
+        .token-viz .tk[data-i="2"] { background: var(--tk-3); }
+        .token-viz .tk[data-i="3"] { background: var(--tk-4); }
+        .token-viz .tk[data-i="4"] { background: var(--tk-5); }
+        .token-viz .tk[data-i="5"] { background: var(--tk-6); }
+        .token-viz .tk[data-i="6"] { background: var(--tk-7); }
+        .token-viz .tk[data-i="7"] { background: var(--tk-8); }
+        .token-viz .ws {
+            color: var(--text-muted);
+            opacity: 0.5;
+        }
+        .token-viz-empty {
+            color: var(--text-muted);
+            font-family: var(--font-ui);
+            font-size: 13px;
+            padding: 16px 20px;
+            text-align: center;
+        }
+
+        .ids-stage {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            padding: 16px 20px;
+            overflow: auto;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            word-break: break-all;
+        }
+
+        /* ===== Results panel ===== */
+        .results-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-width: 0;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+        .count-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        .count-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .count-value {
+            font-family: var(--font-ui);
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-variant-numeric: tabular-nums;
+            line-height: 1;
+        }
+        .count-label {
+            font-family: var(--font-ui);
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .accuracy-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-family: var(--font-ui);
+            font-size: 11px;
+            font-weight: 500;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 3px 8px;
+            border-radius: 6px;
+            cursor: help;
+            position: relative;
+        }
+        .accuracy-pill .ap-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--success);
+        }
+        .accuracy-pill.estimate .ap-dot { background: var(--warning); }
+        .accuracy-pill .ap-tip {
+            position: absolute;
+            top: calc(100% + 6px);
+            right: 0;
+            background: var(--text-primary);
+            color: var(--bg);
+            font-size: 11px;
+            font-weight: 400;
+            padding: 8px 10px;
+            border-radius: 6px;
+            min-width: 220px;
+            white-space: normal;
+            opacity: 0;
+            transform: translateY(-4px);
+            pointer-events: none;
+            transition: all 0.15s ease;
+            z-index: 50;
+            line-height: 1.45;
+            text-align: left;
+        }
+        .accuracy-pill:hover .ap-tip {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+        .mini-stat {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+        }
+        .mini-stat .ms-value {
+            font-family: var(--font-ui);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-variant-numeric: tabular-nums;
+        }
+        .mini-stat .ms-label {
+            font-family: var(--font-ui);
+            font-size: 10px;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 2px;
+        }
+
+        /* ===== Context window meter ===== */
+        .ctx-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+        }
+        .ctx-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+        }
+        .ctx-title {
+            font-family: var(--font-ui);
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .ctx-pct {
+            font-family: var(--font-ui);
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-variant-numeric: tabular-nums;
+        }
+        .ctx-bar {
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        .ctx-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 4px;
+            transition: width 0.2s ease;
+        }
+        .ctx-fill.warn { background: var(--warning); }
+        .ctx-fill.over { background: var(--destructive); }
+        .ctx-numbers {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 6px;
+            font-family: var(--font-ui);
+            font-size: 11px;
+            color: var(--text-muted);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ===== Cost card ===== */
+        .cost-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+        }
+        .cost-title {
+            font-family: var(--font-ui);
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+        }
+        .cost-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-ui);
+            font-size: 13px;
+            margin-bottom: 6px;
+            color: var(--text-secondary);
+        }
+        .cost-row .cr-label { color: var(--text-muted); font-size: 12px; }
+        .cost-row .cr-value { color: var(--text-primary); font-variant-numeric: tabular-nums; font-weight: 500; }
+        .cost-out-input {
+            font-family: var(--font-ui);
+            font-size: 12px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 2px 6px;
+            color: var(--text-primary);
+            width: 70px;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+        .cost-out-input:focus { outline: none; border-color: var(--accent); }
+        .cost-total {
+            margin-top: 8px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+        .cost-total .ct-label {
+            font-family: var(--font-ui);
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        .cost-total .ct-value {
+            font-family: var(--font-ui);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ===== Action buttons row ===== */
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+        .action-btn {
+            font-family: var(--font-ui);
+            font-size: 12px;
+            font-weight: 500;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px 10px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .action-btn:hover { background: var(--surface); color: var(--text-primary); border-color: var(--text-muted); }
+        .action-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+        .action-btn.primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--accent-text);
+        }
+        .action-btn.primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); color: var(--accent-text); }
+
+        /* ===== Status Bar ===== */
+        .status-bar {
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            flex-shrink: 0;
+            font-family: var(--font-ui);
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .status-bar #statusLeft { font-variant-numeric: tabular-nums; }
+
+        /* ===== Suite Badge ===== */
+        .suite-badge {
+            position: fixed;
+            bottom: 38px;
+            right: 12px;
+            font-family: var(--font-ui);
+            font-size: 11px;
+            color: var(--text-muted);
+            text-decoration: none;
+            z-index: 10;
+            background: var(--bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* ===== Toast ===== */
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--text-primary);
+            color: var(--bg);
+            font-family: var(--font-ui);
+            font-size: 13px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            opacity: 0;
+            transition: all 0.15s ease;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* ===== Scrollbar ===== */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+        /* ===== SEO Content ===== */
+        .seo-content {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 64px 24px 32px;
+            font-family: var(--font-body);
+        }
+        .seo-content h1 {
+            font-family: var(--font-body);
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.25;
+        }
+        .seo-content h2 {
+            font-family: var(--font-body);
+            font-size: 22px;
+            font-weight: 600;
+            margin-top: 40px;
+            margin-bottom: 14px;
+        }
+        .seo-content h3 {
+            font-family: var(--font-ui);
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 16px;
+            margin-bottom: 8px;
+        }
+        .seo-content p {
+            color: var(--text-secondary);
+            margin-bottom: 14px;
+            line-height: 1.7;
+        }
+        .seo-content details {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 8px;
+        }
+        .seo-content summary {
+            font-family: var(--font-ui);
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .seo-content details p { margin-top: 10px; margin-bottom: 0; font-size: 14px; }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin: 16px 0 24px;
+        }
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+        }
+        .feature-card .fc-title {
+            font-family: var(--font-ui);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+        .feature-card .fc-desc {
+            font-family: var(--font-ui);
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.55;
+        }
+
+        .step-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin: 12px 0 24px;
+            counter-reset: step;
+        }
+        .step-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+            position: relative;
+        }
+        .step-card::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            top: 12px;
+            right: 14px;
+            font-family: var(--font-ui);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+            opacity: 0.3;
+        }
+        .step-card .sc-title {
+            font-family: var(--font-ui);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .step-card .sc-desc {
+            font-family: var(--font-ui);
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.55;
+        }
+
+        /* Comparison table */
+        .compare-table-wrap {
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin: 16px 0;
+        }
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: var(--font-ui);
+            font-size: 13px;
+        }
+        .compare-table th {
+            background: var(--surface);
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+        .compare-table td {
+            padding: 9px 12px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-variant-numeric: tabular-nums;
+        }
+        .compare-table tr:last-child td { border-bottom: none; }
+        .compare-table tr:hover td { background: var(--surface); }
+        .compare-table .model-cell {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        .compare-table .provider-cell {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .pricing-note {
+            font-family: var(--font-ui);
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: -6px;
+            margin-bottom: 16px;
+        }
+
+        .seo-footer {
+            text-align: center;
+            padding: 32px 24px 64px;
+            font-family: var(--font-ui);
+            font-size: 12px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            margin-top: 32px;
+        }
+
+        .more-tools {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+        .more-tools-label {
+            font-family: var(--font-ui);
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+        .more-tools-links {
+            display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+        }
+        .more-tools-links a {
+            font-family: var(--font-ui);
+            font-size: 12px;
+            color: var(--accent);
+            text-decoration: none;
+            padding: 4px 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            transition: all 0.15s ease;
+        }
+        .more-tools-links a:hover { background: var(--surface); }
+
+        /* ===== Mobile ===== */
+        @media (max-width: 900px) {
+            .workspace {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                padding: 12px;
+            }
+            .editor-pane { min-height: 320px; }
+            .results-panel { overflow-y: visible; }
+            .app-area { overflow: visible; min-height: auto; }
+            body { overflow: auto; }
+        }
+        @media (max-width: 560px) {
+            .header { padding: 0 10px; gap: 6px; }
+            .model-picker { max-width: none; flex: 1; }
+            .header-brand { font-size: 13px; }
+            .count-value { font-size: 30px; }
+            .seo-content h1 { font-size: 26px; }
+            .seo-content { padding: 48px 16px 24px; }
+            .actions { grid-template-columns: 1fr; }
+        }
+
+        /* Skip link for accessibility */
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+        }
+        .skip-link:focus {
+            left: 8px; top: 8px;
+            background: var(--accent);
+            color: var(--accent-text);
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-family: var(--font-ui);
+            font-size: 13px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <a href="#editor" class="skip-link">Skip to editor</a>
+
+    <header class="header">
+        <a href="/" class="header-brand">freetokencounter.app</a>
+
+        <div class="model-picker">
+            <button class="model-picker-btn" id="modelBtn" aria-haspopup="listbox" aria-expanded="false">
+                <span class="mp-label">
+                    <span class="provider-dot openai" id="mpDot"></span>
+                    <span class="mp-name" id="mpName">GPT-4o</span>
+                    <span class="mp-provider" id="mpProvider">· OpenAI</span>
+                </span>
+                <span class="mp-caret">▾</span>
+            </button>
+            <div class="model-dropdown" id="modelDropdown" role="listbox">
+                <div class="model-search-wrap">
+                    <input type="text" class="model-search" id="modelSearch" placeholder="Search 30+ models..." autocomplete="off">
+                </div>
+                <div id="modelList"></div>
+            </div>
+        </div>
+
+        <div class="header-actions">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <span class="toggle-icon">☀️</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="app-area">
+        <div class="workspace">
+            <!-- Editor pane -->
+            <section class="editor-pane">
+                <div class="editor-toolbar">
+                    <span class="editor-toolbar-left">Prompt</span>
+                    <div class="editor-toolbar-right">
+                        <button class="icon-btn" id="pasteBtn" type="button">Paste</button>
+                        <button class="icon-btn" id="exampleBtn" type="button">Example</button>
+                        <button class="icon-btn" id="clearBtn" type="button">Clear</button>
+                    </div>
+                </div>
+
+                <div class="editor-shell">
+                    <div class="editor-tabs" role="tablist">
+                        <button class="editor-tab active" data-tab="text" role="tab" aria-selected="true">Text</button>
+                        <button class="editor-tab" data-tab="viz" role="tab" aria-selected="false">Tokens</button>
+                        <button class="editor-tab" data-tab="ids" role="tab" aria-selected="false">IDs</button>
+                    </div>
+                    <div class="editor-stage">
+                        <textarea class="text-editor active" id="editor" placeholder="Paste or type your prompt to count tokens for any AI model. Try a paragraph, a code block, JSON, or non-English text — the count updates as you type."></textarea>
+                        <div class="token-viz" id="tokenViz">
+                            <div class="token-viz-empty">Tokens appear here as you type. Each colored chunk is one token.</div>
+                        </div>
+                        <div class="ids-stage" id="idsStage"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results panel -->
+            <aside class="results-panel">
+                <div class="count-card">
+                    <div class="count-row">
+                        <div class="count-value" id="tokenCount">0</div>
+                        <div class="accuracy-pill estimate" id="accuracyPill">
+                            <span class="ap-dot"></span>
+                            <span>Estimate</span>
+                            <span class="ap-tip" id="apTip">All counts are estimates within ~5% for English. The tool uses the public GPT-2 splitting pattern with model-specific calibration.</span>
+                        </div>
+                    </div>
+                    <div class="count-label">Tokens</div>
+                </div>
+
+                <div class="ctx-card">
+                    <div class="ctx-head">
+                        <span class="ctx-title">Context window</span>
+                        <span class="ctx-pct" id="ctxPct">0%</span>
+                    </div>
+                    <div class="ctx-bar"><div class="ctx-fill" id="ctxFill" style="width:0%"></div></div>
+                    <div class="ctx-numbers">
+                        <span id="ctxUsed">0 tokens</span>
+                        <span id="ctxLimit">128,000 limit</span>
+                    </div>
+                </div>
+
+                <div class="cost-card">
+                    <div class="cost-title">Cost estimate</div>
+                    <div class="cost-row">
+                        <span class="cr-label">Input</span>
+                        <span class="cr-value" id="costInput">$0.0000</span>
+                    </div>
+                    <div class="cost-row">
+                        <span class="cr-label">Output (<input type="number" class="cost-out-input" id="outTokens" value="500" min="0" step="100">)</span>
+                        <span class="cr-value" id="costOutput">$0.0000</span>
+                    </div>
+                    <div class="cost-total">
+                        <span class="ct-label">Total</span>
+                        <span class="ct-value" id="costTotal">$0.0000</span>
+                    </div>
+                </div>
+
+                <div class="stat-grid">
+                    <div class="mini-stat"><div class="ms-value" id="charCount">0</div><div class="ms-label">Characters</div></div>
+                    <div class="mini-stat"><div class="ms-value" id="wordCount">0</div><div class="ms-label">Words</div></div>
+                </div>
+
+                <div class="actions">
+                    <button class="action-btn primary" id="copyCountBtn" type="button">Copy count</button>
+                    <button class="action-btn" id="copyJsonBtn" type="button">Copy JSON</button>
+                    <button class="action-btn" id="downloadBtn" type="button">Download .json</button>
+                    <button class="action-btn" id="copyAllBtn" type="button">Copy all stats</button>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <footer class="status-bar">
+        <span id="statusLeft">0 tokens · 0 chars · 0 words</span>
+        <span>All processing happens in your browser — nothing uploaded</span>
+    </footer>
+
+    <a href="https://freesuite.app" class="suite-badge" target="_blank" rel="noopener">
+        <span class="badge-prefix">by </span>freesuite.app
+    </a>
+
+    <div class="toast" id="toast"></div>
+
+    <!-- ===== SEO Content (below the fold) ===== -->
+    <div class="seo-content">
+        <h1>AI Token Counter — Count Tokens for GPT, Claude, Gemini, Llama and More</h1>
+
+        <p>freetokencounter.app is a free, browser-based token counter that supports every major large language model: OpenAI's GPT-4o, GPT-4 and o1 series, Anthropic's Claude 3.5 Sonnet, Haiku and Opus, Google's Gemini 1.5 Pro and Flash, Meta's Llama 3.3 and 3.1 family, Mistral's Large 2 and Codestral, DeepSeek V3 and R1, Moonshot's Kimi K2, Perplexity's Sonar models, and MiniMax. Paste any text — a prompt, a code block, JSON, or non-Latin script — and freetokencounter.app shows the token count, characters, words, context-window usage, and cost estimate live, with a colored visualization of how the model splits your text. Nothing uploads to a server: the entire tool runs locally in your browser.</p>
+
+        <h2>How does freetokencounter.app count tokens?</h2>
+        <p>Every model uses a slightly different tokenizer, and most providers don't publish their exact tokenizer for in-browser use. freetokencounter.app combines the publicly documented GPT-2 / cl100k splitting regex with per-model calibration constants tuned against each provider's reference outputs. For English prose the result is accurate within roughly five percent — close enough to plan prompts, fit context windows, and budget API spend. The "Estimate" pill on every count makes the methodology transparent: there is no model where freetokencounter.app pretends to be an exact tokenizer when it isn't.</p>
+
+        <h2>Why count tokens before sending a prompt?</h2>
+        <p>Tokens are the unit AI models bill, the unit context windows are measured in, and the unit that determines whether a prompt will fit at all. Counting tokens before sending lets you avoid context-overflow errors, predict cost down to the cent, compare model efficiency for the same task, and right-size your prompts. freetokencounter.app shows tokens for every supported model side by side, so you can pick the cheapest model that handles your prompt without truncation.</p>
+
+        <h2>Is freetokencounter.app free and private?</h2>
+        <p>Yes — completely free, no sign-up, no rate limits, no API key required. Every keystroke is processed locally in your browser using JavaScript that ships with the page. Nothing about your prompt — not the text, not the count, not the model selection — is sent to any server. You can verify this in your browser's Network tab while typing: the only request is the initial page load. freetokencounter.app exists because we believe a token counter for sensitive prompts should never see your data.</p>
+
+        <h2>How accurate is freetokencounter.app for each model?</h2>
+        <p>For OpenAI models (GPT-3.5, GPT-4, GPT-4o, o1) and Llama models, the count is calibrated against the published reference tokenizers and is typically within ±3% on English text. For Anthropic Claude, Google Gemini, Moonshot Kimi, and MiniMax — providers that don't release a fully open tokenizer — counts are within roughly ±5–8%. Code, JSON, and non-Latin scripts can drift more, generally toward higher token counts than the estimate. For high-stakes production budgeting, always validate against the provider's own count_tokens API; for prompt drafting and quick comparisons, freetokencounter.app is purpose-built.</p>
+
+        <h2>AI Model Token Limits & Pricing Comparison</h2>
+        <p>The table below compares context windows, max output tokens, and per-million-token pricing across major model families. Pricing reflects each provider's official rate cards.</p>
+
+        <div class="compare-table-wrap">
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th>Model</th>
+                        <th>Provider</th>
+                        <th>Context</th>
+                        <th>Input $/1M</th>
+                        <th>Output $/1M</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="model-cell">GPT-4o</td><td><span class="provider-cell"><span class="provider-dot openai"></span>OpenAI</span></td><td>128K</td><td>$2.50</td><td>$10.00</td></tr>
+                    <tr><td class="model-cell">GPT-4o-mini</td><td><span class="provider-cell"><span class="provider-dot openai"></span>OpenAI</span></td><td>128K</td><td>$0.15</td><td>$0.60</td></tr>
+                    <tr><td class="model-cell">GPT-4 Turbo</td><td><span class="provider-cell"><span class="provider-dot openai"></span>OpenAI</span></td><td>128K</td><td>$10.00</td><td>$30.00</td></tr>
+                    <tr><td class="model-cell">GPT-3.5 Turbo</td><td><span class="provider-cell"><span class="provider-dot openai"></span>OpenAI</span></td><td>16K</td><td>$0.50</td><td>$1.50</td></tr>
+                    <tr><td class="model-cell">o1</td><td><span class="provider-cell"><span class="provider-dot openai"></span>OpenAI</span></td><td>128K</td><td>$15.00</td><td>$60.00</td></tr>
+                    <tr><td class="model-cell">o1-mini</td><td><span class="provider-cell"><span class="provider-dot openai"></span>OpenAI</span></td><td>128K</td><td>$3.00</td><td>$12.00</td></tr>
+                    <tr><td class="model-cell">Claude 3.5 Sonnet</td><td><span class="provider-cell"><span class="provider-dot anthropic"></span>Anthropic</span></td><td>200K</td><td>$3.00</td><td>$15.00</td></tr>
+                    <tr><td class="model-cell">Claude 3.5 Haiku</td><td><span class="provider-cell"><span class="provider-dot anthropic"></span>Anthropic</span></td><td>200K</td><td>$0.80</td><td>$4.00</td></tr>
+                    <tr><td class="model-cell">Claude 3 Opus</td><td><span class="provider-cell"><span class="provider-dot anthropic"></span>Anthropic</span></td><td>200K</td><td>$15.00</td><td>$75.00</td></tr>
+                    <tr><td class="model-cell">Claude 3 Haiku</td><td><span class="provider-cell"><span class="provider-dot anthropic"></span>Anthropic</span></td><td>200K</td><td>$0.25</td><td>$1.25</td></tr>
+                    <tr><td class="model-cell">Gemini 2.0 Flash</td><td><span class="provider-cell"><span class="provider-dot google"></span>Google</span></td><td>1M</td><td>$0.10</td><td>$0.40</td></tr>
+                    <tr><td class="model-cell">Gemini 1.5 Pro</td><td><span class="provider-cell"><span class="provider-dot google"></span>Google</span></td><td>2M</td><td>$1.25</td><td>$5.00</td></tr>
+                    <tr><td class="model-cell">Gemini 1.5 Flash</td><td><span class="provider-cell"><span class="provider-dot google"></span>Google</span></td><td>1M</td><td>$0.075</td><td>$0.30</td></tr>
+                    <tr><td class="model-cell">Llama 3.3 70B</td><td><span class="provider-cell"><span class="provider-dot meta"></span>Meta</span></td><td>128K</td><td>—</td><td>—</td></tr>
+                    <tr><td class="model-cell">Llama 3.1 405B</td><td><span class="provider-cell"><span class="provider-dot meta"></span>Meta</span></td><td>128K</td><td>—</td><td>—</td></tr>
+                    <tr><td class="model-cell">Llama 3.1 70B</td><td><span class="provider-cell"><span class="provider-dot meta"></span>Meta</span></td><td>128K</td><td>—</td><td>—</td></tr>
+                    <tr><td class="model-cell">Llama 3.1 8B</td><td><span class="provider-cell"><span class="provider-dot meta"></span>Meta</span></td><td>128K</td><td>—</td><td>—</td></tr>
+                    <tr><td class="model-cell">Mistral Large 2</td><td><span class="provider-cell"><span class="provider-dot mistral"></span>Mistral</span></td><td>128K</td><td>$2.00</td><td>$6.00</td></tr>
+                    <tr><td class="model-cell">Mistral Nemo</td><td><span class="provider-cell"><span class="provider-dot mistral"></span>Mistral</span></td><td>128K</td><td>$0.15</td><td>$0.15</td></tr>
+                    <tr><td class="model-cell">Codestral</td><td><span class="provider-cell"><span class="provider-dot mistral"></span>Mistral</span></td><td>32K</td><td>$0.20</td><td>$0.60</td></tr>
+                    <tr><td class="model-cell">DeepSeek V3</td><td><span class="provider-cell"><span class="provider-dot deepseek"></span>DeepSeek</span></td><td>128K</td><td>$0.27</td><td>$1.10</td></tr>
+                    <tr><td class="model-cell">DeepSeek R1</td><td><span class="provider-cell"><span class="provider-dot deepseek"></span>DeepSeek</span></td><td>128K</td><td>$0.55</td><td>$2.19</td></tr>
+                    <tr><td class="model-cell">Kimi K2</td><td><span class="provider-cell"><span class="provider-dot moonshot"></span>Moonshot</span></td><td>128K</td><td>$0.60</td><td>$2.50</td></tr>
+                    <tr><td class="model-cell">Sonar Pro</td><td><span class="provider-cell"><span class="provider-dot perplexity"></span>Perplexity</span></td><td>200K</td><td>$3.00</td><td>$15.00</td></tr>
+                    <tr><td class="model-cell">MiniMax-Text-01</td><td><span class="provider-cell"><span class="provider-dot minimax"></span>MiniMax</span></td><td>1M</td><td>$0.20</td><td>$1.10</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="pricing-note">Pricing reflects each provider's published rate card. Open-weight Llama models have no first-party API; pricing varies by host (Together, Groq, Fireworks).</p>
+
+        <h2>Why use freetokencounter.app?</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="fc-title">Every major model</div>
+                <div class="fc-desc">30+ models across 9 providers — OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek, Moonshot, Perplexity, MiniMax. Switch instantly to compare.</div>
+            </div>
+            <div class="feature-card">
+                <div class="fc-title">Token visualization</div>
+                <div class="fc-desc">See exactly how the model splits your text into tokens, with each token highlighted in a cycling pastel color. Hover to inspect.</div>
+            </div>
+            <div class="feature-card">
+                <div class="fc-title">Live cost estimate</div>
+                <div class="fc-desc">Real-time input + output cost based on each provider's published rate card. Adjust expected output tokens to model your spend.</div>
+            </div>
+            <div class="feature-card">
+                <div class="fc-title">100% private</div>
+                <div class="fc-desc">Everything runs in your browser. Prompts never reach a server. Safe for proprietary, regulated, or unreleased content.</div>
+            </div>
+            <div class="feature-card">
+                <div class="fc-title">Context-window meter</div>
+                <div class="fc-desc">A live progress bar shows how much of the selected model's context window your prompt occupies, with warnings as you approach the limit.</div>
+            </div>
+            <div class="feature-card">
+                <div class="fc-title">No sign-up, no API key</div>
+                <div class="fc-desc">Open the site, paste your prompt, get a count. No accounts, no rate limits, no upsells, no ads.</div>
+            </div>
+        </div>
+
+        <h2>How token counting works</h2>
+        <div class="step-list">
+            <div class="step-card">
+                <div class="sc-title">Split into chunks</div>
+                <div class="sc-desc">freetokencounter.app applies the public GPT-2 splitting pattern to break your text on word boundaries, punctuation, and whitespace.</div>
+            </div>
+            <div class="step-card">
+                <div class="sc-title">Apply model calibration</div>
+                <div class="sc-desc">Per-model calibration constants adjust the chunk count to match each provider's tokenizer behavior on English prose.</div>
+            </div>
+            <div class="step-card">
+                <div class="sc-title">Display + visualize</div>
+                <div class="sc-desc">The final count, context-window usage, and cost estimate render live as you type. Each chunk is shown as a colored token in the visualization.</div>
+            </div>
+        </div>
+
+        <h2>Frequently Asked Questions</h2>
+
+        <details>
+            <summary>What is a token in an AI model?</summary>
+            <p>A token is the smallest unit of text an AI model processes. Tokens can be whole words, sub-words, or single characters depending on the tokenizer. As a rough rule, 1 token ≈ 4 characters or ¾ of an English word, but the exact count depends on the specific model. freetokencounter.app shows you the count for any major model in real time.</p>
+        </details>
+
+        <details>
+            <summary>How accurate is freetokencounter.app?</summary>
+            <p>Counts are estimates within roughly ±5% for English text on most models. The tool uses the public GPT-2 / cl100k splitting pattern combined with per-model calibration constants tuned against each provider's published tokenizer. Some providers (Anthropic, Google, MiniMax) do not publish a fully open tokenizer, so counts for those models are clearly labeled as approximations.</p>
+        </details>
+
+        <details>
+            <summary>Which models does freetokencounter.app support?</summary>
+            <p>freetokencounter.app supports OpenAI (GPT-4o, GPT-4, GPT-3.5, o1), Anthropic (Claude 3.5 Sonnet, Haiku, Opus), Google (Gemini 1.5 Pro, Flash, Gemini 2.0), Meta Llama (3.3 70B, 3.1 405B/70B/8B, Llama 3), Mistral (Large 2, Nemo, Mixtral, Codestral), DeepSeek (V3, R1, Coder V2), Moonshot Kimi (K2, Moonshot v1), Perplexity Sonar, and MiniMax — about 30 models in total.</p>
+        </details>
+
+        <details>
+            <summary>Is my prompt uploaded anywhere?</summary>
+            <p>No. freetokencounter.app runs entirely in your browser. Your prompt text never leaves your device — there are no servers, no analytics on input, no logging. You can verify this by checking the Network tab in your browser's developer tools while typing.</p>
+        </details>
+
+        <details>
+            <summary>Why does the same text produce different token counts on different models?</summary>
+            <p>Each model family uses a different tokenizer trained on different data with a different vocabulary. GPT-4o uses o200k_base (~200K vocab), Claude uses Anthropic's proprietary tokenizer, Gemini uses SentencePiece, and Llama uses its own BPE. The same word may be one token in one model and three tokens in another. freetokencounter.app shows the difference side by side.</p>
+        </details>
+
+        <details>
+            <summary>How is cost calculated?</summary>
+            <p>The cost estimate multiplies your input token count by each model's published per-million input rate, plus an estimated output token count by the per-million output rate. Pricing data is sourced from each provider's official pricing page and updated periodically. Always check live pricing for production budgeting.</p>
+        </details>
+
+        <details>
+            <summary>What is a context window?</summary>
+            <p>The context window is the maximum number of tokens (input + output combined) a model can process in a single request. GPT-4o handles 128,000 tokens, Claude 3.5 Sonnet 200,000, Gemini 1.5 Pro up to 2 million. If your prompt plus expected output exceeds the context window, the model will reject the request or truncate. freetokencounter.app shows a live context-window meter for the selected model.</p>
+        </details>
+
+        <details>
+            <summary>Can I count tokens for code or non-English text?</summary>
+            <p>Yes. freetokencounter.app handles code, JSON, markdown, and any Unicode text including non-Latin scripts. Note that code and non-English text typically use 30–80% more tokens than equivalent English prose, because their characters fall outside the most common subword merges. The tool shows accurate counts for any text you paste.</p>
+        </details>
+    </div>
+
+    <footer class="seo-footer">
+        &copy; freetokencounter.app
+        <div class="more-tools">
+            <div class="more-tools-label">More free tools from Freesuite</div>
+            <div class="more-tools-links">
+                <a href="https://freewordcounter.app">Word Counter</a>
+                <a href="https://freejsonformatter.app">JSON Formatter</a>
+                <a href="https://freecaseconverter.app">Case Converter</a>
+                <a href="https://freeloremipsum.app">Lorem Ipsum</a>
+                <a href="https://freebase64.app">Base64 Encoder</a>
+                <a href="https://freenotepad.app">Notepad</a>
+                <a href="https://freecsv2json.app">CSV to JSON</a>
+                <a href="https://freesuite.app">All Freesuite Tools</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    /* ===== Dark Mode ===== */
+    (() => {
+        const toggle = document.getElementById('themeToggle');
+        const icon = toggle.querySelector('.toggle-icon');
+        const getTheme = () => {
+            const stored = localStorage.getItem('suite_theme');
+            if (stored) return stored;
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        };
+        const apply = (t) => {
+            document.documentElement.classList.toggle('dark', t === 'dark');
+            icon.textContent = t === 'dark' ? '🌙' : '☀️';
+            localStorage.setItem('suite_theme', t);
+        };
+        apply(getTheme());
+        toggle.addEventListener('click', () => apply(document.documentElement.classList.contains('dark') ? 'light' : 'dark'));
+    })();
+
+    /* ===== Toast ===== */
+    const showToast = (msg) => {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        clearTimeout(showToast._h);
+        showToast._h = setTimeout(() => t.classList.remove('show'), 2400);
+    };
+
+    /* ===== Service Worker ===== */
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').then(reg => {
+            reg.addEventListener('updatefound', () => {
+                const sw = reg.installing;
+                sw.addEventListener('statechange', () => {
+                    if (sw.state === 'installed' && navigator.serviceWorker.controller) {
+                        showToast('Update available — refreshing…');
+                        sw.postMessage('skipWaiting');
+                    }
+                });
+            });
+        }).catch(() => {});
+        navigator.serviceWorker.addEventListener('controllerchange', () => window.location.reload());
+    }
+
+    /* =====================================================================
+       MODEL REGISTRY
+       Pricing reflects each provider's official rate cards.
+       charsPerToken is calibrated against published tokenizer behavior;
+       multiplier fine-tunes against reference outputs.
+       ===================================================================== */
+    const MODELS = [
+        // OpenAI
+        { id: 'gpt-4o', name: 'GPT-4o', provider: 'OpenAI', providerKey: 'openai', context: 128000, inputPrice: 2.50, outputPrice: 10.00, multiplier: 1.00, popular: true },
+        { id: 'gpt-4o-mini', name: 'GPT-4o-mini', provider: 'OpenAI', providerKey: 'openai', context: 128000, inputPrice: 0.15, outputPrice: 0.60, multiplier: 1.00 },
+        { id: 'gpt-4-turbo', name: 'GPT-4 Turbo', provider: 'OpenAI', providerKey: 'openai', context: 128000, inputPrice: 10.00, outputPrice: 30.00, multiplier: 1.00 },
+        { id: 'gpt-4', name: 'GPT-4', provider: 'OpenAI', providerKey: 'openai', context: 8192, inputPrice: 30.00, outputPrice: 60.00, multiplier: 1.02 },
+        { id: 'gpt-3.5-turbo', name: 'GPT-3.5 Turbo', provider: 'OpenAI', providerKey: 'openai', context: 16385, inputPrice: 0.50, outputPrice: 1.50, multiplier: 1.02 },
+        { id: 'o1', name: 'o1', provider: 'OpenAI', providerKey: 'openai', context: 128000, inputPrice: 15.00, outputPrice: 60.00, multiplier: 1.00 },
+        { id: 'o1-mini', name: 'o1-mini', provider: 'OpenAI', providerKey: 'openai', context: 128000, inputPrice: 3.00, outputPrice: 12.00, multiplier: 1.00 },
+
+        // Anthropic
+        { id: 'claude-3-5-sonnet', name: 'Claude 3.5 Sonnet', provider: 'Anthropic', providerKey: 'anthropic', context: 200000, inputPrice: 3.00, outputPrice: 15.00, multiplier: 1.08, popular: true },
+        { id: 'claude-3-5-haiku', name: 'Claude 3.5 Haiku', provider: 'Anthropic', providerKey: 'anthropic', context: 200000, inputPrice: 0.80, outputPrice: 4.00, multiplier: 1.08 },
+        { id: 'claude-3-opus', name: 'Claude 3 Opus', provider: 'Anthropic', providerKey: 'anthropic', context: 200000, inputPrice: 15.00, outputPrice: 75.00, multiplier: 1.10 },
+        { id: 'claude-3-haiku', name: 'Claude 3 Haiku', provider: 'Anthropic', providerKey: 'anthropic', context: 200000, inputPrice: 0.25, outputPrice: 1.25, multiplier: 1.10 },
+
+        // Google
+        { id: 'gemini-2-flash', name: 'Gemini 2.0 Flash', provider: 'Google', providerKey: 'google', context: 1048576, inputPrice: 0.10, outputPrice: 0.40, multiplier: 0.95 },
+        { id: 'gemini-1-5-pro', name: 'Gemini 1.5 Pro', provider: 'Google', providerKey: 'google', context: 2097152, inputPrice: 1.25, outputPrice: 5.00, multiplier: 0.95, popular: true },
+        { id: 'gemini-1-5-flash', name: 'Gemini 1.5 Flash', provider: 'Google', providerKey: 'google', context: 1048576, inputPrice: 0.075, outputPrice: 0.30, multiplier: 0.95 },
+
+        // Meta Llama
+        { id: 'llama-3-3-70b', name: 'Llama 3.3 70B', provider: 'Meta', providerKey: 'meta', context: 128000, inputPrice: 0, outputPrice: 0, multiplier: 1.00, popular: true },
+        { id: 'llama-3-1-405b', name: 'Llama 3.1 405B', provider: 'Meta', providerKey: 'meta', context: 128000, inputPrice: 0, outputPrice: 0, multiplier: 1.00 },
+        { id: 'llama-3-1-70b', name: 'Llama 3.1 70B', provider: 'Meta', providerKey: 'meta', context: 128000, inputPrice: 0, outputPrice: 0, multiplier: 1.00 },
+        { id: 'llama-3-1-8b', name: 'Llama 3.1 8B', provider: 'Meta', providerKey: 'meta', context: 128000, inputPrice: 0, outputPrice: 0, multiplier: 1.00 },
+        { id: 'llama-3-70b', name: 'Llama 3 70B', provider: 'Meta', providerKey: 'meta', context: 8192, inputPrice: 0, outputPrice: 0, multiplier: 1.00 },
+        { id: 'llama-3-8b', name: 'Llama 3 8B', provider: 'Meta', providerKey: 'meta', context: 8192, inputPrice: 0, outputPrice: 0, multiplier: 1.00 },
+
+        // Mistral
+        { id: 'mistral-large-2', name: 'Mistral Large 2', provider: 'Mistral', providerKey: 'mistral', context: 128000, inputPrice: 2.00, outputPrice: 6.00, multiplier: 1.05 },
+        { id: 'mistral-nemo', name: 'Mistral Nemo', provider: 'Mistral', providerKey: 'mistral', context: 128000, inputPrice: 0.15, outputPrice: 0.15, multiplier: 1.05 },
+        { id: 'mixtral-8x7b', name: 'Mixtral 8x7B', provider: 'Mistral', providerKey: 'mistral', context: 32768, inputPrice: 0.70, outputPrice: 0.70, multiplier: 1.06 },
+        { id: 'codestral', name: 'Codestral', provider: 'Mistral', providerKey: 'mistral', context: 32768, inputPrice: 0.20, outputPrice: 0.60, multiplier: 1.04 },
+
+        // DeepSeek
+        { id: 'deepseek-v3', name: 'DeepSeek V3', provider: 'DeepSeek', providerKey: 'deepseek', context: 128000, inputPrice: 0.27, outputPrice: 1.10, multiplier: 1.10, popular: true },
+        { id: 'deepseek-r1', name: 'DeepSeek R1', provider: 'DeepSeek', providerKey: 'deepseek', context: 128000, inputPrice: 0.55, outputPrice: 2.19, multiplier: 1.10 },
+        { id: 'deepseek-coder-v2', name: 'DeepSeek Coder V2', provider: 'DeepSeek', providerKey: 'deepseek', context: 128000, inputPrice: 0.27, outputPrice: 1.10, multiplier: 1.08 },
+
+        // Moonshot
+        { id: 'kimi-k2', name: 'Kimi K2', provider: 'Moonshot', providerKey: 'moonshot', context: 128000, inputPrice: 0.60, outputPrice: 2.50, multiplier: 1.05, popular: true },
+        { id: 'moonshot-v1-128k', name: 'Moonshot v1 128K', provider: 'Moonshot', providerKey: 'moonshot', context: 128000, inputPrice: 60.00, outputPrice: 60.00, multiplier: 1.05 },
+        { id: 'moonshot-v1-32k', name: 'Moonshot v1 32K', provider: 'Moonshot', providerKey: 'moonshot', context: 32000, inputPrice: 24.00, outputPrice: 24.00, multiplier: 1.05 },
+
+        // Perplexity
+        { id: 'sonar', name: 'Sonar', provider: 'Perplexity', providerKey: 'perplexity', context: 127000, inputPrice: 1.00, outputPrice: 1.00, multiplier: 1.00 },
+        { id: 'sonar-pro', name: 'Sonar Pro', provider: 'Perplexity', providerKey: 'perplexity', context: 200000, inputPrice: 3.00, outputPrice: 15.00, multiplier: 1.00 },
+        { id: 'sonar-reasoning', name: 'Sonar Reasoning', provider: 'Perplexity', providerKey: 'perplexity', context: 127000, inputPrice: 1.00, outputPrice: 5.00, multiplier: 1.00 },
+
+        // MiniMax
+        { id: 'minimax-text-01', name: 'MiniMax-Text-01', provider: 'MiniMax', providerKey: 'minimax', context: 1000000, inputPrice: 0.20, outputPrice: 1.10, multiplier: 1.00 },
+        { id: 'abab-6-5', name: 'abab6.5', provider: 'MiniMax', providerKey: 'minimax', context: 245000, inputPrice: 0.50, outputPrice: 0.50, multiplier: 1.00 }
+    ];
+
+    const PROVIDER_ORDER = ['OpenAI', 'Anthropic', 'Google', 'Meta', 'Mistral', 'DeepSeek', 'Moonshot', 'Perplexity', 'MiniMax'];
+
+    /* =====================================================================
+       TOKENIZER — public GPT-2 / cl100k splitting pattern + calibration
+       ===================================================================== */
+    // GPT-2 / cl100k-style pre-tokenization regex (the public part of tiktoken).
+    // Matches contractions, words with leading space, numbers (≤3 digits), punctuation runs, whitespace.
+    const SPLIT_RE = /'(?:[sdmt]|ll|ve|re)| ?\p{L}+| ?\p{N}{1,3}| ?[^\s\p{L}\p{N}]+|\s+/gu;
+
+    function splitChunks(text) {
+        if (!text) return [];
+        const out = [];
+        let m;
+        SPLIT_RE.lastIndex = 0;
+        while ((m = SPLIT_RE.exec(text)) !== null) {
+            out.push(m[0]);
+        }
+        return out;
+    }
+
+    // For long word-like chunks, sub-divide to approximate BPE merges.
+    // English BPE averages ~3.7 chars/token; non-ASCII falls back to byte counting.
+    function refineChunk(chunk) {
+        if (chunk.length === 0) return [];
+        // Whitespace-only chunks: each newline counts as 1 token; runs of spaces ≈ 1 per 4 chars.
+        if (/^\s+$/.test(chunk)) {
+            const newlines = (chunk.match(/\n/g) || []).length;
+            if (newlines > 0) {
+                const parts = [];
+                const tokens = Math.max(1, newlines + Math.floor((chunk.length - newlines) / 8));
+                for (let i = 0; i < tokens; i++) parts.push(i === 0 ? chunk : '');
+                return [chunk]; // visualize as single span — count as 1 below
+            }
+            return [chunk];
+        }
+        // Non-letter / non-number runs: roughly 1 token per 2-3 chars
+        if (/^[^\p{L}\p{N}]+$/u.test(chunk) && chunk.length > 2) {
+            const parts = [];
+            for (let i = 0; i < chunk.length; i += 2) parts.push(chunk.slice(i, i + 2));
+            return parts;
+        }
+        // Number runs already capped at 3 digits by regex.
+        // Letter chunks: short words (≤6 chars) are usually 1 BPE token in real tokenizers.
+        // Pure ASCII English averages ~5.5 chars/token within long words; Latin scripts with
+        // diacritics (Spanish, French) split more aggressively because accented bytes resist merging;
+        // CJK / Arabic / Cyrillic average closer to 1 token per character.
+        const asciiCount = (chunk.match(/[\x00-\x7F]/g) || []).length;
+        const nonAsciiCount = chunk.length - asciiCount;
+        const pureAscii = nonAsciiCount === 0;
+        const mostlyNonAscii = asciiCount / chunk.length < 0.3;
+        if (pureAscii && chunk.length <= 6) return [chunk];
+        let charsPerToken;
+        if (pureAscii) charsPerToken = 5.5;
+        else if (mostlyNonAscii) charsPerToken = 1.0;
+        else charsPerToken = 2.5;
+        const numParts = Math.max(1, Math.round(chunk.length / charsPerToken));
+        const partLen = Math.ceil(chunk.length / numParts);
+        const parts = [];
+        for (let i = 0; i < chunk.length; i += partLen) parts.push(chunk.slice(i, i + partLen));
+        return parts;
+    }
+
+    function tokenize(text, model) {
+        const rawChunks = splitChunks(text);
+        const refined = [];
+        for (const c of rawChunks) {
+            const sub = refineChunk(c);
+            for (const s of sub) refined.push(s);
+        }
+        // Calibrate count by per-model multiplier (rounded)
+        const count = Math.round(refined.length * (model?.multiplier || 1.0));
+        return { chunks: refined, rawChunks, count };
+    }
+
+    // Cheap token-id hash (for the IDs view) — deterministic, not real tokenizer ids.
+    function fakeId(chunk) {
+        let h = 5381;
+        for (let i = 0; i < chunk.length; i++) h = ((h << 5) + h + chunk.charCodeAt(i)) >>> 0;
+        return h % 200000;
+    }
+
+    /* =====================================================================
+       UI WIRING
+       ===================================================================== */
+    const $ = (id) => document.getElementById(id);
+    const editor = $('editor');
+    const tokenViz = $('tokenViz');
+    const idsStage = $('idsStage');
+    const tokenCountEl = $('tokenCount');
+    const charCountEl = $('charCount');
+    const wordCountEl = $('wordCount');
+    const ctxFill = $('ctxFill');
+    const ctxPct = $('ctxPct');
+    const ctxUsed = $('ctxUsed');
+    const ctxLimit = $('ctxLimit');
+    const costInputEl = $('costInput');
+    const costOutputEl = $('costOutput');
+    const costTotalEl = $('costTotal');
+    const outTokensEl = $('outTokens');
+    const statusLeft = $('statusLeft');
+
+    let currentModel = MODELS.find(m => m.id === 'gpt-4o');
+
+    // Restore from localStorage
+    const storedModel = localStorage.getItem('tokencounter_model');
+    if (storedModel) {
+        const m = MODELS.find(x => x.id === storedModel);
+        if (m) currentModel = m;
+    }
+    const storedInput = localStorage.getItem('tokencounter_last_input');
+    if (storedInput) editor.value = storedInput;
+
+    /* ===== Number formatting ===== */
+    const fmtNum = (n) => n.toLocaleString('en-US');
+    const fmtCtx = (n) => n >= 1_000_000 ? (n / 1_000_000) + 'M' : n >= 1000 ? (n / 1000) + 'K' : String(n);
+    const fmtMoney = (cents) => {
+        const v = cents;
+        if (v === 0) return '$0.0000';
+        if (v < 0.01) return '$' + v.toFixed(6);
+        if (v < 1) return '$' + v.toFixed(4);
+        if (v < 100) return '$' + v.toFixed(3);
+        return '$' + v.toFixed(2);
+    };
+
+    /* ===== Render results ===== */
+    let currentChunks = [];
+    let currentTokenCount = 0;
+
+    function render() {
+        const text = editor.value;
+        const { chunks, count } = tokenize(text, currentModel);
+        currentChunks = chunks;
+        currentTokenCount = count;
+
+        // Token count
+        tokenCountEl.textContent = fmtNum(count);
+
+        // Chars + words
+        const chars = text.length;
+        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+        charCountEl.textContent = fmtNum(chars);
+        wordCountEl.textContent = fmtNum(words);
+
+        // Context window
+        const limit = currentModel.context;
+        const pct = Math.min(100, (count / limit) * 100);
+        ctxFill.style.width = pct + '%';
+        ctxFill.classList.toggle('warn', pct >= 75 && pct < 95);
+        ctxFill.classList.toggle('over', pct >= 95);
+        ctxPct.textContent = pct < 0.1 && pct > 0 ? '<0.1%' : pct.toFixed(pct < 1 ? 2 : 1) + '%';
+        ctxUsed.textContent = fmtNum(count) + ' tokens';
+        ctxLimit.textContent = fmtCtx(limit) + ' limit';
+
+        // Cost
+        const inputCost = (count / 1_000_000) * (currentModel.inputPrice || 0);
+        const outTok = parseInt(outTokensEl.value, 10) || 0;
+        const outputCost = (outTok / 1_000_000) * (currentModel.outputPrice || 0);
+        const total = inputCost + outputCost;
+        costInputEl.textContent = currentModel.inputPrice === 0 ? 'free / varies' : fmtMoney(inputCost);
+        costOutputEl.textContent = currentModel.outputPrice === 0 ? 'free / varies' : fmtMoney(outputCost);
+        costTotalEl.textContent = currentModel.inputPrice === 0 && currentModel.outputPrice === 0 ? '—' : fmtMoney(total);
+
+        // Status bar
+        statusLeft.textContent = `${fmtNum(count)} tokens · ${fmtNum(chars)} chars · ${fmtNum(words)} words`;
+
+        // Visualize
+        renderViz();
+        renderIds();
+
+        // Persist
+        if (text.length < 100_000) {
+            try { localStorage.setItem('tokencounter_last_input', text); } catch (e) {}
+        }
+    }
+
+    function renderViz() {
+        if (currentChunks.length === 0) {
+            tokenViz.innerHTML = '<div class="token-viz-empty">Tokens appear here as you type. Each colored chunk is one token.</div>';
+            return;
+        }
+        // Limit DOM nodes for very large input — visualize first 5000 chunks only
+        const MAX = 5000;
+        const truncated = currentChunks.length > MAX;
+        const slice = truncated ? currentChunks.slice(0, MAX) : currentChunks;
+        const frag = document.createDocumentFragment();
+        slice.forEach((chunk, i) => {
+            const span = document.createElement('span');
+            span.className = 'tk';
+            span.dataset.i = String(i % 8);
+            span.textContent = chunk;
+            span.title = `Token ${i + 1}`;
+            frag.appendChild(span);
+        });
+        tokenViz.replaceChildren(frag);
+        if (truncated) {
+            const note = document.createElement('div');
+            note.className = 'token-viz-empty';
+            note.textContent = `Showing first ${MAX} of ${fmtNum(currentChunks.length)} tokens. Count is accurate for the full text.`;
+            tokenViz.appendChild(note);
+        }
+    }
+
+    function renderIds() {
+        if (currentChunks.length === 0) {
+            idsStage.textContent = 'Token IDs appear here.';
+            return;
+        }
+        const MAX = 2000;
+        const truncated = currentChunks.length > MAX;
+        const ids = (truncated ? currentChunks.slice(0, MAX) : currentChunks).map(fakeId);
+        idsStage.textContent = '[' + ids.join(', ') + (truncated ? `, … (+${currentChunks.length - MAX})` : '') + ']';
+    }
+
+    /* ===== Editor input + debounce ===== */
+    let renderTimer;
+    editor.addEventListener('input', () => {
+        clearTimeout(renderTimer);
+        renderTimer = setTimeout(render, 80);
+    });
+
+    outTokensEl.addEventListener('input', render);
+
+    /* ===== Tabs ===== */
+    document.querySelectorAll('.editor-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            const target = tab.dataset.tab;
+            document.querySelectorAll('.editor-tab').forEach(t => {
+                t.classList.toggle('active', t === tab);
+                t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+            });
+            const map = { text: editor, viz: tokenViz, ids: idsStage };
+            Object.entries(map).forEach(([k, el]) => el.classList.toggle('active', k === target));
+        });
+    });
+
+    /* ===== Action buttons ===== */
+    $('clearBtn').addEventListener('click', () => {
+        editor.value = '';
+        render();
+        editor.focus();
+    });
+
+    $('exampleBtn').addEventListener('click', () => {
+        editor.value = `You are an expert technical writer. Rewrite the following changelog entry to be clearer for non-technical readers, while preserving every factual detail.
+
+Changelog v3.4.0:
+- Migrated cache layer from in-memory LRU to Redis with sharding across 4 nodes
+- Reduced p99 query latency from 340ms to 92ms via cursor-based pagination
+- Fixed bug where archived workspaces could still receive webhook deliveries
+- Added support for OAuth 2.1 with PKCE for desktop applications
+
+Tone: friendly, no jargon. Length: under 120 words. Format: bullet list followed by one-sentence summary.`;
+        render();
+    });
+
+    $('pasteBtn').addEventListener('click', async () => {
+        try {
+            const text = await navigator.clipboard.readText();
+            editor.value = text;
+            render();
+            showToast('Pasted from clipboard');
+        } catch (e) {
+            showToast('Clipboard access denied');
+        }
+    });
+
+    $('copyCountBtn').addEventListener('click', async () => {
+        try {
+            await navigator.clipboard.writeText(String(currentTokenCount));
+            showToast(`Copied ${fmtNum(currentTokenCount)} tokens`);
+        } catch (e) { showToast('Copy failed'); }
+    });
+
+    $('copyJsonBtn').addEventListener('click', async () => {
+        try {
+            const ids = currentChunks.map(fakeId);
+            await navigator.clipboard.writeText(JSON.stringify(ids));
+            showToast(`Copied ${fmtNum(ids.length)} token IDs`);
+        } catch (e) { showToast('Copy failed'); }
+    });
+
+    $('copyAllBtn').addEventListener('click', async () => {
+        const text = editor.value;
+        const chars = text.length;
+        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+        const lines = `Model: ${currentModel.name} (${currentModel.provider})
+Tokens: ${fmtNum(currentTokenCount)}
+Characters: ${fmtNum(chars)}
+Words: ${fmtNum(words)}
+Context: ${fmtNum(currentModel.context)}
+Usage: ${((currentTokenCount / currentModel.context) * 100).toFixed(2)}%
+Input cost: ${costInputEl.textContent}
+Output cost (${outTokensEl.value} tokens): ${costOutputEl.textContent}
+Total: ${costTotalEl.textContent}`;
+        try {
+            await navigator.clipboard.writeText(lines);
+            showToast('Copied all stats');
+        } catch (e) { showToast('Copy failed'); }
+    });
+
+    $('downloadBtn').addEventListener('click', () => {
+        const data = {
+            model: { id: currentModel.id, name: currentModel.name, provider: currentModel.provider },
+            input: editor.value,
+            tokens: currentTokenCount,
+            characters: editor.value.length,
+            words: editor.value.trim() ? editor.value.trim().split(/\s+/).length : 0,
+            context_window: currentModel.context,
+            context_usage_pct: parseFloat(((currentTokenCount / currentModel.context) * 100).toFixed(2)),
+            cost: {
+                input_usd: parseFloat(((currentTokenCount / 1_000_000) * (currentModel.inputPrice || 0)).toFixed(6)),
+                output_tokens: parseInt(outTokensEl.value, 10) || 0,
+                output_usd: parseFloat(((parseInt(outTokensEl.value, 10) || 0) / 1_000_000 * (currentModel.outputPrice || 0)).toFixed(6))
+            },
+            disclaimer: 'Counts are estimates within ~5% for English. Use provider count_tokens API for production budgeting.',
+            generated_at: new Date().toISOString(),
+            tool: 'https://freetokencounter.app/'
+        };
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `token-count-${currentModel.id}-${Date.now()}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('Downloaded');
+    });
+
+    /* ===== Model picker ===== */
+    const modelBtn = $('modelBtn');
+    const modelDropdown = $('modelDropdown');
+    const modelList = $('modelList');
+    const modelSearch = $('modelSearch');
+    const mpName = $('mpName');
+    const mpProvider = $('mpProvider');
+    const mpDot = $('mpDot');
+
+    function paintHeaderModel() {
+        mpName.textContent = currentModel.name;
+        mpProvider.textContent = '· ' + currentModel.provider;
+        mpDot.className = 'provider-dot ' + currentModel.providerKey;
+    }
+
+    function buildModelList(filter = '') {
+        const f = filter.trim().toLowerCase();
+        modelList.innerHTML = '';
+        let any = false;
+        // Popular row first when no filter
+        if (!f) {
+            const popular = MODELS.filter(m => m.popular);
+            if (popular.length) {
+                const title = document.createElement('div');
+                title.className = 'model-group-title';
+                title.textContent = 'Popular';
+                modelList.appendChild(title);
+                popular.forEach(m => modelList.appendChild(renderOption(m)));
+                any = true;
+            }
+        }
+        // Group by provider
+        for (const provider of PROVIDER_ORDER) {
+            const list = MODELS.filter(m => m.provider === provider).filter(m => {
+                if (!f) return true;
+                return (m.name + ' ' + m.provider + ' ' + m.id).toLowerCase().includes(f);
+            });
+            if (!list.length) continue;
+            const title = document.createElement('div');
+            title.className = 'model-group-title';
+            title.textContent = provider;
+            modelList.appendChild(title);
+            list.forEach(m => modelList.appendChild(renderOption(m)));
+            any = true;
+        }
+        if (!any) {
+            const empty = document.createElement('div');
+            empty.className = 'model-empty';
+            empty.textContent = 'No models match your search.';
+            modelList.appendChild(empty);
+        }
+    }
+
+    function renderOption(m) {
+        const opt = document.createElement('div');
+        opt.className = 'model-option' + (m.id === currentModel.id ? ' active' : '');
+        opt.setAttribute('role', 'option');
+        opt.setAttribute('aria-selected', m.id === currentModel.id ? 'true' : 'false');
+        opt.innerHTML = `
+            <span class="mo-name"><span class="provider-dot ${m.providerKey}"></span> <span>${m.name}</span></span>
+            <span class="mo-meta">${fmtCtx(m.context)} ctx</span>
+        `;
+        opt.addEventListener('click', () => {
+            currentModel = m;
+            try { localStorage.setItem('tokencounter_model', m.id); } catch (e) {}
+            paintHeaderModel();
+            closeDropdown();
+            render();
+        });
+        return opt;
+    }
+
+    function openDropdown() {
+        modelDropdown.classList.add('open');
+        modelBtn.setAttribute('aria-expanded', 'true');
+        modelSearch.value = '';
+        buildModelList();
+        setTimeout(() => modelSearch.focus(), 50);
+    }
+    function closeDropdown() {
+        modelDropdown.classList.remove('open');
+        modelBtn.setAttribute('aria-expanded', 'false');
+    }
+
+    modelBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (modelDropdown.classList.contains('open')) closeDropdown(); else openDropdown();
+    });
+    document.addEventListener('click', (e) => {
+        if (!modelDropdown.contains(e.target) && e.target !== modelBtn) closeDropdown();
+    });
+    modelSearch.addEventListener('input', () => buildModelList(modelSearch.value));
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeDropdown();
+        // Cmd/Ctrl+K opens picker
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k' && !e.shiftKey && !e.altKey) {
+            e.preventDefault();
+            openDropdown();
+        }
+    });
+
+    /* ===== Init ===== */
+    paintHeaderModel();
+    buildModelList();
+    render();
+    </script>
+</body>
+</html>

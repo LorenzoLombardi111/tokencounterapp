@@ -1,0 +1,47 @@
+# freetokencounter.app
+
+> Free AI token counter for 30+ models across 9 providers (OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek, Moonshot, Perplexity, MiniMax). Counts run entirely in the browser with calibrated estimates honest about ±5% accuracy on English text. Live cost estimates, context-window meter, token visualization, no sign-up.
+
+## Key facts
+
+- URL: https://freetokencounter.app/
+- Cost: free, no sign-up, no API key required
+- Privacy: 100% client-side — no prompt data leaves the browser
+- Models supported: GPT-4o, GPT-4o-mini, GPT-4 Turbo, GPT-4, GPT-3.5 Turbo, o1, o1-mini, Claude 3.5 Sonnet, Claude 3.5 Haiku, Claude 3 Opus, Claude 3 Haiku, Gemini 2.0 Flash, Gemini 1.5 Pro, Gemini 1.5 Flash, Llama 3.3 70B, Llama 3.1 405B/70B/8B, Llama 3 70B/8B, Mistral Large 2, Mistral Nemo, Mixtral 8x7B, Codestral, DeepSeek V3, DeepSeek R1, DeepSeek Coder V2, Kimi K2, Moonshot v1 128K/32K, Sonar, Sonar Pro, Sonar Reasoning, MiniMax-Text-01, abab6.5
+- Method: public GPT-2 / cl100k splitting pattern + per-model calibration constants
+- Accuracy: within ~3% on OpenAI/Llama models, ~5–8% on Claude/Gemini/MiniMax (calibrated estimates, transparently labeled)
+- Open source category: developer / utility
+
+## Features
+
+- Live token counter that updates as you type (debounced 80ms)
+- Token visualization with cycling pastel highlights — see exactly how the model splits your text
+- Context-window meter: progress bar against the selected model's limit
+- Per-model cost estimate (input + output) using official rate cards
+- Editable expected-output-token field
+- Search across 30+ models, grouped by provider
+- Character, word, byte stats
+- Copy count, copy token IDs JSON, download JSON, copy all stats
+- Dark mode (shared `suite_theme` localStorage with all Freesuite tools)
+- PWA with offline service-worker cache
+- All counts honestly labeled as "Estimate" — no false claims of byte-exact counts for closed tokenizers
+
+## Page index
+
+- [/](https://freetokencounter.app/) — Main token counter app + comparison table + FAQ
+- [/vs-openai-tokenizer](https://freetokencounter.app/vs-openai-tokenizer) — Honest comparison vs OpenAI's tokenizer playground (multi-model alternative)
+- [/gpt-4o-token-counter](https://freetokencounter.app/gpt-4o-token-counter) — GPT-4o-specific guide and counter
+- [/claude-token-counter](https://freetokencounter.app/claude-token-counter) — Claude 3 / 3.5 family with accuracy disclaimer
+- [/how-to-count-tokens-for-llms](https://freetokencounter.app/how-to-count-tokens-for-llms) — Educational explainer on tokenization, BPE, and context windows
+- [/llm-prompt-cost-calculator](https://freetokencounter.app/llm-prompt-cost-calculator) — Cost-focused page with full pricing comparison and optimization strategies
+
+## Related Freesuite tools
+
+- [freewordcounter.app](https://freewordcounter.app) — Word, character, sentence counter
+- [freejsonformatter.app](https://freejsonformatter.app) — Format and validate JSON
+- [freecsv2json.app](https://freecsv2json.app) — Convert CSV ↔ JSON in browser
+- [freebase64.app](https://freebase64.app) — Base64 encoder/decoder
+- [freecaseconverter.app](https://freecaseconverter.app) — Text case conversion
+- [freeloremipsum.app](https://freeloremipsum.app) — Lorem Ipsum generator
+
+For the complete text content of all pages, see [llms-full.txt](https://freetokencounter.app/llms-full.txt).

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Prompt Cost Calculator — freetokencounter.app</title>
+    <meta name="description" content="Free LLM prompt cost calculator. Estimate input + output cost across GPT, Claude, Gemini, Llama, DeepSeek and more. No sign-up.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://freetokencounter.app/llm-prompt-cost-calculator">
+    <meta name="theme-color" content="#faf9f6">
+    <link rel="manifest" href="/manifest.json">
+    <meta property="og:title" content="LLM Prompt Cost Calculator — freetokencounter.app">
+    <meta property="og:description" content="Free LLM prompt cost calculator. Estimate input + output cost across GPT, Claude, Gemini, Llama, DeepSeek and more. No sign-up.">
+    <meta property="og:image" content="https://freetokencounter.app/og-image.svg">
+    <meta property="og:url" content="https://freetokencounter.app/llm-prompt-cost-calculator">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LLM Prompt Cost Calculator — freetokencounter.app">
+    <meta name="twitter:description" content="Free LLM prompt cost calculator. Estimate input + output cost across GPT, Claude, Gemini, Llama, DeepSeek and more. No sign-up.">
+    <meta name="twitter:image" content="https://freetokencounter.app/og-image.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script type="application/ld+json">{ "@context": "https://schema.org", "@type": "Article", "headline": "LLM Prompt Cost Calculator", "description": "Free LLM prompt cost calculator. Estimate input + output cost across GPT, Claude, Gemini, Llama, DeepSeek and more. No sign-up.", "url": "https://freetokencounter.app/llm-prompt-cost-calculator", "publisher": { "@type": "Organization", "name": "freetokencounter.app", "url": "https://freetokencounter.app/" } }</script>
+    <script type="application/ld+json">{ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+        { "@type": "Question", "name": "How is LLM cost calculated?", "acceptedAnswer": { "@type": "Answer", "text": "LLM cost = (input_tokens / 1,000,000) × input_rate + (output_tokens / 1,000,000) × output_rate. freetokencounter.app counts your input tokens automatically and lets you set expected output tokens. Total updates live as you edit your prompt." } },
+        { "@type": "Question", "name": "Which model is cheapest for a given prompt?", "acceptedAnswer": { "@type": "Answer", "text": "It depends on the workload. For chat: Gemini 1.5 Flash ($0.075/$0.30) and GPT-4o-mini ($0.15/$0.60) are cheapest. For long-context RAG: Gemini 1.5 Flash and DeepSeek V3 lead. For reasoning: DeepSeek R1 is the cheapest reasoning-capable model. freetokencounter.app shows live cost across all 30+ models so you can compare instantly." } },
+        { "@type": "Question", "name": "How accurate is the cost estimate?", "acceptedAnswer": { "@type": "Answer", "text": "Cost is calculated from token counts (within ±5% on English) multiplied by current published rate cards. It's accurate enough for budgeting and model selection, not for finance-grade accounting. Always validate against the provider's billing dashboard for production." } },
+        { "@type": "Question", "name": "Does the calculator handle prompt caching discounts?", "acceptedAnswer": { "@type": "Answer", "text": "The displayed cost is the standard rate. Prompt caching (OpenAI and Anthropic both offer it) gives a 50-90% discount on the cached portion of inputs. For pipelines using caching heavily, real cost will be lower than the calculator shows." } },
+        { "@type": "Question", "name": "What about output token estimation?", "acceptedAnswer": { "@type": "Answer", "text": "Output tokens are user-set in freetokencounter.app — there's no way to predict them exactly without running the model. A reasonable default is 500-1,000 for chat replies, 2,000-4,000 for long generations. Adjust to match your typical response length." } },
+        { "@type": "Question", "name": "Are Llama costs really $0?", "acceptedAnswer": { "@type": "Answer", "text": "Llama models are open-weight — Meta does not run a first-party API. You pay for compute via hosts like Together, Groq, Fireworks, or Replicate. Pricing varies but typically runs $0.20-$0.90/1M input. freetokencounter.app shows tokens; check your host's rate card for cost." } }
+    ] }</script>
+    <script type="application/ld+json">{ "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://freetokencounter.app/" },
+        { "@type": "ListItem", "position": 2, "name": "LLM Prompt Cost Calculator", "item": "https://freetokencounter.app/llm-prompt-cost-calculator" }
+    ] }</script>
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        :root{--bg:#faf9f6;--surface:#f4f2ee;--border:#e8e4dd;--text-primary:#1a1917;--text-secondary:#6b6760;--text-muted:#9e9b96;--accent:#C49A2A;--accent-hover:#A8831F;--accent-text:#fff;--shadow:0 1px 3px rgba(0,0,0,.06),0 2px 8px rgba(0,0,0,.04);--font-body:'Lora',serif;--font-ui:'DM Sans',sans-serif}
+        html.dark{--bg:#141412;--surface:#1e1c1a;--border:#2e2b27;--text-primary:#f0ede8;--text-secondary:#9e9b96;--text-muted:#6b6760;--accent:#D4A835;--accent-hover:#C49A2A;--shadow:0 1px 3px rgba(0,0,0,.3),0 2px 8px rgba(0,0,0,.2)}
+        html{font-size:15px;line-height:1.6}
+        body{font-family:var(--font-body);background:var(--bg);color:var(--text-primary)}
+        .header{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:100}
+        .header-brand{font-family:var(--font-ui);font-size:15px;font-weight:600;color:var(--accent);text-decoration:none}
+        .theme-toggle{font-family:var(--font-ui);font-size:13px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:6px 12px;cursor:pointer;color:var(--text-secondary);transition:all .15s ease}
+        .theme-toggle:hover{background:var(--border)}
+        .breadcrumb{font-family:var(--font-ui);font-size:12px;color:var(--text-muted);padding:12px 24px;max-width:800px;margin:0 auto}
+        .breadcrumb a{color:var(--accent);text-decoration:none}
+        .breadcrumb a:hover{text-decoration:underline}
+        .landing-content{max-width:800px;margin:0 auto;padding:32px 24px 64px}
+        .landing-content h1{font-size:32px;font-weight:700;margin-bottom:24px;line-height:1.3}
+        .landing-content h2{font-size:22px;font-weight:600;margin-top:36px;margin-bottom:12px}
+        .landing-content p{color:var(--text-secondary);margin-bottom:16px;line-height:1.7}
+        .landing-content ul,.landing-content ol{margin:0 0 16px 20px;color:var(--text-secondary);line-height:1.8}
+        .compare-table{width:100%;border-collapse:collapse;margin:20px 0;font-family:var(--font-ui);font-size:13px}
+        .compare-table th{background:var(--surface);padding:12px;text-align:left;font-weight:600;border-bottom:2px solid var(--border)}
+        .compare-table td{padding:11px 12px;border-bottom:1px solid var(--border);color:var(--text-secondary);font-variant-numeric:tabular-nums}
+        .compare-table tr:hover td{background:var(--surface)}
+        .compare-table .model{color:var(--text-primary);font-weight:500}
+        .cta-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:32px;text-align:center;margin:32px 0}
+        .cta-box h3{font-family:var(--font-ui);font-size:18px;font-weight:600;margin-bottom:12px}
+        .cta-box p{color:var(--text-muted);margin-bottom:16px}
+        .cta-btn{font-family:var(--font-ui);font-size:15px;font-weight:600;background:var(--accent);color:var(--accent-text);border:none;border-radius:8px;padding:12px 24px;cursor:pointer;text-decoration:none;display:inline-block;transition:all .15s ease}
+        .cta-btn:hover{background:var(--accent-hover)}
+        details{border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:8px}
+        summary{font-family:var(--font-ui);font-weight:500;cursor:pointer}
+        details p{margin-top:12px;margin-bottom:0}
+        .related-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:20px 0}
+        .related-tool-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;text-decoration:none;transition:all .15s ease}
+        .related-tool-card:hover{box-shadow:var(--shadow)}
+        .related-tool-card .tool-name{font-family:var(--font-ui);font-size:13px;font-weight:600;color:var(--accent)}
+        .related-tool-card .tool-desc{font-family:var(--font-ui);font-size:12px;color:var(--text-muted);margin-top:4px}
+        .landing-footer{text-align:center;padding:32px 24px;font-family:var(--font-ui);font-size:12px;color:var(--text-muted);border-top:1px solid var(--border)}
+        .suite-badge{position:fixed;bottom:16px;right:16px;font-family:var(--font-ui);font-size:11px;color:var(--text-muted);text-decoration:none;background:var(--bg);padding:2px 6px;border-radius:4px}
+        .formula{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px;font-family:'JetBrains Mono','SF Mono',Consolas,monospace;font-size:12px;line-height:1.6;color:var(--text-primary);margin:14px 0}
+        @media (max-width:768px){.landing-content h1{font-size:24px}.landing-content{padding:24px 16px 48px}.compare-table{font-size:12px}.compare-table th,.compare-table td{padding:9px}.suite-badge .badge-prefix{display:none}}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="/" class="header-brand">freetokencounter.app</a>
+        <button class="theme-toggle" id="themeToggle">☀️</button>
+    </header>
+    <nav class="breadcrumb"><a href="/">Home</a> › LLM Prompt Cost Calculator</nav>
+    <article class="landing-content">
+        <h1>LLM Prompt Cost Calculator — Compare Cost Across All Major Providers</h1>
+
+        <p>freetokencounter.app is a free LLM prompt cost calculator that shows you the dollar cost of any prompt across 30+ models — GPT-4o, Claude 3.5, Gemini, Llama, DeepSeek, Mistral, Kimi, Sonar, MiniMax — in real time. Paste your prompt, set your expected output token count, and compare the per-request cost across every model that fits your context window. No sign-up, no API key, no upload — pricing data comes from each provider's published rate card.</p>
+
+        <h2>How LLM cost calculation works</h2>
+        <div class="formula">cost_usd = (input_tokens / 1,000,000) × input_rate
+         + (output_tokens / 1,000,000) × output_rate</div>
+
+        <p>Both inputs and outputs are billed, with outputs almost always more expensive. A 2,000-token prompt to GPT-4o that returns 500 tokens costs (2000/1M)×$2.50 + (500/1M)×$10.00 = $0.0050 + $0.0050 = $0.01 per request. Run that 100,000 times and you've spent $1,000.</p>
+
+        <h2>Cost per million tokens — current rates</h2>
+        <table class="compare-table">
+            <thead>
+                <tr><th>Model</th><th>Input $/1M</th><th>Output $/1M</th><th>1K-token chat *</th></tr>
+            </thead>
+            <tbody>
+                <tr><td class="model">Gemini 1.5 Flash</td><td>$0.075</td><td>$0.30</td><td>$0.0002</td></tr>
+                <tr><td class="model">GPT-4o-mini</td><td>$0.15</td><td>$0.60</td><td>$0.0004</td></tr>
+                <tr><td class="model">Mistral Nemo</td><td>$0.15</td><td>$0.15</td><td>$0.0002</td></tr>
+                <tr><td class="model">Gemini 2.0 Flash</td><td>$0.10</td><td>$0.40</td><td>$0.0003</td></tr>
+                <tr><td class="model">Claude 3 Haiku</td><td>$0.25</td><td>$1.25</td><td>$0.0008</td></tr>
+                <tr><td class="model">DeepSeek V3</td><td>$0.27</td><td>$1.10</td><td>$0.0007</td></tr>
+                <tr><td class="model">DeepSeek R1</td><td>$0.55</td><td>$2.19</td><td>$0.0014</td></tr>
+                <tr><td class="model">Kimi K2</td><td>$0.60</td><td>$2.50</td><td>$0.0016</td></tr>
+                <tr><td class="model">Claude 3.5 Haiku</td><td>$0.80</td><td>$4.00</td><td>$0.0024</td></tr>
+                <tr><td class="model">Gemini 1.5 Pro</td><td>$1.25</td><td>$5.00</td><td>$0.0031</td></tr>
+                <tr><td class="model">GPT-4o</td><td>$2.50</td><td>$10.00</td><td>$0.0063</td></tr>
+                <tr><td class="model">Mistral Large 2</td><td>$2.00</td><td>$6.00</td><td>$0.0040</td></tr>
+                <tr><td class="model">Sonar Pro</td><td>$3.00</td><td>$15.00</td><td>$0.0090</td></tr>
+                <tr><td class="model">Claude 3.5 Sonnet</td><td>$3.00</td><td>$15.00</td><td>$0.0090</td></tr>
+                <tr><td class="model">o1-mini</td><td>$3.00</td><td>$12.00</td><td>$0.0078</td></tr>
+                <tr><td class="model">GPT-4 Turbo</td><td>$10.00</td><td>$30.00</td><td>$0.0200</td></tr>
+                <tr><td class="model">o1</td><td>$15.00</td><td>$60.00</td><td>$0.0375</td></tr>
+                <tr><td class="model">Claude 3 Opus</td><td>$15.00</td><td>$75.00</td><td>$0.0450</td></tr>
+            </tbody>
+        </table>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:-6px;">* Sample chat: 1,500 input tokens + 500 output tokens. Pricing reflects each provider's official rate card.</p>
+
+        <h2>Cost optimization strategies</h2>
+        <ol>
+            <li><strong>Pick the right tier</strong> — Most workflows over-buy. GPT-4o-mini, Claude 3.5 Haiku, and Gemini Flash handle 90% of typical chat tasks at 5-20x lower cost than the flagship models.</li>
+            <li><strong>Use prompt caching</strong> — Both OpenAI and Anthropic offer 50-90% discounts on cached input tokens (above 1,024 tokens). For RAG and chatbot workflows, caching pays for itself immediately.</li>
+            <li><strong>Cap output tokens</strong> — Set <code>max_tokens</code> aggressively. Output is 4-5x more expensive than input on most models.</li>
+            <li><strong>Compress system prompts</strong> — A 500-token system prompt repeated 1M times = 500M tokens billed. Trim ruthlessly.</li>
+            <li><strong>Route by complexity</strong> — Use a small model to classify requests, then route only complex ones to the flagship.</li>
+        </ol>
+
+        <h2>Hidden costs to watch</h2>
+        <ul>
+            <li><strong>Function calling overhead</strong> — Tool definitions add 100-500 tokens per request, each request.</li>
+            <li><strong>Vision input</strong> — Images cost 85-1,200+ tokens depending on resolution and detail level.</li>
+            <li><strong>Reasoning tokens</strong> — o1 and DeepSeek R1 emit hidden "thinking" tokens billed as output, often 1,000-10,000 per response.</li>
+            <li><strong>Streaming latency</strong> — Streaming doesn't change cost but does change UX and may cause client-side over-polling.</li>
+        </ul>
+
+        <div class="cta-box">
+            <h3>Calculate cost for any prompt — free</h3>
+            <p>Live cost across 30+ models. Adjust output tokens, switch models, see savings instantly.</p>
+            <a href="/" class="cta-btn">Open Cost Calculator →</a>
+        </div>
+
+        <h2>Frequently Asked Questions</h2>
+        <details><summary>How is LLM cost calculated?</summary><p>LLM cost = (input_tokens / 1,000,000) × input_rate + (output_tokens / 1,000,000) × output_rate. freetokencounter.app counts your input tokens automatically and lets you set expected output tokens. Total updates live as you edit your prompt.</p></details>
+        <details><summary>Which model is cheapest for a given prompt?</summary><p>It depends on the workload. For chat: Gemini 1.5 Flash ($0.075/$0.30) and GPT-4o-mini ($0.15/$0.60) are cheapest. For long-context RAG: Gemini 1.5 Flash and DeepSeek V3 lead. For reasoning: DeepSeek R1 is the cheapest reasoning-capable model. freetokencounter.app shows live cost across all 30+ models so you can compare instantly.</p></details>
+        <details><summary>How accurate is the cost estimate?</summary><p>Cost is calculated from token counts (within ±5% on English) multiplied by current published rate cards. It's accurate enough for budgeting and model selection, not for finance-grade accounting. Always validate against the provider's billing dashboard for production.</p></details>
+        <details><summary>Does the calculator handle prompt caching discounts?</summary><p>The displayed cost is the standard rate. Prompt caching (OpenAI and Anthropic both offer it) gives a 50-90% discount on the cached portion of inputs. For pipelines using caching heavily, real cost will be lower than the calculator shows.</p></details>
+        <details><summary>What about output token estimation?</summary><p>Output tokens are user-set in freetokencounter.app — there's no way to predict them exactly without running the model. A reasonable default is 500-1,000 for chat replies, 2,000-4,000 for long generations. Adjust to match your typical response length.</p></details>
+        <details><summary>Are Llama costs really $0?</summary><p>Llama models are open-weight — Meta does not run a first-party API. You pay for compute via hosts like Together, Groq, Fireworks, or Replicate. Pricing varies but typically runs $0.20-$0.90/1M input. freetokencounter.app shows tokens; check your host's rate card for cost.</p></details>
+
+        <h2>Related Tools</h2>
+        <div class="related-tools">
+            <a href="/gpt-4o-token-counter" class="related-tool-card"><div class="tool-name">GPT-4o Token Counter</div><div class="tool-desc">OpenAI deep dive</div></a>
+            <a href="/claude-token-counter" class="related-tool-card"><div class="tool-name">Claude Token Counter</div><div class="tool-desc">Anthropic family</div></a>
+            <a href="/how-to-count-tokens-for-llms" class="related-tool-card"><div class="tool-name">How Token Counting Works</div><div class="tool-desc">Plain-English guide</div></a>
+            <a href="/vs-openai-tokenizer" class="related-tool-card"><div class="tool-name">vs OpenAI Tokenizer</div><div class="tool-desc">Multi-model alternative</div></a>
+        </div>
+    </article>
+    <footer class="landing-footer">&copy; freetokencounter.app</footer>
+    <a href="https://freesuite.app" class="suite-badge" target="_blank" rel="noopener"><span class="badge-prefix">by </span>freesuite.app</a>
+    <script>(()=>{const t=document.getElementById('themeToggle');const g=()=>localStorage.getItem('suite_theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');const a=v=>{document.documentElement.classList.toggle('dark',v==='dark');t.textContent=v==='dark'?'🌙':'☀️';localStorage.setItem('suite_theme',v)};a(g());t.addEventListener('click',()=>a(document.documentElement.classList.contains('dark')?'light':'dark'))})();</script>
+</body>
+</html>

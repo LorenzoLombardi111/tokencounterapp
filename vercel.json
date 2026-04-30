@@ -1,0 +1,42 @@
+{
+  "buildCommand": null,
+  "outputDirectory": ".",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    },
+    {
+      "source": "/sw.js",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache" }
+      ]
+    },
+    {
+      "source": "/(.*).html",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
+      ]
+    },
+    {
+      "source": "/llms(.*).txt",
+      "headers": [
+        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
+      ]
+    }
+  ],
+  "rewrites": [
+    { "source": "/vs-openai-tokenizer", "destination": "/pages/vs-openai-tokenizer.html" },
+    { "source": "/gpt-4o-token-counter", "destination": "/pages/gpt-4o-token-counter.html" },
+    { "source": "/claude-token-counter", "destination": "/pages/claude-token-counter.html" },
+    { "source": "/how-to-count-tokens-for-llms", "destination": "/pages/how-to-count-tokens-for-llms.html" },
+    { "source": "/llm-prompt-cost-calculator", "destination": "/pages/llm-prompt-cost-calculator.html" }
+  ]
+}

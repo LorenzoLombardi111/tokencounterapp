@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+    <rect width="1200" height="630" fill="#faf9f6"/>
+    <text x="80" y="220" font-family="DM Sans, sans-serif" font-size="64" font-weight="700" fill="#1a1917">Free AI Token Counter</text>
+    <text x="80" y="290" font-family="Lora, serif" font-size="28" fill="#6b6760">Count tokens for GPT, Claude, Gemini, Llama,</text>
+    <text x="80" y="328" font-family="Lora, serif" font-size="28" fill="#6b6760">DeepSeek, Mistral and more — in your browser.</text>
+
+    <g transform="translate(80, 400)">
+        <rect width="170" height="44" rx="8" fill="#C49A2A"/>
+        <text x="85" y="29" font-family="DM Sans, sans-serif" font-size="18" font-weight="600" fill="#ffffff" text-anchor="middle">Try it free</text>
+    </g>
+    <g transform="translate(270, 400)">
+        <rect width="200" height="44" rx="8" fill="#f4f2ee" stroke="#e8e4dd"/>
+        <text x="100" y="29" font-family="DM Sans, sans-serif" font-size="15" fill="#6b6760" text-anchor="middle">30+ models, instant</text>
+    </g>
+
+    <g transform="translate(80, 510)">
+        <circle cx="6" cy="6" r="4" fill="#10a37f"/><text x="20" y="11" font-family="DM Sans, sans-serif" font-size="14" fill="#6b6760">OpenAI</text>
+        <circle cx="106" cy="6" r="4" fill="#d97706"/><text x="120" y="11" font-family="DM Sans, sans-serif" font-size="14" fill="#6b6760">Anthropic</text>
+        <circle cx="220" cy="6" r="4" fill="#4285f4"/><text x="234" y="11" font-family="DM Sans, sans-serif" font-size="14" fill="#6b6760">Google</text>
+        <circle cx="318" cy="6" r="4" fill="#1877f2"/><text x="332" y="11" font-family="DM Sans, sans-serif" font-size="14" fill="#6b6760">Meta</text>
+        <circle cx="402" cy="6" r="4" fill="#ff7000"/><text x="416" y="11" font-family="DM Sans, sans-serif" font-size="14" fill="#6b6760">Mistral</text>
+        <circle cx="500" cy="6" r="4" fill="#6f42c1"/><text x="514" y="11" font-family="DM Sans, sans-serif" font-size="14" fill="#6b6760">DeepSeek</text>
+        <circle cx="616" cy="6" r="4" fill="#00a3ff"/><text x="630" y="11" font-family="DM Sans, sans-serif" font-size="14" fill="#6b6760">Moonshot</text>
+        <circle cx="734" cy="6" r="4" fill="#20b8cd"/><text x="748" y="11" font-family="DM Sans, sans-serif" font-size="14" fill="#6b6760">Perplexity</text>
+        <circle cx="858" cy="6" r="4" fill="#ec4899"/><text x="872" y="11" font-family="DM Sans, sans-serif" font-size="14" fill="#6b6760">MiniMax</text>
+    </g>
+
+    <text x="1120" y="600" font-family="DM Sans, sans-serif" font-size="14" fill="#9e9b96" text-anchor="end">freetokencounter.app · by freesuite.app</text>
+</svg>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found — freetokencounter.app</title>
+    <meta name="robots" content="noindex">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        :root{--bg:#faf9f6;--surface:#f4f2ee;--border:#e8e4dd;--text-primary:#1a1917;--text-secondary:#6b6760;--text-muted:#9e9b96;--accent:#C49A2A;--accent-hover:#A8831F;--accent-text:#fff;--font-body:'Lora',serif;--font-ui:'DM Sans',sans-serif}
+        html.dark{--bg:#141412;--surface:#1e1c1a;--border:#2e2b27;--text-primary:#f0ede8;--text-secondary:#9e9b96;--text-muted:#6b6760;--accent:#D4A835;--accent-hover:#C49A2A}
+        html{font-size:15px;line-height:1.6}
+        body{font-family:var(--font-body);background:var(--bg);color:var(--text-primary);height:100vh;display:flex;flex-direction:column}
+        .header{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:1px solid var(--border);background:var(--bg);flex-shrink:0}
+        .header-brand{font-family:var(--font-ui);font-size:15px;font-weight:600;color:var(--accent);text-decoration:none}
+        .theme-toggle{font-family:var(--font-ui);font-size:13px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:6px 12px;cursor:pointer;color:var(--text-secondary);transition:all .15s ease}
+        .theme-toggle:hover{background:var(--border)}
+        .content{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
+        .error-code{font-family:var(--font-ui);font-size:64px;font-weight:700;color:var(--text-muted);line-height:1}
+        .error-message{font-size:18px;color:var(--text-secondary);margin-top:12px;margin-bottom:32px;max-width:480px}
+        .btn{font-family:var(--font-ui);font-size:15px;font-weight:600;background:var(--accent);color:var(--accent-text);border:none;border-radius:8px;padding:12px 24px;cursor:pointer;text-decoration:none;transition:all .15s ease}
+        .btn:hover{background:var(--accent-hover)}
+        .more-tools{margin-top:48px;text-align:center}
+        .more-tools h3{font-family:var(--font-ui);font-size:13px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px}
+        .tool-links{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:560px}
+        .tool-link{font-family:var(--font-ui);font-size:12px;color:var(--accent);text-decoration:none;padding:6px 12px;border:1px solid var(--border);border-radius:6px;transition:all .15s ease}
+        .tool-link:hover{background:var(--surface)}
+        .suite-badge{position:fixed;bottom:16px;right:16px;font-family:var(--font-ui);font-size:11px;color:var(--text-muted);text-decoration:none}
+        @media (max-width:768px){.error-code{font-size:48px}.suite-badge .badge-prefix{display:none}}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="/" class="header-brand">freetokencounter.app</a>
+        <button class="theme-toggle" id="themeToggle">☀️</button>
+    </header>
+    <main class="content">
+        <div class="error-code">404</div>
+        <p class="error-message">This page doesn't exist. The token counter is on the homepage.</p>
+        <a href="/" class="btn">Open AI Token Counter →</a>
+        <div class="more-tools">
+            <h3>More free tools from Freesuite</h3>
+            <div class="tool-links">
+                <a href="https://freewordcounter.app" class="tool-link">Word Counter</a>
+                <a href="https://freejsonformatter.app" class="tool-link">JSON Formatter</a>
+                <a href="https://freecsv2json.app" class="tool-link">CSV to JSON</a>
+                <a href="https://freebase64.app" class="tool-link">Base64 Encoder</a>
+                <a href="https://freecaseconverter.app" class="tool-link">Case Converter</a>
+                <a href="https://freeloremipsum.app" class="tool-link">Lorem Ipsum</a>
+                <a href="https://freenotepad.app" class="tool-link">Notepad</a>
+                <a href="https://freesuite.app" class="tool-link">All Freesuite</a>
+            </div>
+        </div>
+    </main>
+    <a href="https://freesuite.app" class="suite-badge" target="_blank" rel="noopener"><span class="badge-prefix">by </span>freesuite.app</a>
+    <script>(()=>{const t=document.getElementById('themeToggle');const g=()=>localStorage.getItem('suite_theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');const a=v=>{document.documentElement.classList.toggle('dark',v==='dark');t.textContent=v==='dark'?'🌙':'☀️';localStorage.setItem('suite_theme',v)};a(g());t.addEventListener('click',()=>a(document.documentElement.classList.contains('dark')?'light':'dark'))})();</script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+# freetokencounter.app — Full Content
+
+## Index
+
+- [Home — AI Token Counter](#home)
+- [OpenAI Tokenizer Alternative](#vs-openai-tokenizer)
+- [GPT-4o Token Counter](#gpt-4o-token-counter)
+- [Claude Token Counter](#claude-token-counter)
+- [How to Count Tokens for LLMs](#how-to-count-tokens-for-llms)
+- [LLM Prompt Cost Calculator](#llm-prompt-cost-calculator)
+
+---
+
+# Home {#home}
+
+## AI Token Counter — Count Tokens for GPT, Claude, Gemini, Llama and More
+
+freetokencounter.app is a free, browser-based token counter that supports every major large language model: OpenAI's GPT-4o, GPT-4 and o1 series, Anthropic's Claude 3.5 Sonnet, Haiku and Opus, Google's Gemini 1.5 Pro and Flash, Meta's Llama 3.3 and 3.1 family, Mistral's Large 2 and Codestral, DeepSeek V3 and R1, Moonshot's Kimi K2, Perplexity's Sonar models, and MiniMax. Paste any text — a prompt, a code block, JSON, or non-Latin script — and freetokencounter.app shows the token count, characters, words, context-window usage, and cost estimate live, with a colored visualization of how the model splits your text. Nothing uploads to a server: the entire tool runs locally in your browser.
+
+### How does freetokencounter.app count tokens?
+
+Every model uses a slightly different tokenizer, and most providers don't publish their exact tokenizer for in-browser use. freetokencounter.app combines the publicly documented GPT-2 / cl100k splitting regex with per-model calibration constants tuned against each provider's reference outputs. For English prose the result is accurate within roughly five percent — close enough to plan prompts, fit context windows, and budget API spend. The "Estimate" pill on every count makes the methodology transparent: there is no model where freetokencounter.app pretends to be an exact tokenizer when it isn't.
+
+### Why count tokens before sending a prompt?
+
+Tokens are the unit AI models bill, the unit context windows are measured in, and the unit that determines whether a prompt will fit at all. Counting tokens before sending lets you avoid context-overflow errors, predict cost down to the cent, compare model efficiency for the same task, and right-size your prompts.
+
+### Is freetokencounter.app free and private?
+
+Yes — completely free, no sign-up, no rate limits, no API key required. Every keystroke is processed locally in your browser using JavaScript that ships with the page. Nothing about your prompt — not the text, not the count, not the model selection — is sent to any server.
+
+### How accurate is freetokencounter.app for each model?
+
+For OpenAI models (GPT-3.5, GPT-4, GPT-4o, o1) and Llama models, the count is calibrated against the published reference tokenizers and is typically within ±3% on English text. For Anthropic Claude, Google Gemini, Moonshot Kimi, and MiniMax — providers that don't release a fully open tokenizer — counts are within roughly ±5–8%.
+
+### AI Model Token Limits & Pricing Comparison
+
+| Model | Provider | Context | Input $/1M | Output $/1M |
+|---|---|---|---|---|
+| GPT-4o | OpenAI | 128K | $2.50 | $10.00 |
+| GPT-4o-mini | OpenAI | 128K | $0.15 | $0.60 |
+| GPT-4 Turbo | OpenAI | 128K | $10.00 | $30.00 |
+| GPT-3.5 Turbo | OpenAI | 16K | $0.50 | $1.50 |
+| o1 | OpenAI | 128K | $15.00 | $60.00 |
+| o1-mini | OpenAI | 128K | $3.00 | $12.00 |
+| Claude 3.5 Sonnet | Anthropic | 200K | $3.00 | $15.00 |
+| Claude 3.5 Haiku | Anthropic | 200K | $0.80 | $4.00 |
+| Claude 3 Opus | Anthropic | 200K | $15.00 | $75.00 |
+| Claude 3 Haiku | Anthropic | 200K | $0.25 | $1.25 |
+| Gemini 2.0 Flash | Google | 1M | $0.10 | $0.40 |
+| Gemini 1.5 Pro | Google | 2M | $1.25 | $5.00 |
+| Gemini 1.5 Flash | Google | 1M | $0.075 | $0.30 |
+| Llama 3.3 70B | Meta | 128K | — | — |
+| Llama 3.1 405B | Meta | 128K | — | — |
+| Llama 3.1 70B | Meta | 128K | — | — |
+| Llama 3.1 8B | Meta | 128K | — | — |
+| Mistral Large 2 | Mistral | 128K | $2.00 | $6.00 |
+| Mistral Nemo | Mistral | 128K | $0.15 | $0.15 |
+| Codestral | Mistral | 32K | $0.20 | $0.60 |
+| DeepSeek V3 | DeepSeek | 128K | $0.27 | $1.10 |
+| DeepSeek R1 | DeepSeek | 128K | $0.55 | $2.19 |
+| Kimi K2 | Moonshot | 128K | $0.60 | $2.50 |
+| Sonar Pro | Perplexity | 200K | $3.00 | $15.00 |
+| MiniMax-Text-01 | MiniMax | 1M | $0.20 | $1.10 |
+
+### Why use freetokencounter.app
+
+- **Every major model** — 30+ models across 9 providers
+- **Token visualization** — Each token highlighted with a cycling pastel color
+- **Live cost estimate** — Real-time input + output cost
+- **100% private** — Everything runs in your browser
+- **Context-window meter** — Live progress bar
+- **No sign-up, no API key** — Open the site and paste
+
+### How token counting works
+
+1. **Split into chunks** — Apply the public GPT-2 splitting pattern
+2. **Apply model calibration** — Per-model constants adjust the count
+3. **Display + visualize** — Live count, context-window usage, cost estimate
+
+### FAQ
+
+**What is a token in an AI model?** A token is the smallest unit of text an AI model processes. Tokens can be whole words, sub-words, or single characters depending on the tokenizer. As a rough rule, 1 token ≈ 4 characters or ¾ of an English word.
+
+**How accurate is freetokencounter.app?** Counts are estimates within roughly ±5% for English text on most models. The tool uses the public GPT-2 / cl100k splitting pattern combined with per-model calibration constants.
+
+**Which models does freetokencounter.app support?** OpenAI, Anthropic, Google, Meta Llama, Mistral, DeepSeek, Moonshot Kimi, Perplexity Sonar, MiniMax — about 30 models in total.
+
+**Is my prompt uploaded anywhere?** No. freetokencounter.app runs entirely in your browser.
+
+**Why does the same text produce different token counts on different models?** Each model family uses a different tokenizer trained on different data with a different vocabulary.
+
+**How is cost calculated?** Input tokens × per-million input rate, plus expected output tokens × per-million output rate.
+
+**What is a context window?** The maximum number of tokens (input + output combined) a model can process in a single request.
+
+**Can I count tokens for code or non-English text?** Yes. Note that code and non-English text typically use 30–80% more tokens than equivalent English prose.
+
+---
+
+# OpenAI Tokenizer Alternative {#vs-openai-tokenizer}
+
+## Multi-Model Token Counter
+
+If you're looking for a free alternative to OpenAI's tokenizer playground that counts tokens for GPT models AND Claude, Gemini, Llama, DeepSeek, Mistral, Kimi, Sonar, and MiniMax, freetokencounter.app is built for that. The OpenAI tokenizer only covers OpenAI models.
+
+### Comparison
+
+| Feature | freetokencounter.app | OpenAI Tokenizer |
+|---|---|---|
+| OpenAI models (GPT-3.5/4/4o, o1) | ✓ Calibrated | ✓ Exact |
+| Anthropic Claude | ✓ | ✗ |
+| Google Gemini | ✓ | ✗ |
+| Meta Llama | ✓ | ✗ |
+| DeepSeek | ✓ | ✗ |
+| Kimi, Mistral, Perplexity, MiniMax | ✓ | ✗ |
+| Live cost estimate | ✓ | ✗ |
+| Context-window meter | ✓ | ✗ |
+| Token visualization | ✓ | ✓ |
+| Privacy (in-browser) | ✓ | ✓ |
+
+### When to use OpenAI's tokenizer instead
+
+If you only work with OpenAI models and need byte-exact counts (e.g., for fine-tuning datasets), OpenAI's tokenizer playground is canonical — it ships the full vocabulary and matches the API's count exactly. freetokencounter.app trades a few percentage points of accuracy for breadth: 30 models from 9 providers.
+
+### Why count tokens across providers?
+
+Modern LLM workflows rarely stay on one provider. You might draft on GPT-4o, run cheap bulk classification on Claude Haiku, do code work on DeepSeek V3, and route grounded queries to Sonar. Each tokenizer produces different counts for the same text — sometimes 20% apart.
+
+---
+
+# GPT-4o Token Counter {#gpt-4o-token-counter}
+
+## GPT-4o Token Counter — Free, In-Browser
+
+freetokencounter.app provides a free GPT-4o token counter that works entirely in your browser. Paste your prompt, see the GPT-4o token count update live, and watch the cost calculate against OpenAI's published pricing.
+
+### GPT-4o at a glance
+- Context window: 128K tokens
+- Max output: 16,384 tokens
+- Input: $2.50 / 1M
+- Output: $10.00 / 1M
+
+### How GPT-4o tokenization differs from GPT-4
+
+GPT-4o introduced the o200k_base tokenizer with roughly 200,000 vocabulary entries — about double GPT-4's cl100k_base. The expanded vocabulary makes GPT-4o noticeably more efficient on code, multilingual text, and structured data.
+
+### Why GPT-4o token counts matter
+
+- **Context fit** — 128K is generous but not unlimited
+- **Cost predictability** — Small overcounts compound at scale
+- **Latency** — Larger inputs mean slower first-token times
+- **Cache efficiency** — Prompt caching kicks in at 1,024 tokens
+
+---
+
+# Claude Token Counter {#claude-token-counter}
+
+## Claude Token Counter — Sonnet, Haiku, Opus
+
+freetokencounter.app provides a free Claude token counter for the entire Claude 3 and 3.5 family. All counts are honest approximations calibrated against Claude's actual behavior on English text — Anthropic does not release a fully open tokenizer for Claude 3+.
+
+### Claude 3.5 Sonnet at a glance
+- Context window: 200K tokens
+- Max output: 8K tokens
+- Input: $3.00 / 1M
+- Output: $15.00 / 1M
+
+### Claude family pricing
+
+| Model | Context | Input $/1M | Output $/1M |
+|---|---|---|---|
+| Claude 3.5 Sonnet | 200K | $3.00 | $15.00 |
+| Claude 3.5 Haiku | 200K | $0.80 | $4.00 |
+| Claude 3 Opus | 200K | $15.00 | $75.00 |
+| Claude 3 Haiku | 200K | $0.25 | $1.25 |
+
+### How Claude tokenization differs from GPT
+
+Anthropic uses a custom byte-pair encoding tokenizer. For the same English paragraph, Claude typically produces 5–10% more tokens than GPT-4o.
+
+### Why Claude's 200K context matters
+
+- Long-document workflows — fit a 150-page contract or full codebase
+- RAG retrieval — pack 50+ retrieved chunks
+- Cost trade-off — at $3/1M, 200K tokens = $0.60 per request
+- Latency — first-token latency rises with input size
+
+---
+
+# How to Count Tokens for LLMs {#how-to-count-tokens-for-llms}
+
+## A Practical Guide
+
+Token counting is the difference between a prompt that fits and one that errors out, and between a budget that holds and one that blows up by 10x.
+
+### What is a token?
+
+A token is the smallest unit of text a large language model processes. Common short English words like "the" are one token. Longer or rarer words split into multiple pieces: "tokenization" might be ["token", "ization"]. Rule of thumb: 1 token ≈ 4 characters ≈ ¾ of a word.
+
+### Why count tokens?
+
+1. **Cost** — APIs bill per million tokens
+2. **Context fit** — every model has a hard limit
+3. **Cache eligibility** — caching activates at 1,024 tokens
+4. **Latency** — first-token time scales with input size
+
+### How tokenizers actually work — BPE in 60 seconds
+
+1. Start with every byte (0–255) as a base token
+2. Find the most frequent adjacent pair and merge into a new token
+3. Repeat ~100,000 times
+4. Common sequences become single tokens; rare ones fall back to byte-level
+
+GPT-4 uses cl100k_base (~100K tokens). GPT-4o uses o200k_base (~200K). Llama 3 uses its own ~128K BPE.
+
+### Token counts vary across models
+
+Same 1,000-character English paragraph:
+- GPT-4o (o200k_base): ~190 tokens
+- GPT-3.5 (cl100k_base): ~210 tokens
+- Claude 3.5 Sonnet: ~215 tokens (estimate)
+- Gemini 1.5 Pro: ~180 tokens (estimate)
+- Llama 3 / Llama 3.1: ~205 tokens
+- Mistral Large 2: ~210 tokens
+- DeepSeek V3: ~225 tokens
+
+### Special cases
+- **Code** uses 30–50% more tokens than equivalent prose
+- **JSON** keys repeat — caching helps a lot
+- **Non-English text**: Latin scripts are fairly efficient; CJK, Arabic use more
+- **System prompts** add 3–7 tokens overhead per chat message
+
+---
+
+# LLM Prompt Cost Calculator {#llm-prompt-cost-calculator}
+
+## Compare Cost Across All Major Providers
+
+freetokencounter.app shows the dollar cost of any prompt across 30+ models in real time.
+
+### Formula
+
+```
+cost_usd = (input_tokens / 1,000,000) × input_rate
+        + (output_tokens / 1,000,000) × output_rate
+```
+
+### Sample chat costs (1,500 input + 500 output tokens)
+
+| Model | Input $/1M | Output $/1M | 1K-token chat |
+|---|---|---|---|
+| Gemini 1.5 Flash | $0.075 | $0.30 | $0.0002 |
+| GPT-4o-mini | $0.15 | $0.60 | $0.0004 |
+| Mistral Nemo | $0.15 | $0.15 | $0.0002 |
+| Gemini 2.0 Flash | $0.10 | $0.40 | $0.0003 |
+| Claude 3 Haiku | $0.25 | $1.25 | $0.0008 |
+| DeepSeek V3 | $0.27 | $1.10 | $0.0007 |
+| DeepSeek R1 | $0.55 | $2.19 | $0.0014 |
+| Kimi K2 | $0.60 | $2.50 | $0.0016 |
+| Claude 3.5 Haiku | $0.80 | $4.00 | $0.0024 |
+| Gemini 1.5 Pro | $1.25 | $5.00 | $0.0031 |
+| GPT-4o | $2.50 | $10.00 | $0.0063 |
+| Mistral Large 2 | $2.00 | $6.00 | $0.0040 |
+| Sonar Pro | $3.00 | $15.00 | $0.0090 |
+| Claude 3.5 Sonnet | $3.00 | $15.00 | $0.0090 |
+| o1-mini | $3.00 | $12.00 | $0.0078 |
+| GPT-4 Turbo | $10.00 | $30.00 | $0.0200 |
+| o1 | $15.00 | $60.00 | $0.0375 |
+| Claude 3 Opus | $15.00 | $75.00 | $0.0450 |
+
+### Cost optimization strategies
+
+1. **Pick the right tier** — small models handle 90% of typical chat tasks at 5-20x lower cost
+2. **Use prompt caching** — 50–90% discount on cached input tokens above 1,024 tokens
+3. **Cap output tokens** — output is 4-5x more expensive than input
+4. **Compress system prompts** — repeated overhead compounds at scale
+5. **Route by complexity** — small model classifies, big model handles complex cases
+
+### Hidden costs
+
+- **Function calling overhead** — tool definitions add 100–500 tokens per request
+- **Vision input** — images cost 85–1,200+ tokens depending on resolution
+- **Reasoning tokens** — o1 and DeepSeek R1 emit hidden thinking tokens
+- **Streaming** — same cost, but client-side polling can multiply requests
+
+---
+
+End of llms-full.txt for freetokencounter.app

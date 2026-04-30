@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Count Tokens for LLMs — freetokencounter.app</title>
+    <meta name="description" content="Step-by-step guide to counting tokens for any LLM. Understand tokenization, BPE, context windows, and how to estimate cost before sending a prompt.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://freetokencounter.app/how-to-count-tokens-for-llms">
+    <meta name="theme-color" content="#faf9f6">
+    <link rel="manifest" href="/manifest.json">
+    <meta property="og:title" content="How to Count Tokens for LLMs — freetokencounter.app">
+    <meta property="og:description" content="Step-by-step guide to counting tokens for any LLM. Understand tokenization, BPE, context windows, and how to estimate cost before sending a prompt.">
+    <meta property="og:image" content="https://freetokencounter.app/og-image.svg">
+    <meta property="og:url" content="https://freetokencounter.app/how-to-count-tokens-for-llms">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How to Count Tokens for LLMs — freetokencounter.app">
+    <meta name="twitter:description" content="Step-by-step guide to counting tokens for any LLM. Understand tokenization, BPE, context windows, and how to estimate cost before sending a prompt.">
+    <meta name="twitter:image" content="https://freetokencounter.app/og-image.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script type="application/ld+json">{ "@context": "https://schema.org", "@type": "Article", "headline": "How to Count Tokens for LLMs", "description": "Step-by-step guide to counting tokens for any LLM. Understand tokenization, BPE, context windows, and how to estimate cost before sending a prompt.", "url": "https://freetokencounter.app/how-to-count-tokens-for-llms", "publisher": { "@type": "Organization", "name": "freetokencounter.app", "url": "https://freetokencounter.app/" } }</script>
+    <script type="application/ld+json">{ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+        { "@type": "Question", "name": "What is a token in plain English?", "acceptedAnswer": { "@type": "Answer", "text": "A token is the smallest unit of text an LLM processes. Most are subword pieces — common short words become one token (\"the\", \"is\"), while longer words split into 2-4 pieces (\"tokenization\" → \"token\" + \"ization\"). The rule of thumb: 1 token ≈ 4 English characters or ¾ of a word." } },
+        { "@type": "Question", "name": "Why do tokens matter for pricing and limits?", "acceptedAnswer": { "@type": "Answer", "text": "LLM APIs bill per token (input + output) and enforce context-window limits in tokens. A 1,000-word email costs about 1,330 tokens. Knowing the count before sending lets you budget exactly and avoid context-overflow errors." } },
+        { "@type": "Question", "name": "Is a token always one word?", "acceptedAnswer": { "@type": "Answer", "text": "No. Common short words are one token. Longer or rarer words split into multiple tokens. \"Hello\" is one token; \"unbelievably\" might be three. Numbers, code, and non-English text use more tokens than equivalent English prose." } },
+        { "@type": "Question", "name": "How do I count tokens without an API key?", "acceptedAnswer": { "@type": "Answer", "text": "Use freetokencounter.app — it counts tokens for 30+ models in your browser, no sign-up or API key required. For OpenAI specifically, the tiktoken Python library and OpenAI's tokenizer playground both work offline." } },
+        { "@type": "Question", "name": "What is BPE (byte-pair encoding)?", "acceptedAnswer": { "@type": "Answer", "text": "BPE is the algorithm most modern LLMs use to break text into tokens. It starts with single bytes, then iteratively merges the most frequent adjacent pairs into new tokens. After training, common sequences like \"the \" or \"ing\" become single tokens. GPT, Claude, Llama, and Mistral all use variants of BPE." } },
+        { "@type": "Question", "name": "Are token counts the same across models?", "acceptedAnswer": { "@type": "Answer", "text": "No. Different models train tokenizers on different data with different vocab sizes. The same paragraph might be 200 tokens on GPT-4o, 215 on Claude, and 195 on Gemini. freetokencounter.app shows the difference for any prompt across 30+ models." } }
+    ] }</script>
+    <script type="application/ld+json">{ "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://freetokencounter.app/" },
+        { "@type": "ListItem", "position": 2, "name": "How to Count Tokens for LLMs", "item": "https://freetokencounter.app/how-to-count-tokens-for-llms" }
+    ] }</script>
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        :root{--bg:#faf9f6;--surface:#f4f2ee;--border:#e8e4dd;--text-primary:#1a1917;--text-secondary:#6b6760;--text-muted:#9e9b96;--accent:#C49A2A;--accent-hover:#A8831F;--accent-text:#fff;--shadow:0 1px 3px rgba(0,0,0,.06),0 2px 8px rgba(0,0,0,.04);--font-body:'Lora',serif;--font-ui:'DM Sans',sans-serif}
+        html.dark{--bg:#141412;--surface:#1e1c1a;--border:#2e2b27;--text-primary:#f0ede8;--text-secondary:#9e9b96;--text-muted:#6b6760;--accent:#D4A835;--accent-hover:#C49A2A;--shadow:0 1px 3px rgba(0,0,0,.3),0 2px 8px rgba(0,0,0,.2)}
+        html{font-size:15px;line-height:1.6}
+        body{font-family:var(--font-body);background:var(--bg);color:var(--text-primary)}
+        .header{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:100}
+        .header-brand{font-family:var(--font-ui);font-size:15px;font-weight:600;color:var(--accent);text-decoration:none}
+        .theme-toggle{font-family:var(--font-ui);font-size:13px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:6px 12px;cursor:pointer;color:var(--text-secondary);transition:all .15s ease}
+        .theme-toggle:hover{background:var(--border)}
+        .breadcrumb{font-family:var(--font-ui);font-size:12px;color:var(--text-muted);padding:12px 24px;max-width:800px;margin:0 auto}
+        .breadcrumb a{color:var(--accent);text-decoration:none}
+        .breadcrumb a:hover{text-decoration:underline}
+        .landing-content{max-width:800px;margin:0 auto;padding:32px 24px 64px}
+        .landing-content h1{font-size:32px;font-weight:700;margin-bottom:24px;line-height:1.3}
+        .landing-content h2{font-size:22px;font-weight:600;margin-top:36px;margin-bottom:12px}
+        .landing-content h3{font-family:var(--font-ui);font-size:16px;font-weight:600;margin-top:20px;margin-bottom:8px}
+        .landing-content p{color:var(--text-secondary);margin-bottom:16px;line-height:1.7}
+        .landing-content ul,.landing-content ol{margin:0 0 16px 20px;color:var(--text-secondary);line-height:1.8}
+        .step-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:16px 0 24px;counter-reset:step}
+        .step-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;position:relative}
+        .step-card::before{counter-increment:step;content:counter(step);position:absolute;top:12px;right:14px;font-family:var(--font-ui);font-size:24px;font-weight:700;color:var(--accent);opacity:.3}
+        .step-card .t{font-family:var(--font-ui);font-size:14px;font-weight:600;margin-bottom:4px;padding-right:24px}
+        .step-card .d{font-family:var(--font-ui);font-size:13px;color:var(--text-secondary);line-height:1.55}
+        .code-block{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px;font-family:'JetBrains Mono','SF Mono',Consolas,monospace;font-size:12px;line-height:1.6;color:var(--text-primary);overflow-x:auto;margin:14px 0}
+        .cta-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:32px;text-align:center;margin:32px 0}
+        .cta-box h3{font-family:var(--font-ui);font-size:18px;font-weight:600;margin-bottom:12px}
+        .cta-box p{color:var(--text-muted);margin-bottom:16px}
+        .cta-btn{font-family:var(--font-ui);font-size:15px;font-weight:600;background:var(--accent);color:var(--accent-text);border:none;border-radius:8px;padding:12px 24px;cursor:pointer;text-decoration:none;display:inline-block;transition:all .15s ease}
+        .cta-btn:hover{background:var(--accent-hover)}
+        details{border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:8px}
+        summary{font-family:var(--font-ui);font-weight:500;cursor:pointer}
+        details p{margin-top:12px;margin-bottom:0}
+        .related-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:20px 0}
+        .related-tool-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;text-decoration:none;transition:all .15s ease}
+        .related-tool-card:hover{box-shadow:var(--shadow)}
+        .related-tool-card .tool-name{font-family:var(--font-ui);font-size:13px;font-weight:600;color:var(--accent)}
+        .related-tool-card .tool-desc{font-family:var(--font-ui);font-size:12px;color:var(--text-muted);margin-top:4px}
+        .landing-footer{text-align:center;padding:32px 24px;font-family:var(--font-ui);font-size:12px;color:var(--text-muted);border-top:1px solid var(--border)}
+        .suite-badge{position:fixed;bottom:16px;right:16px;font-family:var(--font-ui);font-size:11px;color:var(--text-muted);text-decoration:none;background:var(--bg);padding:2px 6px;border-radius:4px}
+        @media (max-width:768px){.landing-content h1{font-size:24px}.landing-content{padding:24px 16px 48px}.suite-badge .badge-prefix{display:none}}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="/" class="header-brand">freetokencounter.app</a>
+        <button class="theme-toggle" id="themeToggle">☀️</button>
+    </header>
+    <nav class="breadcrumb"><a href="/">Home</a> › How to Count Tokens for LLMs</nav>
+    <article class="landing-content">
+        <h1>How to Count Tokens for LLMs — A Practical Guide</h1>
+
+        <p>Token counting is the difference between a prompt that fits and one that errors out, and between a budget that holds and one that blows up by 10x. This guide explains what tokens are, how every major LLM tokenizes text, and how to count tokens for GPT, Claude, Gemini, Llama, and the rest before you ever hit the API. freetokencounter.app makes the counting itself a single browser tab — but understanding why the count varies across models will save you real money.</p>
+
+        <h2>What is a token?</h2>
+        <p>A token is the smallest unit of text a large language model processes. It's not a character and it's not always a word — it's a learned subword unit that the model's tokenizer chose during training because that combination of letters appeared often enough to be worth its own slot in the vocabulary. Common short English words like "the" or "and" are one token. Longer or rarer words split into multiple pieces: "tokenization" might be ["token", "ization"], two tokens. Numbers, punctuation, code identifiers, and non-Latin characters all have their own behavior.</p>
+
+        <p>The rough rule for English: <strong>1 token ≈ 4 characters ≈ ¾ of a word</strong>. So a 1,000-word essay is around 1,330 tokens, and a 500-character tweet is around 125. But the rule is loose — for code, JSON, and non-English text, token counts run 30–100% higher.</p>
+
+        <h2>Why count tokens?</h2>
+        <ol>
+            <li><strong>Cost</strong> — APIs bill per million tokens. GPT-4o output costs $10/1M, Claude Opus output is $75/1M. A 5x miscount on a high-volume pipeline is a 5x bill.</li>
+            <li><strong>Context fit</strong> — every model has a hard limit (4K, 128K, 200K, 2M). Exceeding it returns an error or silently truncates.</li>
+            <li><strong>Cache eligibility</strong> — OpenAI's prompt caching activates at 1,024 tokens; Anthropic's at 1,024 too. Below that threshold, no cache discount applies.</li>
+            <li><strong>Latency</strong> — first-token time scales with input size. A 100K-token request can take 30+ seconds before the first response token appears.</li>
+        </ol>
+
+        <h2>How tokenizers actually work — BPE in 60 seconds</h2>
+        <p>Most modern LLMs use <strong>byte-pair encoding (BPE)</strong> or a variant. The algorithm:</p>
+        <ol>
+            <li>Start with every byte (0–255) as a base "token."</li>
+            <li>Find the most frequent adjacent pair across the training corpus and merge them into a new token.</li>
+            <li>Repeat ~100,000 times.</li>
+            <li>The resulting vocabulary contains common short sequences ("the_", " is", "ing") as single tokens, while rare sequences fall back to byte-level splits.</li>
+        </ol>
+
+        <p>GPT-4 uses cl100k_base (~100K tokens). GPT-4o uses o200k_base (~200K). Llama 3 uses its own ~128K BPE. Each tokenizer was trained on different data, so the same input produces different counts. That's why <strong>the same prompt costs different amounts on different models</strong>, and why you need a multi-model counter to compare.</p>
+
+        <h2>The 3-step token counting workflow</h2>
+        <div class="step-list">
+            <div class="step-card"><div class="t">Choose your target model</div><div class="d">Pick the model in freetokencounter.app's picker. The token count, context window, and pricing all switch instantly.</div></div>
+            <div class="step-card"><div class="t">Paste your prompt</div><div class="d">Paste the full prompt you'd send — system message, instructions, retrieved context, user query, examples. The count updates live.</div></div>
+            <div class="step-card"><div class="t">Check fit and cost</div><div class="d">Read the context-window meter (does it fit?) and the cost row (input $ + estimated output $). Adjust expected output tokens to model your budget.</div></div>
+        </div>
+
+        <h2>Token counts vary — here's the typical range</h2>
+        <p>The same 1,000-character English paragraph, tokenized by different models:</p>
+        <div class="code-block">GPT-4o (o200k_base):       ~190 tokens
+GPT-3.5 (cl100k_base):     ~210 tokens
+Claude 3.5 Sonnet:         ~215 tokens (estimate)
+Gemini 1.5 Pro:            ~180 tokens (estimate)
+Llama 3 / Llama 3.1:       ~205 tokens
+Mistral Large 2:           ~210 tokens
+DeepSeek V3:               ~225 tokens (smaller vocab)</div>
+
+        <p>The spread on English is modest — about 20% between the most and least efficient. On code, JSON, and non-Latin scripts, the spread can hit 50%+.</p>
+
+        <h2>Special cases to watch</h2>
+        <h3>Code</h3>
+        <p>Code uses 30–50% more tokens than equivalent prose. Identifiers like <code>getUserById</code> may split into 3-4 tokens. Punctuation density (parens, semicolons, dots) adds tokens fast.</p>
+
+        <h3>JSON</h3>
+        <p>JSON keys repeat constantly, so caching helps a lot — but uncached, expect 1.5x the tokens of the equivalent prose description.</p>
+
+        <h3>Non-English text</h3>
+        <p>Latin scripts (Spanish, French, German) are fairly efficient. Chinese, Japanese, Korean, Arabic, and other non-Latin scripts often use 2-3 tokens per character on older tokenizers; newer ones (o200k_base, Gemini) are much better.</p>
+
+        <h3>System prompts and message overhead</h3>
+        <p>The chat protocol adds 3-7 tokens per message for role markers and separators. freetokencounter.app counts the raw text — add a small overhead for full chat requests.</p>
+
+        <div class="cta-box">
+            <h3>Count tokens now — free, no sign-up</h3>
+            <p>30+ models, live counts, cost estimates, context-window meter — all in your browser.</p>
+            <a href="/" class="cta-btn">Open AI Token Counter →</a>
+        </div>
+
+        <h2>Frequently Asked Questions</h2>
+        <details><summary>What is a token in plain English?</summary><p>A token is the smallest unit of text an LLM processes. Most are subword pieces — common short words become one token ("the", "is"), while longer words split into 2-4 pieces ("tokenization" → "token" + "ization"). The rule of thumb: 1 token ≈ 4 English characters or ¾ of a word.</p></details>
+        <details><summary>Why do tokens matter for pricing and limits?</summary><p>LLM APIs bill per token (input + output) and enforce context-window limits in tokens. A 1,000-word email costs about 1,330 tokens. Knowing the count before sending lets you budget exactly and avoid context-overflow errors.</p></details>
+        <details><summary>Is a token always one word?</summary><p>No. Common short words are one token. Longer or rarer words split into multiple tokens. "Hello" is one token; "unbelievably" might be three. Numbers, code, and non-English text use more tokens than equivalent English prose.</p></details>
+        <details><summary>How do I count tokens without an API key?</summary><p>Use freetokencounter.app — it counts tokens for 30+ models in your browser, no sign-up or API key required. For OpenAI specifically, the tiktoken Python library and OpenAI's tokenizer playground both work offline.</p></details>
+        <details><summary>What is BPE (byte-pair encoding)?</summary><p>BPE is the algorithm most modern LLMs use to break text into tokens. It starts with single bytes, then iteratively merges the most frequent adjacent pairs into new tokens. After training, common sequences like "the " or "ing" become single tokens. GPT, Claude, Llama, and Mistral all use variants of BPE.</p></details>
+        <details><summary>Are token counts the same across models?</summary><p>No. Different models train tokenizers on different data with different vocab sizes. The same paragraph might be 200 tokens on GPT-4o, 215 on Claude, and 195 on Gemini. freetokencounter.app shows the difference for any prompt across 30+ models.</p></details>
+
+        <h2>Related Tools</h2>
+        <div class="related-tools">
+            <a href="/gpt-4o-token-counter" class="related-tool-card"><div class="tool-name">GPT-4o Token Counter</div><div class="tool-desc">OpenAI-specific deep dive</div></a>
+            <a href="/claude-token-counter" class="related-tool-card"><div class="tool-name">Claude Token Counter</div><div class="tool-desc">Sonnet, Haiku, Opus</div></a>
+            <a href="/llm-prompt-cost-calculator" class="related-tool-card"><div class="tool-name">LLM Cost Calculator</div><div class="tool-desc">Compare cost across providers</div></a>
+            <a href="/vs-openai-tokenizer" class="related-tool-card"><div class="tool-name">vs OpenAI Tokenizer</div><div class="tool-desc">Multi-model alternative</div></a>
+        </div>
+    </article>
+    <footer class="landing-footer">&copy; freetokencounter.app</footer>
+    <a href="https://freesuite.app" class="suite-badge" target="_blank" rel="noopener"><span class="badge-prefix">by </span>freesuite.app</a>
+    <script>(()=>{const t=document.getElementById('themeToggle');const g=()=>localStorage.getItem('suite_theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');const a=v=>{document.documentElement.classList.toggle('dark',v==='dark');t.textContent=v==='dark'?'🌙':'☀️';localStorage.setItem('suite_theme',v)};a(g());t.addEventListener('click',()=>a(document.documentElement.classList.contains('dark')?'light':'dark'))})();</script>
+</body>
+</html>

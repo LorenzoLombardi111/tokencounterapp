@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Token Counter — freetokencounter.app</title>
+    <meta name="description" content="Free Claude token counter. Estimate tokens for Claude 3.5 Sonnet, Haiku, Opus in your browser with cost estimates and context-window meter.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://freetokencounter.app/claude-token-counter">
+    <meta name="theme-color" content="#faf9f6">
+    <link rel="manifest" href="/manifest.json">
+    <meta property="og:title" content="Claude Token Counter — freetokencounter.app">
+    <meta property="og:description" content="Free Claude token counter. Estimate tokens for Claude 3.5 Sonnet, Haiku, Opus in your browser with cost estimates and context-window meter.">
+    <meta property="og:image" content="https://freetokencounter.app/og-image.svg">
+    <meta property="og:url" content="https://freetokencounter.app/claude-token-counter">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Claude Token Counter — freetokencounter.app">
+    <meta name="twitter:description" content="Free Claude token counter. Estimate tokens for Claude 3.5 Sonnet, Haiku, Opus in your browser with cost estimates and context-window meter.">
+    <meta name="twitter:image" content="https://freetokencounter.app/og-image.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script type="application/ld+json">{ "@context": "https://schema.org", "@type": "Article", "headline": "Claude Token Counter", "description": "Free Claude token counter. Estimate tokens for Claude 3.5 Sonnet, Haiku, Opus in your browser with cost estimates and context-window meter.", "url": "https://freetokencounter.app/claude-token-counter", "publisher": { "@type": "Organization", "name": "freetokencounter.app", "url": "https://freetokencounter.app/" } }</script>
+    <script type="application/ld+json">{ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+        { "@type": "Question", "name": "Is the Claude token count exact?", "acceptedAnswer": { "@type": "Answer", "text": "No — Anthropic does not publish a fully open tokenizer for Claude 3 and 3.5 models. freetokencounter.app uses a calibrated approximation accurate within ±5-8% on English text. For exact counts, Anthropic offers a count_tokens endpoint that requires an API key." } },
+        { "@type": "Question", "name": "What is Claude 3.5 Sonnet's context window?", "acceptedAnswer": { "@type": "Answer", "text": "All current Claude 3 and 3.5 models share a 200,000-token context window — among the largest in production. freetokencounter.app shows live what percentage of that 200K your prompt occupies." } },
+        { "@type": "Question", "name": "How much does Claude 3.5 Sonnet cost?", "acceptedAnswer": { "@type": "Answer", "text": "Claude 3.5 Sonnet is $3 per million input tokens and $15 per million output tokens. Haiku is much cheaper at $0.80 / $4.00. Opus is the premium tier at $15 / $75. freetokencounter.app calculates total cost across all three." } },
+        { "@type": "Question", "name": "Why don't you ship the real Claude tokenizer?", "acceptedAnswer": { "@type": "Answer", "text": "Anthropic has not released the Claude 3+ tokenizer as a standalone library. The legacy @anthropic-ai/tokenizer package only covers Claude 1 and 2 with a different vocabulary. freetokencounter.app uses a calibrated approximation that tracks Claude's actual tokenization behavior on English text." } },
+        { "@type": "Question", "name": "How does Claude tokenization differ from GPT?", "acceptedAnswer": { "@type": "Answer", "text": "Claude generally produces 5-10% more tokens than GPT-4o for the same English text. Anthropic uses a custom byte-pair encoding optimized for safety and refusal handling. The difference is most visible on longer prompts and code." } },
+        { "@type": "Question", "name": "Is my Claude prompt sent anywhere?", "acceptedAnswer": { "@type": "Answer", "text": "No. freetokencounter.app processes everything locally in your browser. Your prompt never reaches any server — verifiable in your browser's Network tab." } }
+    ] }</script>
+    <script type="application/ld+json">{ "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://freetokencounter.app/" },
+        { "@type": "ListItem", "position": 2, "name": "Claude Token Counter", "item": "https://freetokencounter.app/claude-token-counter" }
+    ] }</script>
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        :root{--bg:#faf9f6;--surface:#f4f2ee;--border:#e8e4dd;--text-primary:#1a1917;--text-secondary:#6b6760;--text-muted:#9e9b96;--accent:#C49A2A;--accent-hover:#A8831F;--accent-text:#fff;--shadow:0 1px 3px rgba(0,0,0,.06),0 2px 8px rgba(0,0,0,.04);--font-body:'Lora',serif;--font-ui:'DM Sans',sans-serif}
+        html.dark{--bg:#141412;--surface:#1e1c1a;--border:#2e2b27;--text-primary:#f0ede8;--text-secondary:#9e9b96;--text-muted:#6b6760;--accent:#D4A835;--accent-hover:#C49A2A;--shadow:0 1px 3px rgba(0,0,0,.3),0 2px 8px rgba(0,0,0,.2)}
+        html{font-size:15px;line-height:1.6}
+        body{font-family:var(--font-body);background:var(--bg);color:var(--text-primary)}
+        .header{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:100}
+        .header-brand{font-family:var(--font-ui);font-size:15px;font-weight:600;color:var(--accent);text-decoration:none}
+        .theme-toggle{font-family:var(--font-ui);font-size:13px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:6px 12px;cursor:pointer;color:var(--text-secondary);transition:all .15s ease}
+        .theme-toggle:hover{background:var(--border)}
+        .breadcrumb{font-family:var(--font-ui);font-size:12px;color:var(--text-muted);padding:12px 24px;max-width:800px;margin:0 auto}
+        .breadcrumb a{color:var(--accent);text-decoration:none}
+        .breadcrumb a:hover{text-decoration:underline}
+        .landing-content{max-width:800px;margin:0 auto;padding:32px 24px 64px}
+        .landing-content h1{font-size:32px;font-weight:700;margin-bottom:24px;line-height:1.3}
+        .landing-content h2{font-size:22px;font-weight:600;margin-top:36px;margin-bottom:12px}
+        .landing-content p{color:var(--text-secondary);margin-bottom:16px;line-height:1.7}
+        .landing-content ul{margin:0 0 16px 20px;color:var(--text-secondary);line-height:1.8}
+        .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:16px 0 24px}
+        .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px}
+        .stat-card .v{font-family:var(--font-ui);font-size:20px;font-weight:700;color:var(--text-primary)}
+        .stat-card .l{font-family:var(--font-ui);font-size:11px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+        .compare-table{width:100%;border-collapse:collapse;margin:20px 0;font-family:var(--font-ui);font-size:13px}
+        .compare-table th{background:var(--surface);padding:12px 16px;text-align:left;font-weight:600;border-bottom:2px solid var(--border)}
+        .compare-table td{padding:12px 16px;border-bottom:1px solid var(--border);color:var(--text-secondary)}
+        .compare-table tr:hover td{background:var(--surface)}
+        .callout{background:var(--surface);border-left:3px solid var(--accent);padding:14px 16px;border-radius:8px;margin:16px 0;font-family:var(--font-ui);font-size:13px;color:var(--text-secondary)}
+        .cta-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:32px;text-align:center;margin:32px 0}
+        .cta-box h3{font-family:var(--font-ui);font-size:18px;font-weight:600;margin-bottom:12px}
+        .cta-box p{color:var(--text-muted);margin-bottom:16px}
+        .cta-btn{font-family:var(--font-ui);font-size:15px;font-weight:600;background:var(--accent);color:var(--accent-text);border:none;border-radius:8px;padding:12px 24px;cursor:pointer;text-decoration:none;display:inline-block;transition:all .15s ease}
+        .cta-btn:hover{background:var(--accent-hover)}
+        details{border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:8px}
+        summary{font-family:var(--font-ui);font-weight:500;cursor:pointer}
+        details p{margin-top:12px;margin-bottom:0}
+        .related-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:20px 0}
+        .related-tool-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;text-decoration:none;transition:all .15s ease}
+        .related-tool-card:hover{box-shadow:var(--shadow)}
+        .related-tool-card .tool-name{font-family:var(--font-ui);font-size:13px;font-weight:600;color:var(--accent)}
+        .related-tool-card .tool-desc{font-family:var(--font-ui);font-size:12px;color:var(--text-muted);margin-top:4px}
+        .landing-footer{text-align:center;padding:32px 24px;font-family:var(--font-ui);font-size:12px;color:var(--text-muted);border-top:1px solid var(--border)}
+        .suite-badge{position:fixed;bottom:16px;right:16px;font-family:var(--font-ui);font-size:11px;color:var(--text-muted);text-decoration:none;background:var(--bg);padding:2px 6px;border-radius:4px}
+        @media (max-width:768px){.landing-content h1{font-size:24px}.landing-content{padding:24px 16px 48px}.compare-table{font-size:12px}.compare-table th,.compare-table td{padding:10px}.suite-badge .badge-prefix{display:none}}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="/" class="header-brand">freetokencounter.app</a>
+        <button class="theme-toggle" id="themeToggle">☀️</button>
+    </header>
+    <nav class="breadcrumb"><a href="/">Home</a> › Claude Token Counter</nav>
+    <article class="landing-content">
+        <h1>Claude Token Counter — Sonnet, Haiku, Opus</h1>
+
+        <p>freetokencounter.app provides a free Claude token counter for the entire Claude 3 and 3.5 family — Sonnet, Haiku, and Opus. Paste any text and see the estimated token count update live, with cost calculated against Anthropic's published pricing and the 200K context-window meter showing how much room remains. Anthropic does not release a fully open tokenizer for Claude 3+, so all counts are honest approximations calibrated against Claude's actual behavior on English text.</p>
+
+        <div class="callout">
+            <strong>About accuracy:</strong> Claude counts are estimates within roughly ±5–8% on English prose. Anthropic does not publish a standalone tokenizer for Claude 3+. For exact counts, Anthropic offers a <code>messages/count_tokens</code> API that requires authentication. freetokencounter.app gives a fast, private, free approximation suitable for prompt drafting and context-fit checks.
+        </div>
+
+        <h2>Claude 3.5 Sonnet at a glance</h2>
+        <div class="stat-row">
+            <div class="stat-card"><div class="v">200K</div><div class="l">Context window</div></div>
+            <div class="stat-card"><div class="v">8K</div><div class="l">Max output</div></div>
+            <div class="stat-card"><div class="v">$3.00</div><div class="l">Input / 1M</div></div>
+            <div class="stat-card"><div class="v">$15.00</div><div class="l">Output / 1M</div></div>
+        </div>
+
+        <h2>Claude family pricing</h2>
+        <table class="compare-table">
+            <thead><tr><th>Model</th><th>Context</th><th>Input $/1M</th><th>Output $/1M</th></tr></thead>
+            <tbody>
+                <tr><td>Claude 3.5 Sonnet</td><td>200K</td><td>$3.00</td><td>$15.00</td></tr>
+                <tr><td>Claude 3.5 Haiku</td><td>200K</td><td>$0.80</td><td>$4.00</td></tr>
+                <tr><td>Claude 3 Opus</td><td>200K</td><td>$15.00</td><td>$75.00</td></tr>
+                <tr><td>Claude 3 Haiku</td><td>200K</td><td>$0.25</td><td>$1.25</td></tr>
+            </tbody>
+        </table>
+
+        <h2>How Claude tokenization differs from GPT</h2>
+        <p>Anthropic uses a custom byte-pair encoding tokenizer. For the same English paragraph, Claude typically produces 5–10% more tokens than GPT-4o — meaningful at scale. Code and non-English text show even larger differences. freetokencounter.app applies per-model calibration to estimate Claude's count without needing access to the proprietary vocabulary.</p>
+
+        <h2>Why Claude's 200K context matters</h2>
+        <ul>
+            <li><strong>Long-document workflows</strong> — fit a 150-page contract, full codebase, or several-hour transcript in one request.</li>
+            <li><strong>RAG retrieval</strong> — pack 50+ retrieved chunks alongside instructions and user query.</li>
+            <li><strong>Cost trade-off</strong> — at $3/1M input, filling 200K tokens costs $0.60 per request. Large contexts add up fast.</li>
+            <li><strong>Latency</strong> — first-token latency rises with input size; 100K+ tokens noticeably slow.</li>
+        </ul>
+
+        <div class="cta-box">
+            <h3>Try the Claude token counter — free, no sign-up</h3>
+            <p>Switch between Sonnet, Haiku, and Opus instantly. Live counts and cost estimates.</p>
+            <a href="/" class="cta-btn">Count Claude Tokens →</a>
+        </div>
+
+        <h2>Frequently Asked Questions</h2>
+        <details><summary>Is the Claude token count exact?</summary><p>No — Anthropic does not publish a fully open tokenizer for Claude 3 and 3.5 models. freetokencounter.app uses a calibrated approximation accurate within ±5-8% on English text. For exact counts, Anthropic offers a count_tokens endpoint that requires an API key.</p></details>
+        <details><summary>What is Claude 3.5 Sonnet's context window?</summary><p>All current Claude 3 and 3.5 models share a 200,000-token context window — among the largest in production. freetokencounter.app shows live what percentage of that 200K your prompt occupies.</p></details>
+        <details><summary>How much does Claude 3.5 Sonnet cost?</summary><p>Claude 3.5 Sonnet is $3 per million input tokens and $15 per million output tokens. Haiku is much cheaper at $0.80 / $4.00. Opus is the premium tier at $15 / $75. freetokencounter.app calculates total cost across all three.</p></details>
+        <details><summary>Why don't you ship the real Claude tokenizer?</summary><p>Anthropic has not released the Claude 3+ tokenizer as a standalone library. The legacy @anthropic-ai/tokenizer package only covers Claude 1 and 2 with a different vocabulary. freetokencounter.app uses a calibrated approximation that tracks Claude's actual tokenization behavior on English text.</p></details>
+        <details><summary>How does Claude tokenization differ from GPT?</summary><p>Claude generally produces 5-10% more tokens than GPT-4o for the same English text. Anthropic uses a custom byte-pair encoding optimized for safety and refusal handling. The difference is most visible on longer prompts and code.</p></details>
+        <details><summary>Is my Claude prompt sent anywhere?</summary><p>No. freetokencounter.app processes everything locally in your browser. Your prompt never reaches any server — verifiable in your browser's Network tab.</p></details>
+
+        <h2>Related Tools</h2>
+        <div class="related-tools">
+            <a href="/gpt-4o-token-counter" class="related-tool-card"><div class="tool-name">GPT-4o Token Counter</div><div class="tool-desc">Compare with GPT-4o and o1</div></a>
+            <a href="/llm-prompt-cost-calculator" class="related-tool-card"><div class="tool-name">LLM Cost Calculator</div><div class="tool-desc">Total cost across all providers</div></a>
+            <a href="/vs-openai-tokenizer" class="related-tool-card"><div class="tool-name">vs OpenAI Tokenizer</div><div class="tool-desc">Multi-model alternative</div></a>
+            <a href="/how-to-count-tokens-for-llms" class="related-tool-card"><div class="tool-name">How Token Counting Works</div><div class="tool-desc">Methodology explainer</div></a>
+        </div>
+    </article>
+    <footer class="landing-footer">&copy; freetokencounter.app</footer>
+    <a href="https://freesuite.app" class="suite-badge" target="_blank" rel="noopener"><span class="badge-prefix">by </span>freesuite.app</a>
+    <script>(()=>{const t=document.getElementById('themeToggle');const g=()=>localStorage.getItem('suite_theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');const a=v=>{document.documentElement.classList.toggle('dark',v==='dark');t.textContent=v==='dark'?'🌙':'☀️';localStorage.setItem('suite_theme',v)};a(g());t.addEventListener('click',()=>a(document.documentElement.classList.contains('dark')?'light':'dark'))})();</script>
+</body>
+</html>
