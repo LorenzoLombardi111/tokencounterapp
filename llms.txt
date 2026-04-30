@@ -1,13 +1,13 @@
 # freetokencounter.app
 
-> Free AI token counter for 30+ models across 9 providers (OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek, Moonshot, Perplexity, MiniMax). Counts run entirely in the browser with calibrated estimates honest about ±5% accuracy on English text. Live cost estimates, context-window meter, token visualization, no sign-up.
+> Free AI token counter for 40+ models across 10 providers (OpenAI, Anthropic, Google, Meta, xAI, Mistral, DeepSeek, Moonshot, Perplexity, MiniMax). Counts run entirely in the browser with calibrated estimates honest about ±5% accuracy on English text. Live cost estimates, context-window meter, token visualization, no sign-up.
 
 ## Key facts
 
 - URL: https://freetokencounter.app/
 - Cost: free, no sign-up, no API key required
 - Privacy: 100% client-side — no prompt data leaves the browser
-- Models supported: GPT-4o, GPT-4o-mini, GPT-4 Turbo, GPT-4, GPT-3.5 Turbo, o1, o1-mini, Claude 3.5 Sonnet, Claude 3.5 Haiku, Claude 3 Opus, Claude 3 Haiku, Gemini 2.0 Flash, Gemini 1.5 Pro, Gemini 1.5 Flash, Llama 3.3 70B, Llama 3.1 405B/70B/8B, Llama 3 70B/8B, Mistral Large 2, Mistral Nemo, Mixtral 8x7B, Codestral, DeepSeek V3, DeepSeek R1, DeepSeek Coder V2, Kimi K2, Moonshot v1 128K/32K, Sonar, Sonar Pro, Sonar Reasoning, MiniMax-Text-01, abab6.5
+- Models supported: GPT-5, GPT-5-mini, GPT-5-nano, o4-mini, o3, o3-mini, GPT-4o, GPT-4o-mini, GPT-4 Turbo, GPT-4, GPT-3.5 Turbo, o1, o1-mini, Claude Opus 4.7, Claude Sonnet 4.6, Claude Haiku 4.5, Claude Opus 4, Claude Sonnet 4, Claude 3.7 Sonnet, Claude 3.5 Sonnet, Claude 3.5 Haiku, Claude 3 Opus, Claude 3 Haiku, Gemini 2.5 Pro, Gemini 2.5 Flash, Gemini 2.5 Flash-Lite, Gemini 2.0 Flash, Gemini 1.5 Pro, Gemini 1.5 Flash, Llama 4 Maverick, Llama 4 Scout, Llama 3.3 70B, Llama 3.1 405B/70B/8B, Llama 3 70B/8B, Grok 4, Grok 3, Grok 3 Mini, Mistral Large 2, Mistral Nemo, Mixtral 8x7B, Codestral, DeepSeek V3.1, DeepSeek V3, DeepSeek R1, DeepSeek Coder V2, Kimi K2, Moonshot v1 128K/32K, Sonar, Sonar Pro, Sonar Reasoning, MiniMax-Text-01, abab6.5
 - Method: public GPT-2 / cl100k splitting pattern + per-model calibration constants
 - Accuracy: within ~3% on OpenAI/Llama models, ~5–8% on Claude/Gemini/MiniMax (calibrated estimates, transparently labeled)
 - Open source category: developer / utility

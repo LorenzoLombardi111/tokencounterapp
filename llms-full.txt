@@ -15,7 +15,7 @@
 
 ## AI Token Counter — Count Tokens for GPT, Claude, Gemini, Llama and More
 
-freetokencounter.app is a free, browser-based token counter that supports every major large language model: OpenAI's GPT-4o, GPT-4 and o1 series, Anthropic's Claude 3.5 Sonnet, Haiku and Opus, Google's Gemini 1.5 Pro and Flash, Meta's Llama 3.3 and 3.1 family, Mistral's Large 2 and Codestral, DeepSeek V3 and R1, Moonshot's Kimi K2, Perplexity's Sonar models, and MiniMax. Paste any text — a prompt, a code block, JSON, or non-Latin script — and freetokencounter.app shows the token count, characters, words, context-window usage, and cost estimate live, with a colored visualization of how the model splits your text. Nothing uploads to a server: the entire tool runs locally in your browser.
+freetokencounter.app is a free, browser-based token counter that supports every major large language model: OpenAI's GPT-5, GPT-5-mini, GPT-5-nano, o4-mini, o3 and GPT-4o, Anthropic's Claude Opus 4.7, Sonnet 4.6 and Haiku 4.5, Google's Gemini 2.5 Pro and 2.5 Flash, Meta's Llama 4 Maverick and Scout, xAI's Grok 4 and Grok 3, Mistral's Large 2 and Codestral, DeepSeek V3.1 and R1, Moonshot's Kimi K2, Perplexity's Sonar models, and MiniMax. Paste any text — a prompt, a code block, JSON, or non-Latin script — and freetokencounter.app shows the token count, characters, words, context-window usage, and cost estimate live, with a colored visualization of how the model splits your text. Nothing uploads to a server: the entire tool runs locally in your browser.
 
 ### How does freetokencounter.app count tokens?
 
@@ -31,33 +31,38 @@ Yes — completely free, no sign-up, no rate limits, no API key required. Every 
 
 ### How accurate is freetokencounter.app for each model?
 
-For OpenAI models (GPT-3.5, GPT-4, GPT-4o, o1) and Llama models, the count is calibrated against the published reference tokenizers and is typically within ±3% on English text. For Anthropic Claude, Google Gemini, Moonshot Kimi, and MiniMax — providers that don't release a fully open tokenizer — counts are within roughly ±5–8%.
+For OpenAI models (GPT-5, GPT-4o, o-series, GPT-4, GPT-3.5) and Llama models, the count is calibrated against the published reference tokenizers and is typically within ±3% on English text. For Anthropic Claude (Opus 4.7, Sonnet 4.6 and earlier), Google Gemini 2.5, xAI Grok, Moonshot Kimi, and MiniMax — providers that don't release a fully open tokenizer — counts are within roughly ±5–8%.
 
 ### AI Model Token Limits & Pricing Comparison
 
 | Model | Provider | Context | Input $/1M | Output $/1M |
 |---|---|---|---|---|
+| GPT-5 | OpenAI | 400K | $1.25 | $10.00 |
+| GPT-5-mini | OpenAI | 400K | $0.25 | $2.00 |
+| GPT-5-nano | OpenAI | 400K | $0.05 | $0.40 |
+| o4-mini | OpenAI | 200K | $1.10 | $4.40 |
+| o3 | OpenAI | 200K | $2.00 | $8.00 |
 | GPT-4o | OpenAI | 128K | $2.50 | $10.00 |
 | GPT-4o-mini | OpenAI | 128K | $0.15 | $0.60 |
-| GPT-4 Turbo | OpenAI | 128K | $10.00 | $30.00 |
-| GPT-3.5 Turbo | OpenAI | 16K | $0.50 | $1.50 |
 | o1 | OpenAI | 128K | $15.00 | $60.00 |
-| o1-mini | OpenAI | 128K | $3.00 | $12.00 |
+| Claude Opus 4.7 | Anthropic | 1M | $15.00 | $75.00 |
+| Claude Sonnet 4.6 | Anthropic | 1M | $3.00 | $15.00 |
+| Claude Haiku 4.5 | Anthropic | 200K | $1.00 | $5.00 |
+| Claude Opus 4 | Anthropic | 200K | $15.00 | $75.00 |
+| Claude Sonnet 4 | Anthropic | 200K | $3.00 | $15.00 |
 | Claude 3.5 Sonnet | Anthropic | 200K | $3.00 | $15.00 |
-| Claude 3.5 Haiku | Anthropic | 200K | $0.80 | $4.00 |
-| Claude 3 Opus | Anthropic | 200K | $15.00 | $75.00 |
-| Claude 3 Haiku | Anthropic | 200K | $0.25 | $1.25 |
-| Gemini 2.0 Flash | Google | 1M | $0.10 | $0.40 |
+| Gemini 2.5 Pro | Google | 1M | $1.25 | $10.00 |
+| Gemini 2.5 Flash | Google | 1M | $0.30 | $2.50 |
 | Gemini 1.5 Pro | Google | 2M | $1.25 | $5.00 |
-| Gemini 1.5 Flash | Google | 1M | $0.075 | $0.30 |
+| Llama 4 Maverick | Meta | 1M | — | — |
+| Llama 4 Scout | Meta | 10M | — | — |
 | Llama 3.3 70B | Meta | 128K | — | — |
 | Llama 3.1 405B | Meta | 128K | — | — |
-| Llama 3.1 70B | Meta | 128K | — | — |
-| Llama 3.1 8B | Meta | 128K | — | — |
+| Grok 4 | xAI | 256K | $3.00 | $15.00 |
+| Grok 3 | xAI | 1M | $2.00 | $10.00 |
 | Mistral Large 2 | Mistral | 128K | $2.00 | $6.00 |
-| Mistral Nemo | Mistral | 128K | $0.15 | $0.15 |
 | Codestral | Mistral | 32K | $0.20 | $0.60 |
-| DeepSeek V3 | DeepSeek | 128K | $0.27 | $1.10 |
+| DeepSeek V3.1 | DeepSeek | 128K | $0.27 | $1.10 |
 | DeepSeek R1 | DeepSeek | 128K | $0.55 | $2.19 |
 | Kimi K2 | Moonshot | 128K | $0.60 | $2.50 |
 | Sonar Pro | Perplexity | 200K | $3.00 | $15.00 |
@@ -65,7 +70,7 @@ For OpenAI models (GPT-3.5, GPT-4, GPT-4o, o1) and Llama models, the count is ca
 
 ### Why use freetokencounter.app
 
-- **Every major model** — 30+ models across 9 providers
+- **Every major model** — 40+ models across 10 providers
 - **Token visualization** — Each token highlighted with a cycling pastel color
 - **Live cost estimate** — Real-time input + output cost
 - **100% private** — Everything runs in your browser
@@ -84,7 +89,7 @@ For OpenAI models (GPT-3.5, GPT-4, GPT-4o, o1) and Llama models, the count is ca
 
 **How accurate is freetokencounter.app?** Counts are estimates within roughly ±5% for English text on most models. The tool uses the public GPT-2 / cl100k splitting pattern combined with per-model calibration constants.
 
-**Which models does freetokencounter.app support?** OpenAI, Anthropic, Google, Meta Llama, Mistral, DeepSeek, Moonshot Kimi, Perplexity Sonar, MiniMax — about 30 models in total.
+**Which models does freetokencounter.app support?** OpenAI (GPT-5 family, o-series, GPT-4o), Anthropic (Claude Opus 4.7, Sonnet 4.6, Haiku 4.5), Google (Gemini 2.5 Pro/Flash), Meta (Llama 4 Maverick/Scout, Llama 3.x), xAI (Grok 4, Grok 3), Mistral, DeepSeek, Moonshot Kimi, Perplexity Sonar, MiniMax — over 40 models in total.
 
 **Is my prompt uploaded anywhere?** No. freetokencounter.app runs entirely in your browser.
 

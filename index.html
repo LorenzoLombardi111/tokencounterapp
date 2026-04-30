@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free AI Token Counter — freetokencounter.app</title>
-    <meta name="description" content="Count tokens for GPT-4o, Claude, Gemini, DeepSeek, Llama in your browser. Live counter, cost estimates, context-window meter. Free, no sign-up.">
+    <meta name="description" content="Count tokens for GPT-5, Claude Opus 4.7, Gemini 2.5, Llama 4, Grok 4, DeepSeek. Live counter, cost estimates, context meter. Free, no sign-up.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://freetokencounter.app/">
     <meta name="theme-color" content="#faf9f6">
@@ -12,14 +12,14 @@
     <link rel="manifest" href="/manifest.json">
 
     <meta property="og:title" content="Free AI Token Counter — freetokencounter.app">
-    <meta property="og:description" content="Count tokens for GPT-4o, Claude, Gemini, DeepSeek, Llama in your browser. Live counter, cost estimates, context-window meter. Free, no sign-up.">
+    <meta property="og:description" content="Count tokens for GPT-5, Claude Opus 4.7, Gemini 2.5, Llama 4, Grok 4, DeepSeek. Live counter, cost estimates, context meter. Free, no sign-up.">
     <meta property="og:image" content="https://freetokencounter.app/og-image.svg">
     <meta property="og:url" content="https://freetokencounter.app/">
     <meta property="og:type" content="website">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Free AI Token Counter — freetokencounter.app">
-    <meta name="twitter:description" content="Count tokens for GPT-4o, Claude, Gemini, DeepSeek, Llama in your browser. Live counter, cost estimates, context-window meter. Free, no sign-up.">
+    <meta name="twitter:description" content="Count tokens for GPT-5, Claude Opus 4.7, Gemini 2.5, Llama 4, Grok 4, DeepSeek. Live counter, cost estimates, context meter. Free, no sign-up.">
     <meta name="twitter:image" content="https://freetokencounter.app/og-image.svg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -61,7 +61,7 @@
             {
                 "@type": "Question",
                 "name": "Which models does freetokencounter.app support?",
-                "acceptedAnswer": { "@type": "Answer", "text": "freetokencounter.app supports OpenAI (GPT-4o, GPT-4, GPT-3.5, o1), Anthropic (Claude 3.5 Sonnet, Haiku, Opus), Google (Gemini 1.5 Pro, Flash, Gemini 2.0), Meta Llama (3.3 70B, 3.1 405B/70B/8B, Llama 3), Mistral (Large 2, Nemo, Mixtral, Codestral), DeepSeek (V3, R1, Coder V2), Moonshot Kimi (K2, Moonshot v1), Perplexity Sonar, and MiniMax — about 30 models in total." }
+                "acceptedAnswer": { "@type": "Answer", "text": "freetokencounter.app supports OpenAI (GPT-5, GPT-5-mini, GPT-5-nano, o4-mini, o3, GPT-4o, o1), Anthropic (Claude Opus 4.7, Sonnet 4.6, Haiku 4.5, Opus 4, Sonnet 4, 3.5 Sonnet), Google (Gemini 2.5 Pro, 2.5 Flash, 1.5 Pro), Meta Llama (4 Maverick, 4 Scout, 3.3 70B, 3.1 405B/70B/8B), Mistral (Large 2, Nemo, Mixtral, Codestral), DeepSeek (V3.1, V3, R1, Coder V2), Moonshot Kimi K2, Perplexity Sonar, MiniMax, and xAI (Grok 4, Grok 3) — over 40 models in total." }
             },
             {
                 "@type": "Question",
@@ -71,7 +71,7 @@
             {
                 "@type": "Question",
                 "name": "Why does the same text produce different token counts on different models?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Each model family uses a different tokenizer trained on different data with a different vocabulary. GPT-4o uses o200k_base (~200K vocab), Claude uses Anthropic's proprietary tokenizer, Gemini uses SentencePiece, and Llama uses its own BPE. The same word may be one token in one model and three tokens in another. freetokencounter.app shows the difference side by side." }
+                "acceptedAnswer": { "@type": "Answer", "text": "Each model family uses a different tokenizer trained on different data with a different vocabulary. GPT-5 and GPT-4o use o200k_base (~200K vocab), Claude Opus 4.7 uses Anthropic's proprietary tokenizer, Gemini 2.5 Pro uses SentencePiece, Llama 4 uses its own BPE, and Grok 4 uses xAI's tokenizer. The same word may be one token in one model and three tokens in another. freetokencounter.app shows the difference side by side." }
             },
             {
                 "@type": "Question",
@@ -81,7 +81,7 @@
             {
                 "@type": "Question",
                 "name": "What is a context window?",
-                "acceptedAnswer": { "@type": "Answer", "text": "The context window is the maximum number of tokens (input + output combined) a model can process in a single request. GPT-4o handles 128,000 tokens, Claude 3.5 Sonnet 200,000, Gemini 1.5 Pro up to 2 million. If your prompt plus expected output exceeds the context window, the model will reject the request or truncate. freetokencounter.app shows a live context-window meter for the selected model." }
+                "acceptedAnswer": { "@type": "Answer", "text": "The context window is the maximum number of tokens (input + output combined) a model can process in a single request. GPT-5 handles 400,000 tokens, Claude Opus 4.7 up to 1 million, Gemini 2.5 Pro 1 million, Llama 4 Scout up to 10 million. If your prompt plus expected output exceeds the context window, the model will reject the request or truncate. freetokencounter.app shows a live context-window meter for the selected model." }
             },
             {
                 "@type": "Question",
@@ -331,6 +331,7 @@
         .provider-dot.moonshot { background: #00a3ff; }
         .provider-dot.perplexity { background: #20b8cd; }
         .provider-dot.minimax { background: #ec4899; }
+        .provider-dot.xai { background: #818cf8; }
 
         /* ===== Main App ===== */
         .app-area {
@@ -1060,7 +1061,7 @@
             </button>
             <div class="model-dropdown" id="modelDropdown" role="listbox">
                 <div class="model-search-wrap">
-                    <input type="text" class="model-search" id="modelSearch" placeholder="Search 30+ models..." autocomplete="off">
+                    <input type="text" class="model-search" id="modelSearch" placeholder="Search 40+ models..." autocomplete="off">
                 </div>
                 <div id="modelList"></div>
             </div>
@@ -1174,7 +1175,7 @@
     <div class="seo-content">
         <h1>AI Token Counter — Count Tokens for GPT, Claude, Gemini, Llama and More</h1>
 
-        <p>freetokencounter.app is a free, browser-based token counter that supports every major large language model: OpenAI's GPT-4o, GPT-4 and o1 series, Anthropic's Claude 3.5 Sonnet, Haiku and Opus, Google's Gemini 1.5 Pro and Flash, Meta's Llama 3.3 and 3.1 family, Mistral's Large 2 and Codestral, DeepSeek V3 and R1, Moonshot's Kimi K2, Perplexity's Sonar models, and MiniMax. Paste any text — a prompt, a code block, JSON, or non-Latin script — and freetokencounter.app shows the token count, characters, words, context-window usage, and cost estimate live, with a colored visualization of how the model splits your text. Nothing uploads to a server: the entire tool runs locally in your browser.</p>
+        <p>freetokencounter.app is a free, browser-based token counter that supports every major large language model: OpenAI's GPT-5, GPT-5-mini, GPT-5-nano, o4-mini, o3 and GPT-4o, Anthropic's Claude Opus 4.7, Sonnet 4.6 and Haiku 4.5, Google's Gemini 2.5 Pro and 2.5 Flash, Meta's Llama 4 Maverick and Scout, xAI's Grok 4 and Grok 3, Mistral's Large 2 and Codestral, DeepSeek V3.1 and R1, Moonshot's Kimi K2, Perplexity's Sonar models, and MiniMax. Paste any text — a prompt, a code block, JSON, or non-Latin script — and freetokencounter.app shows the token count, characters, words, context-window usage, and cost estimate live, with a colored visualization of how the model splits your text. Nothing uploads to a server: the entire tool runs locally in your browser.</p>
 
         <h2>How does freetokencounter.app count tokens?</h2>
         <p>Every model uses a slightly different tokenizer, and most providers don't publish their exact tokenizer for in-browser use. freetokencounter.app combines the publicly documented GPT-2 / cl100k splitting regex with per-model calibration constants tuned against each provider's reference outputs. For English prose the result is accurate within roughly five percent — close enough to plan prompts, fit context windows, and budget API spend. The "Estimate" pill on every count makes the methodology transparent: there is no model where freetokencounter.app pretends to be an exact tokenizer when it isn't.</p>
@@ -1186,7 +1187,7 @@
         <p>Yes — completely free, no sign-up, no rate limits, no API key required. Every keystroke is processed locally in your browser using JavaScript that ships with the page. Nothing about your prompt — not the text, not the count, not the model selection — is sent to any server. You can verify this in your browser's Network tab while typing: the only request is the initial page load. freetokencounter.app exists because we believe a token counter for sensitive prompts should never see your data.</p>
 
         <h2>How accurate is freetokencounter.app for each model?</h2>
-        <p>For OpenAI models (GPT-3.5, GPT-4, GPT-4o, o1) and Llama models, the count is calibrated against the published reference tokenizers and is typically within ±3% on English text. For Anthropic Claude, Google Gemini, Moonshot Kimi, and MiniMax — providers that don't release a fully open tokenizer — counts are within roughly ±5–8%. Code, JSON, and non-Latin scripts can drift more, generally toward higher token counts than the estimate. For high-stakes production budgeting, always validate against the provider's own count_tokens API; for prompt drafting and quick comparisons, freetokencounter.app is purpose-built.</p>
+        <p>For OpenAI models (GPT-5, GPT-4o, o-series, GPT-4, GPT-3.5) and Llama models, the count is calibrated against the published reference tokenizers and is typically within ±3% on English text. For Anthropic Claude (including Opus 4.7, Sonnet 4.6), Google Gemini 2.5, xAI Grok, Moonshot Kimi, and MiniMax — providers that don't release a fully open tokenizer — counts are within roughly ±5–8%. Code, JSON, and non-Latin scripts can drift more, generally toward higher token counts than the estimate. For high-stakes production budgeting, always validate against the provider's own count_tokens API; for prompt drafting and quick comparisons, freetokencounter.app is purpose-built.</p>
 
         <h2>AI Model Token Limits & Pricing Comparison</h2>
         <p>The table below compares context windows, max output tokens, and per-million-token pricing across major model families. Pricing reflects each provider's official rate cards.</p>
@@ -1203,27 +1204,31 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr><td class="model-cell">GPT-5</td><td><span class="provider-cell"><span class="provider-dot openai"></span>OpenAI</span></td><td>400K</td><td>$1.25</td><td>$10.00</td></tr>
+                    <tr><td class="model-cell">GPT-5-mini</td><td><span class="provider-cell"><span class="provider-dot openai"></span>OpenAI</span></td><td>400K</td><td>$0.25</td><td>$2.00</td></tr>
+                    <tr><td class="model-cell">GPT-5-nano</td><td><span class="provider-cell"><span class="provider-dot openai"></span>OpenAI</span></td><td>400K</td><td>$0.05</td><td>$0.40</td></tr>
+                    <tr><td class="model-cell">o4-mini</td><td><span class="provider-cell"><span class="provider-dot openai"></span>OpenAI</span></td><td>200K</td><td>$1.10</td><td>$4.40</td></tr>
+                    <tr><td class="model-cell">o3</td><td><span class="provider-cell"><span class="provider-dot openai"></span>OpenAI</span></td><td>200K</td><td>$2.00</td><td>$8.00</td></tr>
                     <tr><td class="model-cell">GPT-4o</td><td><span class="provider-cell"><span class="provider-dot openai"></span>OpenAI</span></td><td>128K</td><td>$2.50</td><td>$10.00</td></tr>
                     <tr><td class="model-cell">GPT-4o-mini</td><td><span class="provider-cell"><span class="provider-dot openai"></span>OpenAI</span></td><td>128K</td><td>$0.15</td><td>$0.60</td></tr>
-                    <tr><td class="model-cell">GPT-4 Turbo</td><td><span class="provider-cell"><span class="provider-dot openai"></span>OpenAI</span></td><td>128K</td><td>$10.00</td><td>$30.00</td></tr>
-                    <tr><td class="model-cell">GPT-3.5 Turbo</td><td><span class="provider-cell"><span class="provider-dot openai"></span>OpenAI</span></td><td>16K</td><td>$0.50</td><td>$1.50</td></tr>
                     <tr><td class="model-cell">o1</td><td><span class="provider-cell"><span class="provider-dot openai"></span>OpenAI</span></td><td>128K</td><td>$15.00</td><td>$60.00</td></tr>
-                    <tr><td class="model-cell">o1-mini</td><td><span class="provider-cell"><span class="provider-dot openai"></span>OpenAI</span></td><td>128K</td><td>$3.00</td><td>$12.00</td></tr>
+                    <tr><td class="model-cell">Claude Opus 4.7</td><td><span class="provider-cell"><span class="provider-dot anthropic"></span>Anthropic</span></td><td>1M</td><td>$15.00</td><td>$75.00</td></tr>
+                    <tr><td class="model-cell">Claude Sonnet 4.6</td><td><span class="provider-cell"><span class="provider-dot anthropic"></span>Anthropic</span></td><td>1M</td><td>$3.00</td><td>$15.00</td></tr>
+                    <tr><td class="model-cell">Claude Haiku 4.5</td><td><span class="provider-cell"><span class="provider-dot anthropic"></span>Anthropic</span></td><td>200K</td><td>$1.00</td><td>$5.00</td></tr>
+                    <tr><td class="model-cell">Claude Opus 4</td><td><span class="provider-cell"><span class="provider-dot anthropic"></span>Anthropic</span></td><td>200K</td><td>$15.00</td><td>$75.00</td></tr>
+                    <tr><td class="model-cell">Claude Sonnet 4</td><td><span class="provider-cell"><span class="provider-dot anthropic"></span>Anthropic</span></td><td>200K</td><td>$3.00</td><td>$15.00</td></tr>
                     <tr><td class="model-cell">Claude 3.5 Sonnet</td><td><span class="provider-cell"><span class="provider-dot anthropic"></span>Anthropic</span></td><td>200K</td><td>$3.00</td><td>$15.00</td></tr>
-                    <tr><td class="model-cell">Claude 3.5 Haiku</td><td><span class="provider-cell"><span class="provider-dot anthropic"></span>Anthropic</span></td><td>200K</td><td>$0.80</td><td>$4.00</td></tr>
-                    <tr><td class="model-cell">Claude 3 Opus</td><td><span class="provider-cell"><span class="provider-dot anthropic"></span>Anthropic</span></td><td>200K</td><td>$15.00</td><td>$75.00</td></tr>
-                    <tr><td class="model-cell">Claude 3 Haiku</td><td><span class="provider-cell"><span class="provider-dot anthropic"></span>Anthropic</span></td><td>200K</td><td>$0.25</td><td>$1.25</td></tr>
-                    <tr><td class="model-cell">Gemini 2.0 Flash</td><td><span class="provider-cell"><span class="provider-dot google"></span>Google</span></td><td>1M</td><td>$0.10</td><td>$0.40</td></tr>
+                    <tr><td class="model-cell">Gemini 2.5 Pro</td><td><span class="provider-cell"><span class="provider-dot google"></span>Google</span></td><td>1M</td><td>$1.25</td><td>$10.00</td></tr>
+                    <tr><td class="model-cell">Gemini 2.5 Flash</td><td><span class="provider-cell"><span class="provider-dot google"></span>Google</span></td><td>1M</td><td>$0.30</td><td>$2.50</td></tr>
                     <tr><td class="model-cell">Gemini 1.5 Pro</td><td><span class="provider-cell"><span class="provider-dot google"></span>Google</span></td><td>2M</td><td>$1.25</td><td>$5.00</td></tr>
-                    <tr><td class="model-cell">Gemini 1.5 Flash</td><td><span class="provider-cell"><span class="provider-dot google"></span>Google</span></td><td>1M</td><td>$0.075</td><td>$0.30</td></tr>
+                    <tr><td class="model-cell">Llama 4 Maverick</td><td><span class="provider-cell"><span class="provider-dot meta"></span>Meta</span></td><td>1M</td><td>—</td><td>—</td></tr>
+                    <tr><td class="model-cell">Llama 4 Scout</td><td><span class="provider-cell"><span class="provider-dot meta"></span>Meta</span></td><td>10M</td><td>—</td><td>—</td></tr>
                     <tr><td class="model-cell">Llama 3.3 70B</td><td><span class="provider-cell"><span class="provider-dot meta"></span>Meta</span></td><td>128K</td><td>—</td><td>—</td></tr>
                     <tr><td class="model-cell">Llama 3.1 405B</td><td><span class="provider-cell"><span class="provider-dot meta"></span>Meta</span></td><td>128K</td><td>—</td><td>—</td></tr>
-                    <tr><td class="model-cell">Llama 3.1 70B</td><td><span class="provider-cell"><span class="provider-dot meta"></span>Meta</span></td><td>128K</td><td>—</td><td>—</td></tr>
-                    <tr><td class="model-cell">Llama 3.1 8B</td><td><span class="provider-cell"><span class="provider-dot meta"></span>Meta</span></td><td>128K</td><td>—</td><td>—</td></tr>
+                    <tr><td class="model-cell">Grok 4</td><td><span class="provider-cell"><span class="provider-dot xai"></span>xAI</span></td><td>256K</td><td>$3.00</td><td>$15.00</td></tr>
+                    <tr><td class="model-cell">Grok 3</td><td><span class="provider-cell"><span class="provider-dot xai"></span>xAI</span></td><td>1M</td><td>$2.00</td><td>$10.00</td></tr>
                     <tr><td class="model-cell">Mistral Large 2</td><td><span class="provider-cell"><span class="provider-dot mistral"></span>Mistral</span></td><td>128K</td><td>$2.00</td><td>$6.00</td></tr>
-                    <tr><td class="model-cell">Mistral Nemo</td><td><span class="provider-cell"><span class="provider-dot mistral"></span>Mistral</span></td><td>128K</td><td>$0.15</td><td>$0.15</td></tr>
-                    <tr><td class="model-cell">Codestral</td><td><span class="provider-cell"><span class="provider-dot mistral"></span>Mistral</span></td><td>32K</td><td>$0.20</td><td>$0.60</td></tr>
-                    <tr><td class="model-cell">DeepSeek V3</td><td><span class="provider-cell"><span class="provider-dot deepseek"></span>DeepSeek</span></td><td>128K</td><td>$0.27</td><td>$1.10</td></tr>
+                    <tr><td class="model-cell">DeepSeek V3.1</td><td><span class="provider-cell"><span class="provider-dot deepseek"></span>DeepSeek</span></td><td>128K</td><td>$0.27</td><td>$1.10</td></tr>
                     <tr><td class="model-cell">DeepSeek R1</td><td><span class="provider-cell"><span class="provider-dot deepseek"></span>DeepSeek</span></td><td>128K</td><td>$0.55</td><td>$2.19</td></tr>
                     <tr><td class="model-cell">Kimi K2</td><td><span class="provider-cell"><span class="provider-dot moonshot"></span>Moonshot</span></td><td>128K</td><td>$0.60</td><td>$2.50</td></tr>
                     <tr><td class="model-cell">Sonar Pro</td><td><span class="provider-cell"><span class="provider-dot perplexity"></span>Perplexity</span></td><td>200K</td><td>$3.00</td><td>$15.00</td></tr>
@@ -1237,7 +1242,7 @@
         <div class="feature-grid">
             <div class="feature-card">
                 <div class="fc-title">Every major model</div>
-                <div class="fc-desc">30+ models across 9 providers — OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek, Moonshot, Perplexity, MiniMax. Switch instantly to compare.</div>
+                <div class="fc-desc">40+ models across 10 providers — OpenAI, Anthropic, Google, Meta, xAI, Mistral, DeepSeek, Moonshot, Perplexity, MiniMax. Switch instantly to compare.</div>
             </div>
             <div class="feature-card">
                 <div class="fc-title">Token visualization</div>
@@ -1291,7 +1296,7 @@
 
         <details>
             <summary>Which models does freetokencounter.app support?</summary>
-            <p>freetokencounter.app supports OpenAI (GPT-4o, GPT-4, GPT-3.5, o1), Anthropic (Claude 3.5 Sonnet, Haiku, Opus), Google (Gemini 1.5 Pro, Flash, Gemini 2.0), Meta Llama (3.3 70B, 3.1 405B/70B/8B, Llama 3), Mistral (Large 2, Nemo, Mixtral, Codestral), DeepSeek (V3, R1, Coder V2), Moonshot Kimi (K2, Moonshot v1), Perplexity Sonar, and MiniMax — about 30 models in total.</p>
+            <p>freetokencounter.app supports OpenAI (GPT-5, GPT-5-mini, GPT-5-nano, o4-mini, o3, GPT-4o, o1), Anthropic (Claude Opus 4.7, Sonnet 4.6, Haiku 4.5, Opus 4, Sonnet 4, 3.5 Sonnet), Google (Gemini 2.5 Pro, 2.5 Flash, 1.5 Pro), Meta Llama (4 Maverick, 4 Scout, 3.3 70B, 3.1 405B/70B/8B), Mistral (Large 2, Nemo, Mixtral, Codestral), DeepSeek (V3.1, V3, R1, Coder V2), Moonshot Kimi K2, Perplexity Sonar, MiniMax, and xAI (Grok 4, Grok 3) — over 40 models in total.</p>
         </details>
 
         <details>
@@ -1301,7 +1306,7 @@
 
         <details>
             <summary>Why does the same text produce different token counts on different models?</summary>
-            <p>Each model family uses a different tokenizer trained on different data with a different vocabulary. GPT-4o uses o200k_base (~200K vocab), Claude uses Anthropic's proprietary tokenizer, Gemini uses SentencePiece, and Llama uses its own BPE. The same word may be one token in one model and three tokens in another. freetokencounter.app shows the difference side by side.</p>
+            <p>Each model family uses a different tokenizer trained on different data with a different vocabulary. GPT-5 and GPT-4o use o200k_base (~200K vocab), Claude Opus 4.7 uses Anthropic's proprietary tokenizer, Gemini 2.5 Pro uses SentencePiece, Llama 4 uses its own BPE, and Grok 4 uses xAI's tokenizer. The same word may be one token in one model and three tokens in another. freetokencounter.app shows the difference side by side.</p>
         </details>
 
         <details>
@@ -1311,7 +1316,7 @@
 
         <details>
             <summary>What is a context window?</summary>
-            <p>The context window is the maximum number of tokens (input + output combined) a model can process in a single request. GPT-4o handles 128,000 tokens, Claude 3.5 Sonnet 200,000, Gemini 1.5 Pro up to 2 million. If your prompt plus expected output exceeds the context window, the model will reject the request or truncate. freetokencounter.app shows a live context-window meter for the selected model.</p>
+            <p>The context window is the maximum number of tokens (input + output combined) a model can process in a single request. GPT-5 handles 400,000 tokens, Claude Opus 4.7 up to 1 million, Gemini 2.5 Pro 1 million, Llama 4 Scout up to 10 million. If your prompt plus expected output exceeds the context window, the model will reject the request or truncate. freetokencounter.app shows a live context-window meter for the selected model.</p>
         </details>
 
         <details>
@@ -1389,7 +1394,13 @@
        ===================================================================== */
     const MODELS = [
         // OpenAI
-        { id: 'gpt-4o', name: 'GPT-4o', provider: 'OpenAI', providerKey: 'openai', context: 128000, inputPrice: 2.50, outputPrice: 10.00, multiplier: 1.00, popular: true },
+        { id: 'gpt-5', name: 'GPT-5', provider: 'OpenAI', providerKey: 'openai', context: 400000, inputPrice: 1.25, outputPrice: 10.00, multiplier: 1.00, popular: true },
+        { id: 'gpt-5-mini', name: 'GPT-5-mini', provider: 'OpenAI', providerKey: 'openai', context: 400000, inputPrice: 0.25, outputPrice: 2.00, multiplier: 1.00, popular: true },
+        { id: 'gpt-5-nano', name: 'GPT-5-nano', provider: 'OpenAI', providerKey: 'openai', context: 400000, inputPrice: 0.05, outputPrice: 0.40, multiplier: 1.00 },
+        { id: 'o4-mini', name: 'o4-mini', provider: 'OpenAI', providerKey: 'openai', context: 200000, inputPrice: 1.10, outputPrice: 4.40, multiplier: 1.00 },
+        { id: 'o3', name: 'o3', provider: 'OpenAI', providerKey: 'openai', context: 200000, inputPrice: 2.00, outputPrice: 8.00, multiplier: 1.00 },
+        { id: 'o3-mini', name: 'o3-mini', provider: 'OpenAI', providerKey: 'openai', context: 200000, inputPrice: 1.10, outputPrice: 4.40, multiplier: 1.00 },
+        { id: 'gpt-4o', name: 'GPT-4o', provider: 'OpenAI', providerKey: 'openai', context: 128000, inputPrice: 2.50, outputPrice: 10.00, multiplier: 1.00 },
         { id: 'gpt-4o-mini', name: 'GPT-4o-mini', provider: 'OpenAI', providerKey: 'openai', context: 128000, inputPrice: 0.15, outputPrice: 0.60, multiplier: 1.00 },
         { id: 'gpt-4-turbo', name: 'GPT-4 Turbo', provider: 'OpenAI', providerKey: 'openai', context: 128000, inputPrice: 10.00, outputPrice: 30.00, multiplier: 1.00 },
         { id: 'gpt-4', name: 'GPT-4', provider: 'OpenAI', providerKey: 'openai', context: 8192, inputPrice: 30.00, outputPrice: 60.00, multiplier: 1.02 },
@@ -1398,18 +1409,29 @@
         { id: 'o1-mini', name: 'o1-mini', provider: 'OpenAI', providerKey: 'openai', context: 128000, inputPrice: 3.00, outputPrice: 12.00, multiplier: 1.00 },
 
         // Anthropic
-        { id: 'claude-3-5-sonnet', name: 'Claude 3.5 Sonnet', provider: 'Anthropic', providerKey: 'anthropic', context: 200000, inputPrice: 3.00, outputPrice: 15.00, multiplier: 1.08, popular: true },
+        { id: 'claude-opus-4-7', name: 'Claude Opus 4.7', provider: 'Anthropic', providerKey: 'anthropic', context: 1000000, inputPrice: 15.00, outputPrice: 75.00, multiplier: 1.08, popular: true },
+        { id: 'claude-sonnet-4-6', name: 'Claude Sonnet 4.6', provider: 'Anthropic', providerKey: 'anthropic', context: 1000000, inputPrice: 3.00, outputPrice: 15.00, multiplier: 1.08, popular: true },
+        { id: 'claude-haiku-4-5', name: 'Claude Haiku 4.5', provider: 'Anthropic', providerKey: 'anthropic', context: 200000, inputPrice: 1.00, outputPrice: 5.00, multiplier: 1.08 },
+        { id: 'claude-opus-4', name: 'Claude Opus 4', provider: 'Anthropic', providerKey: 'anthropic', context: 200000, inputPrice: 15.00, outputPrice: 75.00, multiplier: 1.08 },
+        { id: 'claude-sonnet-4', name: 'Claude Sonnet 4', provider: 'Anthropic', providerKey: 'anthropic', context: 200000, inputPrice: 3.00, outputPrice: 15.00, multiplier: 1.08 },
+        { id: 'claude-3-7-sonnet', name: 'Claude 3.7 Sonnet', provider: 'Anthropic', providerKey: 'anthropic', context: 200000, inputPrice: 3.00, outputPrice: 15.00, multiplier: 1.08 },
+        { id: 'claude-3-5-sonnet', name: 'Claude 3.5 Sonnet', provider: 'Anthropic', providerKey: 'anthropic', context: 200000, inputPrice: 3.00, outputPrice: 15.00, multiplier: 1.08 },
         { id: 'claude-3-5-haiku', name: 'Claude 3.5 Haiku', provider: 'Anthropic', providerKey: 'anthropic', context: 200000, inputPrice: 0.80, outputPrice: 4.00, multiplier: 1.08 },
         { id: 'claude-3-opus', name: 'Claude 3 Opus', provider: 'Anthropic', providerKey: 'anthropic', context: 200000, inputPrice: 15.00, outputPrice: 75.00, multiplier: 1.10 },
         { id: 'claude-3-haiku', name: 'Claude 3 Haiku', provider: 'Anthropic', providerKey: 'anthropic', context: 200000, inputPrice: 0.25, outputPrice: 1.25, multiplier: 1.10 },
 
         // Google
+        { id: 'gemini-2-5-pro', name: 'Gemini 2.5 Pro', provider: 'Google', providerKey: 'google', context: 1048576, inputPrice: 1.25, outputPrice: 10.00, multiplier: 0.95, popular: true },
+        { id: 'gemini-2-5-flash', name: 'Gemini 2.5 Flash', provider: 'Google', providerKey: 'google', context: 1048576, inputPrice: 0.30, outputPrice: 2.50, multiplier: 0.95, popular: true },
+        { id: 'gemini-2-5-flash-lite', name: 'Gemini 2.5 Flash-Lite', provider: 'Google', providerKey: 'google', context: 1048576, inputPrice: 0.10, outputPrice: 0.40, multiplier: 0.95 },
         { id: 'gemini-2-flash', name: 'Gemini 2.0 Flash', provider: 'Google', providerKey: 'google', context: 1048576, inputPrice: 0.10, outputPrice: 0.40, multiplier: 0.95 },
-        { id: 'gemini-1-5-pro', name: 'Gemini 1.5 Pro', provider: 'Google', providerKey: 'google', context: 2097152, inputPrice: 1.25, outputPrice: 5.00, multiplier: 0.95, popular: true },
+        { id: 'gemini-1-5-pro', name: 'Gemini 1.5 Pro', provider: 'Google', providerKey: 'google', context: 2097152, inputPrice: 1.25, outputPrice: 5.00, multiplier: 0.95 },
         { id: 'gemini-1-5-flash', name: 'Gemini 1.5 Flash', provider: 'Google', providerKey: 'google', context: 1048576, inputPrice: 0.075, outputPrice: 0.30, multiplier: 0.95 },
 
         // Meta Llama
-        { id: 'llama-3-3-70b', name: 'Llama 3.3 70B', provider: 'Meta', providerKey: 'meta', context: 128000, inputPrice: 0, outputPrice: 0, multiplier: 1.00, popular: true },
+        { id: 'llama-4-maverick', name: 'Llama 4 Maverick', provider: 'Meta', providerKey: 'meta', context: 1000000, inputPrice: 0, outputPrice: 0, multiplier: 1.00, popular: true },
+        { id: 'llama-4-scout', name: 'Llama 4 Scout', provider: 'Meta', providerKey: 'meta', context: 10000000, inputPrice: 0, outputPrice: 0, multiplier: 1.00 },
+        { id: 'llama-3-3-70b', name: 'Llama 3.3 70B', provider: 'Meta', providerKey: 'meta', context: 128000, inputPrice: 0, outputPrice: 0, multiplier: 1.00 },
         { id: 'llama-3-1-405b', name: 'Llama 3.1 405B', provider: 'Meta', providerKey: 'meta', context: 128000, inputPrice: 0, outputPrice: 0, multiplier: 1.00 },
         { id: 'llama-3-1-70b', name: 'Llama 3.1 70B', provider: 'Meta', providerKey: 'meta', context: 128000, inputPrice: 0, outputPrice: 0, multiplier: 1.00 },
         { id: 'llama-3-1-8b', name: 'Llama 3.1 8B', provider: 'Meta', providerKey: 'meta', context: 128000, inputPrice: 0, outputPrice: 0, multiplier: 1.00 },
@@ -1423,7 +1445,8 @@
         { id: 'codestral', name: 'Codestral', provider: 'Mistral', providerKey: 'mistral', context: 32768, inputPrice: 0.20, outputPrice: 0.60, multiplier: 1.04 },
 
         // DeepSeek
-        { id: 'deepseek-v3', name: 'DeepSeek V3', provider: 'DeepSeek', providerKey: 'deepseek', context: 128000, inputPrice: 0.27, outputPrice: 1.10, multiplier: 1.10, popular: true },
+        { id: 'deepseek-v3-1', name: 'DeepSeek V3.1', provider: 'DeepSeek', providerKey: 'deepseek', context: 128000, inputPrice: 0.27, outputPrice: 1.10, multiplier: 1.10, popular: true },
+        { id: 'deepseek-v3', name: 'DeepSeek V3', provider: 'DeepSeek', providerKey: 'deepseek', context: 128000, inputPrice: 0.27, outputPrice: 1.10, multiplier: 1.10 },
         { id: 'deepseek-r1', name: 'DeepSeek R1', provider: 'DeepSeek', providerKey: 'deepseek', context: 128000, inputPrice: 0.55, outputPrice: 2.19, multiplier: 1.10 },
         { id: 'deepseek-coder-v2', name: 'DeepSeek Coder V2', provider: 'DeepSeek', providerKey: 'deepseek', context: 128000, inputPrice: 0.27, outputPrice: 1.10, multiplier: 1.08 },
 
@@ -1439,7 +1462,12 @@
 
         // MiniMax
         { id: 'minimax-text-01', name: 'MiniMax-Text-01', provider: 'MiniMax', providerKey: 'minimax', context: 1000000, inputPrice: 0.20, outputPrice: 1.10, multiplier: 1.00 },
-        { id: 'abab-6-5', name: 'abab6.5', provider: 'MiniMax', providerKey: 'minimax', context: 245000, inputPrice: 0.50, outputPrice: 0.50, multiplier: 1.00 }
+        { id: 'abab-6-5', name: 'abab6.5', provider: 'MiniMax', providerKey: 'minimax', context: 245000, inputPrice: 0.50, outputPrice: 0.50, multiplier: 1.00 },
+
+        // xAI
+        { id: 'grok-4', name: 'Grok 4', provider: 'xAI', providerKey: 'xai', context: 256000, inputPrice: 3.00, outputPrice: 15.00, multiplier: 1.00, popular: true },
+        { id: 'grok-3', name: 'Grok 3', provider: 'xAI', providerKey: 'xai', context: 1000000, inputPrice: 2.00, outputPrice: 10.00, multiplier: 1.00 },
+        { id: 'grok-3-mini', name: 'Grok 3 Mini', provider: 'xAI', providerKey: 'xai', context: 131000, inputPrice: 0.30, outputPrice: 0.50, multiplier: 1.00 }
     ];
 
     const PROVIDER_ORDER = ['OpenAI', 'Anthropic', 'Google', 'Meta', 'Mistral', 'DeepSeek', 'Moonshot', 'Perplexity', 'MiniMax'];
