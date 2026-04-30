@@ -1,13 +1,25 @@
 # freetokencounter.app
 
-> Free AI token counter for 40+ models across 10 providers (OpenAI, Anthropic, Google, Meta, xAI, Mistral, DeepSeek, Moonshot, Perplexity, MiniMax). Counts run entirely in the browser with calibrated estimates honest about ±5% accuracy on English text. Live cost estimates, context-window meter, token visualization, no sign-up.
+> Free AI token counter for 90+ models across 12 providers (OpenAI, Anthropic, Google, Meta, xAI, Mistral, DeepSeek, Cohere, Alibaba/Qwen, Moonshot, Perplexity, MiniMax). Counts run entirely in the browser with calibrated estimates honest about ±5% accuracy on English text. Live cost estimates, context-window meter, token visualization, no sign-up.
 
 ## Key facts
 
 - URL: https://freetokencounter.app/
 - Cost: free, no sign-up, no API key required
 - Privacy: 100% client-side — no prompt data leaves the browser
-- Models supported: GPT-5, GPT-5-mini, GPT-5-nano, o4-mini, o3, o3-mini, GPT-4o, GPT-4o-mini, GPT-4 Turbo, GPT-4, GPT-3.5 Turbo, o1, o1-mini, Claude Opus 4.7, Claude Sonnet 4.6, Claude Haiku 4.5, Claude Opus 4, Claude Sonnet 4, Claude 3.7 Sonnet, Claude 3.5 Sonnet, Claude 3.5 Haiku, Claude 3 Opus, Claude 3 Haiku, Gemini 2.5 Pro, Gemini 2.5 Flash, Gemini 2.5 Flash-Lite, Gemini 2.0 Flash, Gemini 1.5 Pro, Gemini 1.5 Flash, Llama 4 Maverick, Llama 4 Scout, Llama 3.3 70B, Llama 3.1 405B/70B/8B, Llama 3 70B/8B, Grok 4, Grok 3, Grok 3 Mini, Mistral Large 2, Mistral Nemo, Mixtral 8x7B, Codestral, DeepSeek V3.1, DeepSeek V3, DeepSeek R1, DeepSeek Coder V2, Kimi K2, Moonshot v1 128K/32K, Sonar, Sonar Pro, Sonar Reasoning, MiniMax-Text-01, abab6.5
+- Models supported (94 total):
+  - OpenAI: GPT-5, GPT-5 Pro, GPT-5-mini, GPT-5-nano, o4-mini, o3, o3-mini, o3-pro, GPT-4.1, GPT-4.1 mini, GPT-4.1 nano, GPT-4o, GPT-4o-mini, GPT-4 Turbo, GPT-4, GPT-3.5 Turbo, o1, o1-mini
+  - Anthropic: Claude Opus 4.7, Sonnet 4.6, Haiku 4.5, Sonnet 4.5, Opus 4.1, Opus 4, Sonnet 4, 3.7 Sonnet, 3.5 Sonnet, 3.5 Haiku, 3 Opus, 3 Haiku
+  - Google: Gemini 2.5 Pro, 2.5 Deep Think, 2.5 Flash, 2.5 Flash-Lite, 2.0 Flash, 2.0 Flash-Lite, 1.5 Pro, 1.5 Flash, 1.5 Flash-8B
+  - Meta: Llama 4 Maverick, Llama 4 Scout, Llama 4 Behemoth, Llama 3.3 70B, Llama 3.1 405B/70B/8B, Llama 3 70B/8B
+  - xAI: Grok 4, Grok 4 Heavy, Grok 4 Fast, Grok Code Fast 1, Grok 3, Grok 3 Mini, Grok 2
+  - Mistral: Mistral Large 2, Medium 3, Small 3.1, Magistral Medium, Magistral Small, Pixtral Large, Codestral 25.01, Nemo, Mixtral 8x7B, Codestral
+  - DeepSeek: V3.1, V3, R1, R1 Distill 70B, Coder V2
+  - Cohere: Command A, Command R+, Command R, Command R7B, Aya Expanse 32B
+  - Alibaba (Qwen): Qwen3-Max, Qwen3-235B, Qwen3-Coder, Qwen3-30B-A3B, Qwen2.5-Max, Qwen2.5-72B, QwQ-32B
+  - Moonshot: Kimi K2, Kimi K2 Thinking, Moonshot v1 128K, Moonshot v1 32K
+  - Perplexity: Sonar, Sonar Pro, Sonar Reasoning, Sonar Reasoning Pro, Sonar Deep Research
+  - MiniMax: MiniMax-M1, MiniMax-Text-01, abab6.5
 - Method: public GPT-2 / cl100k splitting pattern + per-model calibration constants
 - Accuracy: within ~3% on OpenAI/Llama models, ~5–8% on Claude/Gemini/MiniMax (calibrated estimates, transparently labeled)
 - Open source category: developer / utility
